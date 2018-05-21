@@ -4,15 +4,9 @@ import './App.css';
 
 class App extends Component {
   activateLasers = () => {
-    //window.addEventListener()
-    // window.addEventListener('message', function (event) {
-    //   if (event.data.sender && event.data.sender === 'iframeName') {
-    //     console.log(event.data.sender)
-    //   }
-    // })
     console.log(window.location)
     this.win = window;
-    this.win.location = 'http://localhost:3001/users';
+    this.win.location = 'http://localhost:3001/login';
     console.log(this.win.location)
   }
   render() {
