@@ -4,7 +4,16 @@ import './App.css';
 
 class App extends Component {
   activateLasers = () => {
-    console.log('test')
+    //window.addEventListener()
+    // window.addEventListener('message', function (event) {
+    //   if (event.data.sender && event.data.sender === 'iframeName') {
+    //     console.log(event.data.sender)
+    //   }
+    // })
+    console.log(window.location)
+    this.win = window;
+    this.win.location = 'http://localhost:3001/users';
+    console.log(this.win.location)
   }
   render() {
     return (
@@ -14,12 +23,12 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          To get started! edit <code>src/App.js</code> and save to reload.
+          LOGIN:
         </p>
         <button onClick={this.activateLasers.bind(this)}>
-          Activate Lasers
+          Login
         </button>
-        
+
       </div>
     );
   }
