@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { withCookies, Cookies } from 'react-cookie'
+import axios from 'axios';
 import cookie from 'react-cookie'
 
 class App extends Component {
@@ -26,28 +27,38 @@ class App extends Component {
 
   }
 
-  activateLasers = () => {
+  btnLogin = () => {
     console.log(window.location)
-    this.win = window;
-    this.win.location = 'http://localhost:3001/login';
-    console.log(this.win.location)
+    //this.win = window;
+    window.document.location = 'http://localhost:3001/login';
+    //console.log(this.win.location)
   }
 
   getUser = () => {
     const { cookies } = this.props;
-   
+
+    // axios({
+    //   method: 'POST',
+    //   url: 'http://localhost:3001/users',
+    //   withCredentials: true,
+    // }).then(res => {
+    //   console.log(res)
+    // })
+
     fetch('http://localhost:3001/users',
       {
         method: 'POST',
-        body: JSON.stringify({id: this.state.id}),
-        //credentials: 'same-origin',
-        withCredentials: true,
+        credentials: 'include',
+        //mode: 'no-cors',
         headers: {
-          'Content-Type': "application/json",
-          'Access-Control-Allow-Origin': 'http://localhost:3000'
+          'Accept': 'application/x-www-form-urlencoded, text/plain, */*',
+          'Content-Type': 'application/x-www-form-urlencoded',
         }
       }).then(res => {
         console.log(res)
+        return res.json()
+      }).then(users => {
+        console.log(users)
       })
 
   }
@@ -65,7 +76,7 @@ class App extends Component {
         <p className="App-intro">
           LOGIN: {this.state.login}
         </p>
-        <button onClick={this.activateLasers.bind(this)}>
+        <button onClick={this.btnLogin.bind(this)}>
           Login
         </button>
         <button onClick={this.getUser.bind(this)}>
