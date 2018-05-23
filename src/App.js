@@ -53,7 +53,7 @@ class App extends Component {
         //mode: 'no-cors',
         headers: {
           'Accept': 'application/x-www-form-urlencoded, text/plain, */*',
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
       }).then(res => {
         console.log(res)
