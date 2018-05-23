@@ -2,23 +2,33 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { withCookies, Cookies } from 'react-cookie'
-import axios from 'axios';
+//import axios from 'axios';
 import cookie from 'react-cookie'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      id: null
+      statusLogin: null
     }
   }
 
   componentWillMount() {
-    const { cookies } = this.props;
-    var id = cookies.get('id');
-    this.setState({
-      id: id || null
-    });
+    fetch('http://localhost:3001/login',
+      {
+        method: 'POST',
+        credentials: 'include',
+        //mode: 'no-cors',
+        
+      }).then(res => {
+        console.log(res)
+        return res.json()
+      }).then(data => {
+        console.log(data)
+        this.setState({
+          statusLogin: data.status || null
+        })
+      })
   }
 
   componentDidUpdate() {
@@ -35,15 +45,6 @@ class App extends Component {
   }
 
   getUser = () => {
-    const { cookies } = this.props;
-
-    // axios({
-    //   method: 'POST',
-    //   url: 'http://localhost:3001/users',
-    //   withCredentials: true,
-    // }).then(res => {
-    //   console.log(res)
-    // })
 
     fetch('http://localhost:3001/users',
       {
@@ -74,7 +75,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          LOGIN: {this.state.login}
+          LOGIN: {this.state.statusLogin}
         </p>
         <button onClick={this.btnLogin.bind(this)}>
           Login
