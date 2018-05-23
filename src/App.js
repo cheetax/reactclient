@@ -59,7 +59,7 @@ class App extends Component {
         console.log(res)
         return res.json()
       }).then(users => {
-        console.log(users)
+        console.log(users);
       })
 
   }
