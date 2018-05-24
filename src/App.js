@@ -2,39 +2,24 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import logo from './logo.svg';
 import { getUsers } from './actions/users';
+import { setLogin, getLogin } from './actions/login'
 import './App.css';
 
 const mapStateToProps = (state) => {
   return {
-    users: state.users
+    users: state.users,
+    login: state.login
   };
 }
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      statusLogin: null
-    }
-  }
-
+  
   componentWillMount() {
-    fetch('http://localhost:3001/login',
-      {
-        method: 'POST',
-        credentials: 'include',
-      }).then(res => {
-        return res.json()
-      }).then(data => {
-        this.setState({
-          statusLogin: data.status || null
-        })
-      })
+    this.props.dispatch(getLogin())
   }
 
   btnLogin = () => {
-    console.log(window.location)
-    window.document.location = 'http://localhost:3001/login';
+    this.props.dispatch(setLogin())
   }
 
   getUser = () => {
@@ -50,7 +35,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          LOGIN: {this.state.statusLogin}
+          LOGIN: {this.props.login}
         </p>
         <button onClick={this.btnLogin.bind(this)}>
           Login

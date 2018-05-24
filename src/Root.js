@@ -13,9 +13,5 @@ export default function Root() {
         <Provider store = {store} >
             <App/>
         </Provider>
-        
-        // <CookiesProvider>
-        //     <App />
-        // </CookiesProvider>
     );
 }
