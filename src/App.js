@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import logo from './logo.svg';
+import { getUsers } from './actions/users';
 import './App.css';
-import { withCookies, Cookies } from 'react-cookie'
-//import axios from 'axios';
-import cookie from 'react-cookie'
+
+const mapStateToProps = (state) => {
+  return {
+    users: state.users
+  };
+}
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +24,7 @@ class App extends Component {
         method: 'POST',
         credentials: 'include',
         //mode: 'no-cors',
-        
+
       }).then(res => {
         console.log(res)
         return res.json()
@@ -31,40 +36,26 @@ class App extends Component {
       })
   }
 
-  componentDidUpdate() {
-    const { cookies } = this.props;
-    var login = cookies.get('login');
-
-  }
-
   btnLogin = () => {
     console.log(window.location)
-    //this.win = window;
     window.document.location = 'http://localhost:3001/login';
-    //console.log(this.win.location)
   }
 
   getUser = () => {
-
-    fetch('http://localhost:3001/users',
-      {
-        method: 'POST',
-        credentials: 'include',
-        //mode: 'no-cors',
-        headers: {
-          'Accept': 'application/x-www-form-urlencoded, text/plain, */*',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }).then(res => {
-        console.log(res)
-        return res.json()
-      }).then(users => {
-        console.log(users);
-      })
-
+    this.props.dispatch(getUsers());
+    // fetch('http://localhost:3001/users', {
+    //   method: 'POST',
+    //   credentials: 'include',
+    //   //mode: 'no-cors',
+    //   headers: {
+    //     'Accept': 'application/x-www-form-urlencoded, text/plain, */*',
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   }
+    // }).then(res => res.json())
+    //   .then(users => {
+    //     console.log(users);
+    //   })
   }
-
-
 
   render() {
 
@@ -83,10 +74,15 @@ class App extends Component {
         <button onClick={this.getUser.bind(this)}>
           Get Users
         </button>
+        <div>
+          {this.props.users.map(item => <p>{item.name}</p>)}
+        </div>
+
       </div>
 
     );
   }
 }
 
-export default withCookies(App);
+export default connect(mapStateToProps)(App);
+//export default App;
