@@ -23,13 +23,9 @@ class App extends Component {
       {
         method: 'POST',
         credentials: 'include',
-        //mode: 'no-cors',
-
       }).then(res => {
-        console.log(res)
         return res.json()
       }).then(data => {
-        console.log(data)
         this.setState({
           statusLogin: data.status || null
         })
@@ -43,18 +39,6 @@ class App extends Component {
 
   getUser = () => {
     this.props.dispatch(getUsers());
-    // fetch('http://localhost:3001/users', {
-    //   method: 'POST',
-    //   credentials: 'include',
-    //   //mode: 'no-cors',
-    //   headers: {
-    //     'Accept': 'application/x-www-form-urlencoded, text/plain, */*',
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   }
-    // }).then(res => res.json())
-    //   .then(users => {
-    //     console.log(users);
-    //   })
   }
 
   render() {

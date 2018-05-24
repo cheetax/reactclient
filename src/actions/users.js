@@ -9,8 +9,6 @@ export const getUsers = () => (dispatch) => {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then((res) => {
-        //dispatch({ type: 'GET_USERS', payload: 'users' });
-        //console.log()
         return res.json()
     }).then((users) => {
             dispatch({ type: 'GET_USERS', payload: users })
