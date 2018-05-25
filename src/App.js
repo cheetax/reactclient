@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import logo from './logo.svg';
 import { getUsers } from './actions/users';
 import { setLogin, getLogin } from './actions/login'
+import ListUsersPage from './view/ListUsersPage'
 import './App.css';
 
 const mapStateToProps = (state) => {
@@ -13,7 +14,7 @@ const mapStateToProps = (state) => {
 }
 
 class App extends Component {
-  
+
   componentWillMount() {
     this.props.dispatch(getLogin())
   }
@@ -26,6 +27,11 @@ class App extends Component {
     this.props.dispatch(getUsers());
   }
 
+  login = () => {
+    if (!this.props.login) { return <button onClick={this.btnLogin.bind(this)}>Login</button>; }
+    else { return <div >Добро пожаловать</div> }
+  }
+
   render() {
 
     return (
@@ -34,18 +40,23 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          LOGIN: {this.props.login}
-        </p>
-        <button onClick={this.btnLogin.bind(this)}>
-          Login
-        </button>
-        <button onClick={this.getUser.bind(this)}>
-          Get Users
-        </button>
-        <div>
-          {this.props.users.map(item => <p>{item.name}</p>)}
+        <div className='flex-container' >
+          <div className='flex-menu'>
+            <div className='flex-item' >
+              <button onClick={this.getUser}>
+                Пользователи
+              </button>
+            </div>
+            <div className='raw-item' >
+              {this.login()}
+            </div>
+            <div className='' >
+              <ListUsersPage />
+            </div>
+          </div>
         </div>
+
+
 
       </div>
 
@@ -54,4 +65,3 @@ class App extends Component {
 }
 
 export default connect(mapStateToProps)(App);
-//export default App;

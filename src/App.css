@@ -26,3 +26,42 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.flex-container {
+  display: flex;
+  flex-direction: raw;
+  background: red; 
+  /* justify-content: flex-end;  */
+  /* flex: auto; */
+}
+.flex-container > .flex-menu {
+  flex-direction: raw;
+  
+}
+
+.flex-container > .flex-item {
+  flex: auto;
+  background: yellow;
+  justify-content: flex-end;
+  align-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.flex-container > .raw-item {
+  font-size: 20px;
+  background: green;
+  width: 11rem;
+}
+.flex-container {
+  font-family: Consolas, Arial, sans-serif;
+  font-size: 20px
+}
+
+.flex-container > div {
+  padding: 0.5rem;
+}
+
+.flex-container > .raw-item {
+
+}
