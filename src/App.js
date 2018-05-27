@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import { getUsers } from './actions/users';
 import { setLogin, getLogin } from './actions/login'
 import ListUsersPage from './view/ListUsersPage'
+import TabsBarView  from './view/TabsBarView'
 import './App.css';
 
 const mapStateToProps = (state) => {
@@ -43,9 +44,10 @@ class App extends Component {
         <div className='flex-container' >
           <div className='flex-menu'>
             <div className='flex-item' >
-              <button onClick={this.getUser}>
+              <TabsBarView/>
+              {/* <button onClick={this.getUser}>
                 Пользователи
-              </button>
+              </button> */}
             </div>
             <div className='raw-item' >
               {this.login()}
