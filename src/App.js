@@ -5,8 +5,9 @@ import { getUsers } from './actions/users';
 import { setLogin, getLogin } from './actions/login'
 //import ListUsersPage from './view/ListUsersPage'
 //import TabsBarView from './view/TabsBarView'
-import { Navbar, NavItem } from 'react-materialize'
+//import { Navbar, NavItem } from 'react-materialize'
 import './App.css';
+//import './materialize/css/materialize.css'
 
 const mapStateToProps = (state) => {
   return {
@@ -22,6 +23,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    document.readyState
     //$('.button-collapse').sideNav(this.props.options);
   }
 
@@ -47,27 +49,22 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
 
-        <div className='flex-container' >
+        <div>
           <nav>
-            <div class="nav-wrapper">
-              
-              <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">JavaScript</a></li>
+            <div className="nav-wrappe flex-container">
+              <ul id="nav-mobile" className="left hide-on-med-and-down flex-menu">
+                <div className='flex-item' >
+                  <li><a href="sass.html">Sass</a></li>
+                  <li><a href="badges.html">Components</a></li>
+                  <li ><a href="collapsible.html">JavaScript</a></li>
+                </div>
+                <li className='raw-item'><a href="collapsible.html">Login</a></li>
               </ul>
-              <a href="#" class="brand-logo">Logo</a>
+              
             </div>
           </nav>
-          {/* <Navbar className='flex-menu' left>
-            <div className='flex-item' >
-              <NavItem >Test</NavItem>
-              <NavItem>Test1</NavItem>
-            </div>
-            <li className='raw-item' >lwdnsfbfe</li>
-          </Navbar> */}
 
-          <div className='flex-menu' >
+          {/* <div className='flex-menu' >
             <div className='flex-item' >
               <button onClick={this.getUser}>
                 Пользователи
@@ -75,8 +72,8 @@ class App extends Component {
             </div>
             <div className='raw-item' >
               {this.login()}
-            </div>            
-          </div>
+            </div>
+          </div> */}
         </div>
 
 
