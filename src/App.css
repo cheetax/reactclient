@@ -29,39 +29,29 @@
 
 .flex-container {
   display: flex;
-  flex-direction: raw;
-  background: red; 
-  /* justify-content: flex-end;  */
-  /* flex: auto; */
+  flex-direction: column;
+  background: deeppink;
+  justify-content: flex-end; 
 }
 .flex-container > .flex-menu {
-  flex-direction: raw;
+  display: flex;
+  flex-direction: row;
+  background: green;
+  align-items: center;
+  text-align: left;
   
 }
 
-.flex-container > .flex-item {
+.flex-item {
   flex: auto;
   background: yellow;
-  justify-content: flex-end;
-  align-content: flex-start;
-  align-items: flex-start;
-  text-align: left;
+  width: 100%;
+  /* text-align: left; */
 }
 
-.flex-container > .raw-item {
-  font-size: 20px;
-  background: green;
-  width: 11rem;
+.flex-menu > .raw-item {
+  background: darkturquoise;
 }
 .flex-container {
   font-family: Consolas, Arial, sans-serif;
-  font-size: 20px
-}
-
-.flex-container > div {
-  padding: 0.5rem;
-}
-
-.flex-container > .raw-item {
-
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MDCTabBar, MDCTab } from '@material/tabs'
+//import { MDCTabBar, MDCTab } from '@material/tabs'
 
 const TabsBarView = () => {
 
