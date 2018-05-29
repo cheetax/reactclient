@@ -4,7 +4,8 @@ import logo from './logo.svg';
 import { getUsers } from './actions/users';
 import { setLogin, getLogin } from './actions/login'
 //import ListUsersPage from './view/ListUsersPage'
-//import TabsBarView from './view/TabsBarView'
+import TabsBarView from './view/TabsBarView'
+import TabBarItem from './view/TabBarItem'
 //import { Navbar, NavItem } from 'react-materialize'
 import './App.css';
 //import './materialize/css/materialize.css'
@@ -23,7 +24,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    document.readyState
+    //document.readyState
     //$('.button-collapse').sideNav(this.props.options);
   }
 
@@ -31,13 +32,13 @@ class App extends Component {
     this.props.dispatch(setLogin())
   }
 
-  getUser = () => {
+  getUsers = () => {
     this.props.dispatch(getUsers());
   }
 
   login = () => {
-    if (!this.props.login) { return <button onClick={this.btnLogin.bind(this)}>Login</button>; }
-    else { return <div >Добро пожаловать</div> }
+    if (!this.props.login) { return <TabBarItem right onClick={this.btnLogin.bind(this)} >Войти</TabBarItem> }
+    else { return <TabBarItem right >Добро пожаловать</TabBarItem> }
   }
 
   render() {
@@ -50,36 +51,13 @@ class App extends Component {
         </header>
 
         <div>
-          <nav>
-            <div className="nav-wrappe flex-container">
-              <ul id="nav-mobile" className="left hide-on-med-and-down flex-menu">
-                <div className='flex-item' >
-                  <li><a href="sass.html">Sass</a></li>
-                  <li><a href="badges.html">Components</a></li>
-                  <li ><a href="collapsible.html">JavaScript</a></li>
-                </div>
-                <li className='raw-item'><a href="collapsible.html">Login</a></li>
-              </ul>
-              
-            </div>
-          </nav>
-
-          {/* <div className='flex-menu' >
-            <div className='flex-item' >
-              <button onClick={this.getUser}>
-                Пользователи
-              </button>
-            </div>
-            <div className='raw-item' >
-              {this.login()}
-            </div>
-          </div> */}
+          <TabsBarView>
+            <TabBarItem left onClick={this.getUsers} >Пользователи</TabBarItem>
+            {this.login()}
+          </TabsBarView>      
+          {this.props.users.map(user => <div>{user.name}</div> )}
         </div>
-
-
-
       </div>
-
     );
   }
 }
