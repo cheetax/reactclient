@@ -48,14 +48,12 @@ class App extends Component {
         <header className="light-blue darken-3 App-header">
           <h6>Тестовая модель клиента на React</h6>
         </header>
-
-        <div>
-          <TabsBarView className='blue lighten-2' >
-            <TabBarItem left onClick={this.getUsers} >Пользователи</TabBarItem>
-            {this.login()}
-          </TabsBarView>  
-          <ListUsersPage/>
-        </div>
+        <TabsBarView className='blue lighten-2' >
+          <TabBarItem left onClick={this.getUsers} >Пользователи</TabBarItem>
+          {this.login()}
+        </TabsBarView>
+        <ListUsersPage />
+       
       </div>
     );
   }

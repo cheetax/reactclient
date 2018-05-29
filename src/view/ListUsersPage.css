@@ -1,13 +1,22 @@
-.flex-container {
+.flex-container_list {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end; 
+    justify-content: stretch; 
+    height: 100%;
   }
 .left-panel {
-    flex: auto;
+    display: flex;
     background: green;
+    justify-content: stretch;
+    align-self: stretch;
     width: 40px;
-    height: 100vh
+}
+.center-panel {
+  display: flex;
+  flex: auto;
+  background: yellow;
+  justify-content: stretch;
+  align-self: stretch;
 }
   .flex-menu {
     display: flex;
