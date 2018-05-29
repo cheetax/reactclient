@@ -13,17 +13,16 @@ const _element_r = (items) => {
     return items.map(item => item.props.right ? item : null)    
 }
 
-const TabsBarView = ({ children }) => {
+const TabsBarView = ({ children, className }) => {
     return (
-        <nav>
+        <nav className={className} >
             <div className="nav-wrappe flex-container">
-                <ul id="nav-mobile" className="left hide-on-med-and-down flex-menu">
+                <ul id="nav-mobile" className="hide-on-med-and-down flex-menu">
                     <div className='flex-item' >
                         {_element_l(children)}
                     </div>
                     <div className='raw-item'>
                         {_element_r(children)}
-                        {/* <li ><a href="collapsible.html">Login</a></li> */}
                     </div>
 
                 </ul>

@@ -10,16 +10,19 @@ const mapStateToProps = (state) => {
 }
 
 class ListUsersPage extends Component {
-  
+
   componentWillMount() {
 
-  } 
+  }
 
   render() {
 
     return (
-      <div className="App">        
-                <div>
+      <div className="flex-container">
+        <div className='left-panel' >
+        </div>  
+        <div >
+
           {this.props.users.map(item => <p>{item.name}</p>)}
         </div>
 

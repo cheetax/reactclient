@@ -1,21 +1,27 @@
 .flex-container {
     display: flex;
-    flex-direction: raw;
-    /* background: red;  */
-    /* justify-content: flex-end;  */
-    /* flex: auto; */
+    flex-direction: row;
+    justify-content: flex-end; 
   }
-  
-  .flex-container > .flex-item {
+.left-panel {
     flex: auto;
-    /* background: yellow; */
-    text-align: left;
-  }
-  
-  .flex-container > .raw-item {
-    font-size: 20px;
     background: green;
-    width: 11rem;
+    width: 40px;
+    height: 100vh
+}
+  .flex-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    
+  }  
+  .flex-item {
+    flex: auto;
   }
   
-  
+  .flex-menu > .raw-item {
+  }
+  .flex-container {
+    font-family: Consolas, Arial, sans-serif;
+  }

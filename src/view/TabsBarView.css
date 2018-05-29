@@ -3,14 +3,13 @@
     flex-direction: column;
     justify-content: flex-end; 
   }
-  .flex-container > .flex-menu {
+  .flex-menu {
     display: flex;
     flex-direction: row;
     align-items: center;
     text-align: left;
     
-  }
-  
+  }  
   .flex-item {
     flex: auto;
   }
