@@ -3,8 +3,23 @@ import { List } from 'react-virtualized'
 
 
 
-const ListView = ({ users }) => {
-    const rowRenderer = ({
+class ListView extends Component() {
+
+    _users = this.props.users.map(user => ({ ...user, active: false }))
+    _prevItem = null;
+
+    _onClick = (event) => {
+        console.log('onClick')
+        if (this._prevItem) this._users[this._prevItem].active = false;;
+        this._users[parseInt(event._targetInst.key)].active = true;
+        this._prevItem = parseInt(event._targetInst.key);
+        // _target = event.currentTarget;
+    }
+
+    _className = (index) => {
+        return this._users[index].active ? 'collection-item active' : 'collection-item'
+    }
+    rowRenderer = ({
         key,         // Unique key within array of rows
         index,       // Index of row within collection
         isScrolling, // The List is currently being scrolled
@@ -13,25 +28,28 @@ const ListView = ({ users }) => {
     }) => {
         return (
             <a
-                className="collection-item"
+                className={this._className(index)}
                 key={key}
                 style={style}
-                href='#!'
+                onClick={this._onClick}
             >
-                {users[index].name}
+                {this._users[index].name}
             </a>
         )
     }
-    return (
-        <List
-            className='collection'
-            width={500}
-            height={300}
-            rowCount={users.length}
-            rowHeight={50}
-            rowRenderer={rowRenderer}
-        />
-    )
+    render() {
+        return (
+            <List
+                className='collection light-blue darken-1'
+                width={window.innerWidth}
+                height={window.innerHeight}
+                style={{ width: 'auto', height: 'auto', margin: 0, }}
+                rowCount={this._users.length}
+                rowHeight={48}
+                rowRenderer={this.rowRenderer}
+            />
+        )
+    }
 }
 
 export default ListView;
