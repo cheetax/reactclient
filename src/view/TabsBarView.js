@@ -15,7 +15,7 @@ const _element_r = (items) => {
 
 const TabsBarView = ({ children, className }) => {
     return (
-        <nav className={className} >
+        <nav className={className} style={{margin: '0px 0px 2px 0px'}} >
             <div className="nav-wrappe flex-container">
                 <ul id="nav-mobile" className="hide-on-med-and-down flex-menu">
                     <div className='flex-item' >

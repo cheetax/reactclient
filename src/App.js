@@ -45,7 +45,7 @@ class App extends Component {
 
     return (
       <div className='flex-page' >
-        <header className="light-blue darken-3 App-header">
+        <header className="App-header">
           <h6>Тестовая модель клиента на React</h6>
         </header>
         <TabsBarView className='blue lighten-2' >

@@ -27,7 +27,6 @@
 .flex-page {
   display: flex;
   flex: auto;
-  background: red;
   flex-direction: column;
   justify-content: flex-start; 
   height: 100vh;

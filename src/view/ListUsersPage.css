@@ -7,8 +7,8 @@
 
 .left-panel {
     display: flex;
+    border-right: 1px lightgrey solid ;
     flex-direction: column;
-    background: green;
     justify-content: stretch;
     align-self: stretch;
     font-size: 28px;
@@ -19,37 +19,39 @@
   display: flex;
   flex-direction: column;
   flex: auto;
-  background: yellow;
   justify-content: stretch;
   align-self: stretch;
 }
 
 @media (min-width: 660px) {
-.right-panel {
+.right-panel { 
     display: flex;
     flex-direction: column;
-    background: green;
     justify-content: stretch;
     align-self: stretch;
+    
     width: 360px;
 }
 
 .right-panel > .one-panel {
-    flex-direction: column;
+    border-bottom: 1px lightgrey solid ;
+    
+    border-left: 1px lightgrey solid ;
+    flex-direction: column;    
     flex: 0.5;
-    background: red;
 }
 
 .right-panel > .two-panel {
     flex-direction: column;
+    border-bottom: 1px lightgrey solid;
+    border-left: 1px lightgrey solid ;
     flex: 0.5;
-    background: hotpink;
 }
 
 .right-panel > .three-panel {
     flex-direction: column;
+    border-left: 1px lightgrey solid ;
     flex: 1;
-    background: green;
 }
 }
 
@@ -75,8 +77,8 @@
     font-family: Consolas, Arial, sans-serif;
   }
 
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-28 { font-size: 28px; }
-.material-icons.md-32 { font-size: 32px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.md-18 { font-size: 18px; }
+.md-28 { font-size: 28px; }
+.md-32 { font-size: 32px; }
+.md-36 { font-size: 36px; }
+.md-48 { font-size: 48px; }

@@ -88,7 +88,7 @@ class ListView extends Component {
     render() {
         return (
             <List
-                className='collection light-blue darken-1'
+                className={this.props.className}
                 width={window.innerWidth}
                 height={window.innerHeight}
                 style={{ width: 'auto', height: 'auto', margin: 0, }}

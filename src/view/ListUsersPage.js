@@ -60,6 +60,7 @@ class ListUsersPage extends Component {
         </div>
         <div className='center-panel' >
           <ListView
+            className='collection'  
             items={this.props.users}
             rowHeight={72}
             rowRenderer={this.rowRenderer}
@@ -72,8 +73,7 @@ class ListUsersPage extends Component {
         </div>
         <div className='right-panel' >
           <div id='NamePanel' className='one-panel' >
-            <i className="material-icons md-28">add</i>
-            <div>{this.state.selectedUser.name}</div>
+            <div className='md-28' >{this.state.selectedUser.name}</div>
           </div>
           <div className='two-panel' >
             <i className="material-icons md-28">add</i>
