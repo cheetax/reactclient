@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import  ListView from './ListView'
+import ListView from './ListView'
 import 'react-virtualized/styles.css'
 import './ListUsersPage.css';
 
@@ -16,6 +16,10 @@ class ListUsersPage extends Component {
   constructor(props) {
     super(props)
     //this.rowRen = this.rowRen.bind(this)
+    this.rowRenderer = this.rowRenderer.bind(this)
+    this.state = {
+      selectedUser: {}
+    }
   }
 
   componentWillMount() {
@@ -37,14 +41,13 @@ class ListUsersPage extends Component {
     style        // Style object to be applied to row (to position it)
   }) => {
     return (
-      <a
-        className="collection-item"  
-        key={key}
-        style={style}
-        href='#!'
-      >
-        {this.props.users[index].name}
-      </a>
+      <div>
+        Наименование:
+        <div>
+          {this.props.users[index].name}
+        </div>
+
+      </div>
     )
   }
 
@@ -56,12 +59,21 @@ class ListUsersPage extends Component {
           <i className="material-icons md-28">add</i>
         </div>
         <div className='center-panel' >
-          <ListView users = {this.props.users}/>
+          <ListView
+            items={this.props.users}
+            rowHeight={72}
+            rowRenderer={this.rowRenderer}
+            onSelectedIndex={(index) => {
+              this.setState({
+                selectedUser: this.props.users[index],
+              })
+            }}
+          />
         </div>
         <div className='right-panel' >
-          <div className='one-panel' >
-
+          <div id='NamePanel' className='one-panel' >
             <i className="material-icons md-28">add</i>
+            <div>{this.state.selectedUser.name}</div>
           </div>
           <div className='two-panel' >
             <i className="material-icons md-28">add</i>
