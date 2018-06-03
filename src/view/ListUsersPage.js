@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import ListView from './ListView'
+import ListView from './ListView';
+import UserInfo from './UserInfo'
+import ContactInfo from './ContactInfo'
 import 'react-virtualized/styles.css'
 import './ListUsersPage.css';
 
 const mapStateToProps = (state) => {
   return {
     users: state.users,
-    //login: state.login
   };
 }
 
@@ -15,10 +16,9 @@ class ListUsersPage extends Component {
 
   constructor(props) {
     super(props)
-    //this.rowRen = this.rowRen.bind(this)
     this.rowRenderer = this.rowRenderer.bind(this)
     this.state = {
-      selectedUser: {}
+      selectedUser: null
     }
   }
 
@@ -41,12 +41,8 @@ class ListUsersPage extends Component {
     style        // Style object to be applied to row (to position it)
   }) => {
     return (
-      <div>
-        Наименование:
-        <div>
-          {this.props.users[index].name}
-        </div>
-
+      <div className='valign-wrapper' >
+        {this.props.users[index].firstName} {this.props.users[index].surName}
       </div>
     )
   }
@@ -55,14 +51,17 @@ class ListUsersPage extends Component {
 
     return (
       <div className="flex-container_list">
-        <div className='left-panel' >
-          <i className="material-icons md-28">add</i>
+        <div className='left-panel grey lighten-4' >
+          <div className='my-btn' >
+            <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => { }} ><i className="material-icons center" style={{ fontSize: '28px' }} >add</i></a>
+          </div>
+
         </div>
         <div className='center-panel' >
           <ListView
-            className='collection'  
+            className='collection'
             items={this.props.users}
-            rowHeight={72}
+            rowHeight={42}
             rowRenderer={this.rowRenderer}
             onSelectedIndex={(index) => {
               this.setState({
@@ -72,16 +71,13 @@ class ListUsersPage extends Component {
           />
         </div>
         <div className='right-panel' >
-          <div id='NamePanel' className='one-panel' >
-            <div className='md-28' >{this.state.selectedUser.name}</div>
+          <div id='NamePanel' className='one-panel grey lighten-4' >
+            <UserInfo selectedUser={this.state.selectedUser} />
           </div>
           <div className='two-panel' >
-            <i className="material-icons md-28">add</i>
+            <ContactInfo selectedUser={this.state.selectedUser} />
           </div>
-          <div className='three-panel' >
 
-            <i className="material-icons md-28">add</i>
-          </div>
         </div>
         <div >
 

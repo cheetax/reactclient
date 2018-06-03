@@ -67,6 +67,7 @@ class ListView extends Component {
         isVisible,   // This row is visible within the List (eg it is not an overscanned row)
         style        // Style object to be applied to row (to position it)
     }) => {
+        //var _style = {...style , height: 'auto'};
         return (
             <a
                 className={this._className(index)}
@@ -91,7 +92,7 @@ class ListView extends Component {
                 className={this.props.className}
                 width={window.innerWidth}
                 height={window.innerHeight}
-                style={{ width: 'auto', height: 'auto', margin: 0, }}
+                style={{ width: 'auto', height: '100%', margin: 0, }}
                 rowCount={this.state.items.length}
                 rowHeight={this._rowHeight}
                 rowRenderer={this._rowRenderer}

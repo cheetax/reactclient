@@ -10,6 +10,13 @@
        url(./MaterialIcons-Regular.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: "Segoe UI";  
+  src: url("../fonts/segoeui.ttf") format("truetype"); 
+  font-style: normal; 
+  font-weight: normal;
+   }
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;

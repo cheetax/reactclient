@@ -19,6 +19,13 @@ const mapStateToProps = (state) => {
 
 class App extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      contentView: null
+    }
+  }
+
   componentWillMount() {
     this.props.dispatch(getLogin())
   }
@@ -33,12 +40,22 @@ class App extends Component {
   }
 
   getUsers = () => {
+    this.setState({contentView: 1})
     this.props.dispatch(getUsers());
   }
 
   login = () => {
     if (!this.props.login) { return <TabBarItem right onClick={this.btnLogin.bind(this)} >Войти</TabBarItem> }
     else { return <TabBarItem right disabled>Добро пожаловать</TabBarItem> }
+  }
+
+  content = () => {
+    switch (this.state.contentView) {
+      case 1:
+        return <ListUsersPage />
+      default:
+        return <div />
+    }
   }
 
   render() {
@@ -52,8 +69,8 @@ class App extends Component {
           <TabBarItem left onClick={this.getUsers} >Пользователи</TabBarItem>
           {this.login()}
         </TabsBarView>
-        <ListUsersPage />
-       
+        {this.content()}
+
       </div>
     );
   }
