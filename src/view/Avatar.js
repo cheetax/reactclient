@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import './UserInfo.css'
+import './Avatar.css'
 
-const UserInfo = ({selectedUser}) => {
+const Avatar = ({ selectedUser }) => {
+  
     const avatar = () => {
         return (
           selectedUser.firstName.charAt(0) + selectedUser.surName.charAt(0)
@@ -17,4 +18,4 @@ const UserInfo = ({selectedUser}) => {
     )
   }
 
-export default UserInfo;  
+export default Avatar;  

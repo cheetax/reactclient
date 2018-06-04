@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import ListView from './ListView';
-import UserInfo from './UserInfo'
-import ContactInfo from './ContactInfo'
-import 'react-virtualized/styles.css'
+import Avatar from './Avatar';
+import ContactInfo from './ContactInfo';
+import ToolbarPanel from './ToolbarPanel';
+import UserEdit from './UserEdit';
+import 'react-virtualized/styles.css';
 import './ListUsersPage.css';
 
 const mapStateToProps = (state) => {
@@ -18,7 +20,9 @@ class ListUsersPage extends Component {
     super(props)
     this.rowRenderer = this.rowRenderer.bind(this)
     this.state = {
-      selectedUser: null
+      selectedUser: null,
+      selectedIndex: -1,
+      edit: false
     }
   }
 
@@ -47,15 +51,42 @@ class ListUsersPage extends Component {
     )
   }
 
+  btnAdd = () => {
+    this.setState({ 
+      selectedUser: null,
+      selectedIndex: -1,
+      edit: true 
+    })
+  }
+
+  ContentRightPanel = () => {
+    if (this.state.edit) return this.userEdit();
+    else return this.userInfo();
+  }
+
+  userInfo = () => {
+    return (
+      <div className='userInfo' >
+        <div id='NamePanel' className='one-panel grey lighten-4' >
+          <Avatar selectedUser={this.state.selectedUser} />
+        </div>
+        <div className='two-panel' >
+          <ContactInfo selectedUser={this.state.selectedUser} />
+        </div>
+      </div>
+    )
+  }
+
+  userEdit = () => {
+    return <UserEdit selectedUser={this.state.selectedUser} />
+  }
+
   render() {
 
     return (
       <div className="flex-container_list">
         <div className='left-panel grey lighten-4' >
-          <div className='my-btn' >
-            <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => { }} ><i className="material-icons center" style={{ fontSize: '28px' }} >add</i></a>
-          </div>
-
+          <ToolbarPanel onClick={this.btnAdd} />
         </div>
         <div className='center-panel' >
           <ListView
@@ -66,17 +97,15 @@ class ListUsersPage extends Component {
             onSelectedIndex={(index) => {
               this.setState({
                 selectedUser: this.props.users[index],
+                edit: false,
+                selectedIndex: index,
               })
             }}
+            setSelectedIndex={this.state.selectedIndex}
           />
         </div>
-        <div className='right-panel' >
-          <div id='NamePanel' className='one-panel grey lighten-4' >
-            <UserInfo selectedUser={this.state.selectedUser} />
-          </div>
-          <div className='two-panel' >
-            <ContactInfo selectedUser={this.state.selectedUser} />
-          </div>
+        <div className='right-panel'>
+          <this.ContentRightPanel />
 
         </div>
         <div >

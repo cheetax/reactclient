@@ -50,7 +50,7 @@ const ContactInfo = ({selectedUser}) => {
         return (
             <div className='roles valign-wrapper' >
               <div>Роли:</div>
-              {selectedUser.roles.map(item => <div style={{fontWeight: '900', margin: '5px 0 0 0'}} >{item}</div>)}
+              {selectedUser.roles.map((item, id) => <div key={id} style={{fontWeight: '900', margin: '5px 0 0 0'}} >{item}</div>)}
             </div>
           )
     } 

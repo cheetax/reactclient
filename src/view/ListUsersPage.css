@@ -23,14 +23,21 @@
 }
 
 @media (min-width: 660px) {
-  .right-panel { 
+    .right-panel { 
       display: flex;
       flex-direction: column;
       justify-content: stretch;
       align-self: stretch;      
       width: 360px;
   }
-  .right-panel > .one-panel {
+  .userInfo{
+      flex: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: stretch;
+      align-self: stretch;   
+  }
+    .one-panel {
       border-bottom: 1px lightgrey solid ;
       display: flex;
       border-left: 1px lightgrey solid ;
@@ -40,7 +47,7 @@
       height: 130px;
   }
 
-  .right-panel > .two-panel {
+    .two-panel {
       flex-direction: column;
       border-bottom: 1px lightgrey solid;
       border-left: 1px lightgrey solid ;
@@ -77,29 +84,8 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-.my-btn > .my-btn-flat {
-  padding: 0px;
-  text-align: center;
-  font-size: 28px;
-  flex: auto;
-  align-items: center;
-  
-}
 
-.my-btn {
-  height: 48px;
-  display: flex;
-  justify-content: center;
-}
 
-.add {
-  position: absolute;
-  top: 0; bottom: 0; left: 0; right: 0; 
-  text-align: center;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-}
 
 .md-18 { font-size: 18px; }
 .md-28 { font-size: 28px; }

@@ -9,8 +9,11 @@
     flex-direction: row;
     align-items: center;
     text-align: left;
-    
   }  
+  nav {
+    line-height: 48px;
+    height: 48px;
+  }
   .flex-item {
     flex: auto;
   }

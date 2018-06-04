@@ -1,0 +1,18 @@
+
+.my-btn > .my-btn-flat {
+    padding: 0px;
+    text-align: center;
+    font-size: 28px;
+    flex: auto;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .my-btn {
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }

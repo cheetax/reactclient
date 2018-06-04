@@ -9,8 +9,9 @@ class ListView extends Component {
 
         super(props)
         this.state = {
-            items_select: props.items.map(item => ({ active: false })),
+            items_select: props.items.map((item, index) => ({active: (props.setSelectedIndex == index)})),
             items: props.items,
+            setSelectedIndex: props.setSelectedIndex,
             prevItem: null
         }
 
@@ -23,12 +24,13 @@ class ListView extends Component {
     }
 
     componentWillUpdate(props, prevProps) {
-        if (props.items !== prevProps.items) {
+        if (props.items !== prevProps.items || props.setSelectedIndex !== prevProps.setSelectedIndex) {
             this.rowRenderer = props.rowRenderer;
             this.setState({
                 rowHeight: props.rowHeight,
                 items: props.items,
-                items_select: props.items.map(item => ({ active: false }))
+                items_select: props.items.map((item, index) => ({ active: (props.setSelectedIndex == index) })),
+                setSelectedIndex: props.setSelectedIndex,
             })
 
         }
