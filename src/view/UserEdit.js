@@ -4,12 +4,17 @@ import './UserEdit.css'
 const UserEdit = ({ selectedUser }) => {
     const Name = () => {
         return (
-            <div className='name valign-wrapper' >
-                <div className="input-field">
+            <div>
+                <div className="name input-field">
                     <input placeholder='укажите имя' id="first_name" type="text" className="validate" />
                     <label htmlFor="first_name">Имя</label>
                 </div>
+                <div className="name input-field">
+                    <input placeholder='укажите фамилию' id="sur_name" type="text" className="validate" />
+                    <label htmlFor="sur_name">Фамилия</label>
+                </div>
             </div>
+
         )
     }
     const Phone = () => {
