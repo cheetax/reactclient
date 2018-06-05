@@ -59,7 +59,7 @@ class ListUsersPage extends Component {
     })
   }
 
-  btnSave = ({ editUser }) => {
+  btnSave = (editUser) => {
     if (this.state.selectedUser !== null) {
       this.props.dispatch({
         type: 'ADD_USER',
