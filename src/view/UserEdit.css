@@ -59,6 +59,7 @@
     font-weight: 900;
 }
 
+@media (min-height: 720px) {
 .avatar-panel {
     border-bottom: 1px lightgrey solid ;
     display: flex;
@@ -67,7 +68,19 @@
     justify-content: flex-start;
     flex: auto;
     padding: 20px; 
-}
+}}
+
+@media (max-height: 719px) {
+    .avatar-panel {
+        border-bottom: 1px lightgrey solid ;
+        display: flex;
+        border-left: 1px lightgrey solid ;
+        flex-direction: column; 
+        justify-content: flex-start;
+        flex: auto;
+        padding: 5px 20px 20px 20px; 
+    }}
+
 .edit{
     margin: 25px 0px 0 0px
 }

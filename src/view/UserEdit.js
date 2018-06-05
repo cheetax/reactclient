@@ -78,10 +78,10 @@ const UserEdit = ({ selectedUser, btnSave }) => {
         return (
             <div className='button-panel'>
                 <a className='waves-effect waves-light btn' onClick={() => {
-                    btnSave(user)
+                    if (user !== null) btnSave(user)
                 }} >Сохранить</a>
                 <a className='waves-effect waves-light btn' onClick={() => { 
-
+                    btnSave(null)
                 }} >Отменить</a>
             </div>
 

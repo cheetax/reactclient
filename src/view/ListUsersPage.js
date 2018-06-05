@@ -21,6 +21,7 @@ class ListUsersPage extends Component {
     this.rowRenderer = this.rowRenderer.bind(this)
     this.state = {
       selectedUser: null,
+      prevSelectedIndex: -1,
       selectedIndex: -1,
       edit: false
     }
@@ -54,27 +55,38 @@ class ListUsersPage extends Component {
   btnAdd = () => {
     this.setState({
       selectedUser: null,
+      prevSelectedIndex: this.state.selectedIndex,
       selectedIndex: -1,
       edit: true
     })
   }
 
   btnSave = (editUser) => {
-    if (this.state.selectedUser !== null) {
-      this.props.dispatch({
-        type: 'ADD_USER',
-        payload: editUser
-      })
+    var user = null;
+    var index = -1;
+    if (editUser !== null) {
+      if (this.state.selectedUser !== null) {
+        this.props.dispatch({
+          type: 'ADD_USER',
+          payload: editUser
+        })
+      }
+      else {
+        this.props.dispatch({
+          type: 'EDIT_USER',
+          payload: editUser
+        })
+      }
+      user = editUser;
+      index = -1;
     }
     else {
-      this.props.dispatch({
-        type: 'EDIT_USER',
-        payload: editUser
-      })
+      index = this.state.prevSelectedIndex;
+      user = this.props.users[index];      
     }
     this.setState({
-      selectedUser: editUser,
-      selectedIndex: -1,
+      selectedUser: user,
+      selectedIndex: index,
       edit: false
     })
   }
