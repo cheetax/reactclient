@@ -52,12 +52,33 @@ class ListUsersPage extends Component {
   }
 
   btnAdd = () => {
-    this.setState({ 
+    this.setState({
       selectedUser: null,
       selectedIndex: -1,
-      edit: true 
+      edit: true
     })
   }
+
+  btnSave = ({ editUser }) => {
+    if (this.state.selectedUser !== null) {
+      this.props.dispatch({
+        type: 'ADD_USER',
+        payload: editUser
+      })
+    }
+    else {
+      this.props.dispatch({
+        type: 'EDIT_USER',
+        payload: editUser
+      })
+    }
+    this.setState({
+      selectedUser: editUser,
+      selectedIndex: -1,
+      edit: false
+    })
+  }
+
 
   ContentRightPanel = () => {
     if (this.state.edit) return this.userEdit();
@@ -68,7 +89,7 @@ class ListUsersPage extends Component {
     return (
       <div className='userInfo' >
         <div id='NamePanel' className='one-panel grey lighten-4' >
-          <Avatar selectedUser={this.state.selectedUser} />
+          {(this.state.selectedUser) ? <Avatar selectedUser={this.state.selectedUser} /> : null}
         </div>
         <div className='two-panel' >
           <ContactInfo selectedUser={this.state.selectedUser} />
@@ -78,7 +99,7 @@ class ListUsersPage extends Component {
   }
 
   userEdit = () => {
-    return <UserEdit selectedUser={this.state.selectedUser} />
+    return <UserEdit selectedUser={this.state.selectedUser} btnSave={this.btnSave} />
   }
 
   render() {

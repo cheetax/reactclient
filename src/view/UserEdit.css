@@ -1,78 +1,96 @@
 
-.contact-info {
-    display: flex;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    flex-direction: column;
-    font-size: 14px;
-    font-weight: normal;
-    align-items: stretch;
-  }
-
-.name {
+.name-edit {
     display: flex;
     flex-direction: column;
     justify-content: stretch;
     align-items: flex-start;
-    margin: 15px 20px 0 20px ;
+    margin: 8px 0px 0 0px ;
+    font-weight: normal;
+}
+
+.phone-edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: flex-start;
+    margin: 8px 0px 0 0px ;
+    font-weight: normal;
+}
+
+.email-edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: flex-start;
+    margin: 8px 0px 0 0px ;
+    font-weight: normal;
+}
+
+.post-edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: flex-start;
+    margin: 8px 0px 0 0px ;
+    font-weight: normal;
+}
+
+.office-edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: flex-start;
+    margin: 8px 0px 0 0px ;
+    font-weight: normal;
+}
+
+.roles-edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: flex-start;
+    margin: 8px 0px 0 0px ;
+    font-weight: normal;
+}
+
+.title-edit {
+    margin: 8px 0px 20px 0px ;
+    font-size: 18px;
     font-weight: 900;
 }
 
-.phone {
+.avatar-panel {
+    border-bottom: 1px lightgrey solid ;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 8px 0 0 20px ;
-    font-weight: normal;
+    border-left: 1px lightgrey solid ;
+    flex-direction: column; 
+    justify-content: flex-start;
+    flex: auto;
+    padding: 20px; 
+}
+.edit{
+    margin: 25px 0px 0 0px
 }
 
-.email {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 8px 0 0 20px ;
-    font-weight: normal;
-}
-
-.post {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 8px 0 0 20px ;
-    font-weight: normal;
-}
-
-.office {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 8px 0 0 20px ;
-    font-weight: normal;
-}
-
-.roles {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 8px 0 0 20px ;
-    font-weight: normal;
-}
-
-.title > .my-btn-flat {
-    padding: 0 0.5rem;
-
-}
-
-input[type=text].validate+label {
-    background-color: white;
-}
 
 input[type=text] {
     height: 2.5rem;
+}
+
+input[type=email] {
+    height: 2.5rem;
+}
+
+.btn {
+    height: 32.4px;
+    line-height: 32.4px;
+    font-size: 13px;
+}
+
+.button-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;    
 }
 
 .md-18 {font-size: 18px}
