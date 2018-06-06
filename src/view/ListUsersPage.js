@@ -12,6 +12,7 @@ const mapStateToProps = (state) => {
   return {
     users: state.users.users,
     newUser: state.users.newUser,
+    roles: state.roles,
   };
 }
 

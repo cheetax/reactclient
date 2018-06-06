@@ -41,6 +41,10 @@ class App extends Component {
 
   getUsers = () => {
     this.setState({contentView: 1})
+    this.props.dispatch({
+      type: 'GET_ROLES',
+      payload: {},
+    })
     this.props.dispatch(getUsers());
   }
 
