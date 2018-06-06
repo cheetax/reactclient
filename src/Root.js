@@ -4,9 +4,10 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 import App from './App';
-//import { CookiesProvider } from 'react-cookie'
+import users from './middlewares/users'
+//import { CookiesProvider } from 'react-cookie
 
-var store = createStore(rootReducer, applyMiddleware(thunk))
+var store = createStore(rootReducer, applyMiddleware(thunk, users))
 
 export default function Root() {
     return (

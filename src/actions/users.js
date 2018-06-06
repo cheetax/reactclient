@@ -1,7 +1,7 @@
 
 export const getUsers = () => (dispatch) => {
     fetch('http://localhost:3001/users', {
-        method: 'POST',
+        method: 'GET',
         credentials: 'include',
         //mode: 'no-cors',
         headers: {

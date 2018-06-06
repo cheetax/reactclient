@@ -1,120 +1,127 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Avatar from './Avatar'
 import './UserEdit.css'
 
-const UserEdit = ({ selectedUser, btnSave }) => {
+class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
 
-    var user = selectedUser;
-
-    const onChange = (event) => {
-        user = {
-            ...user,
-            [event.target.id]: event.target.value,
+    constructor(props) {
+        super(props)
+        this.state = {
+            user: props.selectedUser,
         }
     }
 
-    const Name = () => {
+    onChange = (event) => {
+        this.setState({
+            user: {
+                ...this.state.user,
+                [event.target.id]: event.target.value,
+            }
+        })
+        
+    }
+
+    Name = () => {
+        var user = this.state.user
         return (
             <div>
                 <div className="name-edit input-field">
-                    <input id="firstName" type="text" className="validate" onChange={onChange} />
+                    <input id="firstName" value={user.firstName} type="text" className="validate" onChange={this.onChange} />
                     <label htmlFor="firstName">Имя</label>
                 </div>
                 <div className="name-edit input-field">
-                    <input id="surName" type="text" className="validate" onChange={onChange}/>
+                    <input id="surName" type="text" value={user.surName} className="validate" onChange={this.onChange} />
                     <label htmlFor="surName">Фамилия</label>
                 </div>
             </div>
 
         )
     }
-    const Phone = () => {
+
+    Phone = () => {
+        var user = this.state.user
         return (
             <div className="phone-edit input-field">
-                <input id="phone" type="text" className="validate" onChange={onChange}/>
+                <input id="phone" value={user.phone} type="text" className="validate" onChange={this.onChange} />
                 <label htmlFor="phone">Телефон</label>
             </div>
         )
     }
 
-    const Email = () => {
+    Email = () => {
+        var user = this.state.user
         return (
             <div className='email-edit input-field' >
-                <input id="email" type="email" className="validate" onChange={onChange}/>
+                <input id="email" value={user.email} type="email" className="validate" onChange={this.onChange} />
                 <label htmlFor="email">Email</label>
             </div>
         )
     }
 
-    const Post = () => {
+    Post = () => {
+        var user = this.state.user
         return (
             <div className='post-edit input-field' >
-                <input id="post" type="text" className="validate" onChange={onChange}/>
+                <input id="post" value={user.post} type="text" className="validate" onChange={this.onChange} />
                 <label htmlFor="post">Должность</label>
             </div>
         )
     }
 
-    const Office = () => {
+    Office = () => {
+        var user = this.state.user
         return (
             <div className='office-edit input-field' >
-                <input id="office" type="text" className="validate" onChange={onChange}/>
+                <input id="office" value={user.office} type="text" className="validate" onChange={this.onChange} />
                 <label htmlFor="office">Местоположение офиса</label>
             </div>
         )
     }
 
-    const Roles = () => {
+    Roles = () => {
+        var user = this.state.user
         return (
             <div className='roles-edit input-field' >
                 <div>Роли:</div>
-                {selectedUser.roles.map((item, id) => <div key={id} style={{ fontWeight: '900', margin: '5px 0 0 0' }} >{item}</div>)}
+                {this.props.selectedUser.roles.map((item, id) => <div key={id} style={{ fontWeight: '900', margin: '5px 0 0 0' }} >{item}</div>)}
             </div>
         )
     }
 
-    const Buttons = () => {
-
+    Buttons = () => {
+        var user = this.state.user
         return (
             <div className='button-panel'>
                 <a className='waves-effect waves-light btn' onClick={() => {
-                    if (user !== null) btnSave(user)
+                    if (user !== null) this.props.btnSave(user)
                 }} >Сохранить</a>
-                <a className='waves-effect waves-light btn' onClick={() => { 
-                    btnSave(null)
+                <a className='waves-effect waves-light btn' onClick={() => {
+                    this.props.btnSave(null)
                 }} >Отменить</a>
             </div>
 
         )
     }
+    render() {
+        return (
 
-    return (
-        (!selectedUser) ?
             <div className='valign-wrapper contact-info' >
-
                 <div id='NamePanel' className='avatar-panel grey lighten-4' >
-                    <div className='title-edit' >Новый пользователь</div>
-                    <Avatar selectedUser={selectedUser} />
+                    <div className='title-edit' >{(!this.props.selectedUser.id) ? 'Новый пользователь' : 'Редактирование пользователя'} </div>
+                    <Avatar selectedUser={this.props.selectedUser} />
                     <form className='edit' >
-                        <Name />
-                        <Phone />
-                        <Email />
-                        <Post />
-                        <Office />
+                        <this.Name />
+                        <this.Phone />
+                        <this.Email />
+                        <this.Post />
+                        <this.Office />
                         {/* <Roles/> */}
-                        <Buttons />
+                        <this.Buttons />
                     </form>
                 </div>
-
-
-            </div> :
-            <div className='valign-wrapper contact-info' >
-                <div>
-                    Редактирование пользователя
-                </div>
-
             </div>
-    )
+        )
+    }
 }
 
 export default UserEdit;  

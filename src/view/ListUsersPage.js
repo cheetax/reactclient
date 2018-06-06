@@ -10,7 +10,8 @@ import './ListUsersPage.css';
 
 const mapStateToProps = (state) => {
   return {
-    users: state.users,
+    users: state.users.users,
+    newUser: state.users.newUser,
   };
 }
 
@@ -19,17 +20,33 @@ class ListUsersPage extends Component {
   constructor(props) {
     super(props)
     this.rowRenderer = this.rowRenderer.bind(this)
+
     this.state = {
       selectedUser: null,
       prevSelectedIndex: -1,
       selectedIndex: -1,
-      edit: false
+      edit: false,
+      newUser: {},
     }
   }
 
-  componentWillMount() {
+  componentWillUpdate(e,r) {
 
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.newUser !== prevProps.newUser) {
+      var index = this.props.users.findIndex(item => item.id === this.props.newUser.id);
+      if (index !== -1) {
+        this.setState({
+          newUser: this.props.newUser,
+          selectedIndex: index,
+          selectedUser: this.props.users[index],
+        })
+      }
+    }
+  }
+
   users = () => {
     return this.props.users
   };
@@ -53,11 +70,40 @@ class ListUsersPage extends Component {
   }
 
   btnAdd = () => {
+    var user = {
+      id: '',
+      firstName: '',
+      surName: '',
+      phone: '',
+      email: '',
+      post: '',
+      office: '',
+      roles: []
+    }
     this.setState({
-      selectedUser: null,
+      selectedUser: user,
       prevSelectedIndex: this.state.selectedIndex,
       selectedIndex: -1,
       edit: true
+    })
+  }
+
+  btnEdit = () => {    
+    this.setState({
+      prevSelectedIndex: this.state.selectedIndex,
+      edit: true
+    })
+  }
+  btnDelete = () => {
+    this.props.dispatch({
+      type: 'DELETE_USER',
+      payload: this.state.selectedUser
+    })
+    var index = (this.state.selectedIndex == 0) ? -1 : this.state.selectedIndex - 1
+    var user = (index !== -1 ) ? this.props.users[index] : null
+    this.setState({
+      selectedUser: user,
+      selectedIndex: index,
     })
   }
 
@@ -65,24 +111,23 @@ class ListUsersPage extends Component {
     var user = null;
     var index = -1;
     if (editUser !== null) {
-      if (this.state.selectedUser !== null) {
+      if (this.state.selectedUser.id) {
+        this.props.dispatch({
+          type: 'EDIT_USER',
+          payload: editUser
+        })
+        
+      }
+      else {
         this.props.dispatch({
           type: 'ADD_USER',
           payload: editUser
         })
       }
-      else {
-        this.props.dispatch({
-          type: 'EDIT_USER',
-          payload: editUser
-        })
-      }
-      user = editUser;
-      index = -1;
     }
     else {
       index = this.state.prevSelectedIndex;
-      user = this.props.users[index];      
+      user = this.props.users[index];
     }
     this.setState({
       selectedUser: user,
@@ -104,7 +149,7 @@ class ListUsersPage extends Component {
           {(this.state.selectedUser) ? <Avatar selectedUser={this.state.selectedUser} /> : null}
         </div>
         <div className='two-panel' >
-          <ContactInfo selectedUser={this.state.selectedUser} />
+          <ContactInfo selectedUser={this.state.selectedUser} btnEdit={this.btnEdit} btnDelete={this.btnDelete} />
         </div>
       </div>
     )
@@ -132,6 +177,7 @@ class ListUsersPage extends Component {
                 selectedUser: this.props.users[index],
                 edit: false,
                 selectedIndex: index,
+                newUser: {},
               })
             }}
             setSelectedIndex={this.state.selectedIndex}

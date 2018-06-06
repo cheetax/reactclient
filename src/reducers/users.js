@@ -1,15 +1,15 @@
 var newState = [];
 
-export default function users(state = {}, action) {
-    
-    switch (action.type) {        
+export default function users(state = { users: [], newUser: {}}, action) {
+    console.log(action);
+    switch (action.type) {          
         case 'INITIAL_STATE':
             break;    
         case 'GET_USERS':
-            newState = [...action.payload];
+            newState = {...action.payload};
             break;
         default:
-            newState = [...state];
+            newState = {...state};
             break;
     }
 

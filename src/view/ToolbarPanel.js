@@ -7,9 +7,6 @@ const ToolbarPanel = ({ onClick }) => {
             <div className='my-btn' >
                 <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={onClick} ><i className="material-icons center" style={{ fontSize: '28px' }} >add</i></a>
             </div>
-            <div className='my-btn' >
-                <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={onClick} ><i className="material-icons center" style={{ fontSize: '28px' }} >add</i></a>
-            </div>
         </div>
     )
 }
