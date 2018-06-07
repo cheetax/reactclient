@@ -30,7 +30,7 @@ class ListView extends Component {
                 var _itemsPrev = prevProps.items;
                 var s = _itemsPrev.findIndex((itemFind, index) => {
                     var d = _items.filter(item => {
-                        var s = item == itemFind;
+                        var s = JSON.stringify(item) == JSON.stringify(itemFind);
                         return s;
                     })
                     return !d;
