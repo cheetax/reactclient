@@ -25,6 +25,18 @@ class ListView extends Component {
 
     componentWillUpdate(props, prevProps) {
         if (props.items !== prevProps.items || props.setSelectedIndex !== prevProps.setSelectedIndex) {
+            (() => { 
+                var _items = props.items;
+                var _itemsPrev = prevProps.items;
+                var s = _itemsPrev.findIndex((itemFind, index) => {
+                    var d = _items.filter(item => {
+                        var s = item == itemFind;
+                        return s;
+                    })
+                    return !d;
+                });
+                console.log(s)
+            })();
             this.rowRenderer = props.rowRenderer;
             this.setState({
                 rowHeight: props.rowHeight,
@@ -43,7 +55,7 @@ class ListView extends Component {
     _onClick = (key) => {
         var _key = parseInt(key, 10)
         var _items_select = this.state.items_select;
-        if (this.state.prevItem != null) _items_select[this.state.prevItem].active = false;
+        if (this.state.prevItem != null && this.state.prevItem < _items_select.length) _items_select[this.state.prevItem].active = false;
         _items_select[_key].active = true;
         this.setState({
             items_select: _items_select,

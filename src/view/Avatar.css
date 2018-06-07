@@ -9,6 +9,7 @@
     display: flex;
     font-size: 18px;
     font-weight: bold;
+    word-break: break-all;
   }
 
 .margin-18 {margin: 18px}

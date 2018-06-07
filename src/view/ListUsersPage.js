@@ -21,7 +21,7 @@ class ListUsersPage extends Component {
   constructor(props) {
     super(props)
     this.rowRenderer = this.rowRenderer.bind(this)
-
+    this.btnDelete = this.btnDelete.bind(this)
     this.state = {
       selectedUser: null,
       prevSelectedIndex: -1,
@@ -31,7 +31,7 @@ class ListUsersPage extends Component {
     }
   }
 
-  componentWillUpdate(e,r) {
+  componentWillUpdate(e, r) {
 
   }
 
@@ -63,6 +63,7 @@ class ListUsersPage extends Component {
     isVisible,   // This row is visible within the List (eg it is not an overscanned row)
     style        // Style object to be applied to row (to position it)
   }) => {
+    if (this.props.users.length - 1 < index) return null;
     return (
       <div className='valign-wrapper' >
         {this.props.users[index].firstName} {this.props.users[index].surName}
@@ -89,22 +90,29 @@ class ListUsersPage extends Component {
     })
   }
 
-  btnEdit = () => {    
+  btnEdit = () => {
     this.setState({
       prevSelectedIndex: this.state.selectedIndex,
       edit: true
     })
   }
+
   btnDelete = () => {
+
+    if (this.state.selectedIndex == this.props.users.length - 1) {
+      this.setState({
+        selectedUser: this.props.users[this.state.selectedIndex-1],
+        selectedIndex: this.state.selectedIndex-1,
+      })
+    }
+    else {
+      this.setState({
+        selectedUser: this.props.users[this.state.selectedIndex+1],
+      })
+    }
     this.props.dispatch({
       type: 'DELETE_USER',
       payload: this.state.selectedUser
-    })
-    var index = (this.state.selectedIndex == 0) ? -1 : this.state.selectedIndex - 1
-    var user = (index !== -1 ) ? this.props.users[index] : null
-    this.setState({
-      selectedUser: user,
-      selectedIndex: index,
     })
   }
 
@@ -117,7 +125,7 @@ class ListUsersPage extends Component {
           type: 'EDIT_USER',
           payload: editUser
         })
-        
+
       }
       else {
         this.props.dispatch({
