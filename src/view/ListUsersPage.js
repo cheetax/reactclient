@@ -189,7 +189,7 @@ class ListUsersPage extends Component {
                 newUser: {},
               })
             }}
-            setSelectedIndex={this.state.selectedIndex}
+            //setSelectedIndex={this.state.selectedIndex}
           />
         </div>
         <div className='right-panel'>

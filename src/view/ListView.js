@@ -9,7 +9,7 @@ class ListView extends Component {
 
         super(props)
         this.state = {
-            items_select: props.items.map((item, index) => ({active: (props.setSelectedIndex == index)})),
+            items_select: props.items.map((item, index) => ({ active: (props.setSelectedIndex == index) })),
             items: props.items,
             setSelectedIndex: props.setSelectedIndex,
             prevItem: null
@@ -24,25 +24,29 @@ class ListView extends Component {
     }
 
     componentWillUpdate(props, prevProps) {
-        if (props.items !== prevProps.items || props.setSelectedIndex !== prevProps.setSelectedIndex) {
-            (() => { 
-                var _items = props.items;
-                var _itemsPrev = prevProps.items;
-                var s = _itemsPrev.findIndex((itemFind, index) => {
-                    var d = _items.filter(item => {
-                        var s = JSON.stringify(item) == JSON.stringify(itemFind);
-                        return s;
-                    })
-                    return !d;
-                });
-                console.log(s)
+        // if (props.items !== prevProps.items || props.setSelectedIndex !== prevProps.setSelectedIndex) {
+        if (props.items !== prevProps.items ) {
+            var index = (() => {
+                if (props.items.length != prevProps.items.length && prevProps.items.length != 0) {
+                    if (props.items.length < prevProps.items.length) {
+                        var _items = props.items.map(item => JSON.stringify(item));
+                        var _itemsPrev = prevProps.items;
+                    }
+                    else if (props.items.length > prevProps.items.length) {
+                        var _items = prevProps.items.map(item => JSON.stringify(item));
+                        var _itemsPrev = props.items;
+                    }
+                    return _itemsPrev.findIndex((itemFind) => !_items.includes(JSON.stringify(itemFind)));
+                }
+                else return -1;
             })();
+            index = props.items.length == index ? index - 1 : index;
             this.rowRenderer = props.rowRenderer;
             this.setState({
                 rowHeight: props.rowHeight,
                 items: props.items,
-                items_select: props.items.map((item, index) => ({ active: (props.setSelectedIndex == index) })),
-                setSelectedIndex: props.setSelectedIndex,
+                items_select: props.items.map((item, i) => ({ active: (i == index) })),
+                setSelectedIndex: index,
             })
 
         }
