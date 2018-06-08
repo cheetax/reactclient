@@ -23,31 +23,67 @@ class ListView extends Component {
         // this._onClick = this._onClick.bind(this);
     }
 
+    getIndex = (items1, items2) => new Promise((resolve, project) => {
+        var index = (() => {
+            if (items1.length != items2.length && items2.length != 0) {
+                if (items1.length < items2.length) {
+                    var _items = items1.map(item => JSON.stringify(item));
+                    var _itemsPrev = items2;
+                }
+                else if (items1.length > items2.length) {
+                    var _items = items2.map(item => JSON.stringify(item));
+                    var _itemsPrev = items1;
+                }
+                return _itemsPrev.findIndex((itemFind) => {
+                    var i = _items.indexOf(JSON.stringify(itemFind))
+                    if (i != -1) {
+                        _items.splice(i, 1)
+                        return false;
+                    }
+                    else return true
+                });
+            }
+            else return -1;
+        })()
+        resolve(index)
+    })
+
     componentWillUpdate(props, prevProps) {
         // if (props.items !== prevProps.items || props.setSelectedIndex !== prevProps.setSelectedIndex) {
-        if (props.items !== prevProps.items ) {
-            var index = (() => {
-                if (props.items.length != prevProps.items.length && prevProps.items.length != 0) {
-                    if (props.items.length < prevProps.items.length) {
-                        var _items = props.items.map(item => JSON.stringify(item));
-                        var _itemsPrev = prevProps.items;
-                    }
-                    else if (props.items.length > prevProps.items.length) {
-                        var _items = prevProps.items.map(item => JSON.stringify(item));
-                        var _itemsPrev = props.items;
-                    }
-                    return _itemsPrev.findIndex((itemFind) => !_items.includes(JSON.stringify(itemFind)));
-                }
-                else return -1;
-            })();
-            index = props.items.length == index ? index - 1 : index;
-            this.rowRenderer = props.rowRenderer;
-            this.setState({
-                rowHeight: props.rowHeight,
-                items: props.items,
-                items_select: props.items.map((item, i) => ({ active: (i == index) })),
-                setSelectedIndex: index,
+        if (props.items !== prevProps.items) {
+            this.getIndex(props.items, prevProps.items).then((index) => {
+                index = props.items.length == index ? index - 1 : index;
+                this.rowRenderer = props.rowRenderer;
+                this.setState({
+                    rowHeight: props.rowHeight,
+                    items: props.items,
+                    items_select: props.items.map((item, i) => ({ active: (i == index) })),
+                    setSelectedIndex: index,
+                })
             })
+            // ((items1, items2) => {                
+            // var i = await this.getIndex(items1, items2)
+            // return i;
+            // if (props.items.length != prevProps.items.length && prevProps.items.length != 0) {
+            //     if (props.items.length < prevProps.items.length) {
+            //         var _items = props.items.map(item => JSON.stringify(item));
+            //         var _itemsPrev = prevProps.items;
+            //     }
+            //     else if (props.items.length > prevProps.items.length) {
+            //         var _items = prevProps.items.map(item => JSON.stringify(item));
+            //         var _itemsPrev = props.items;
+            //     }
+            //     return _itemsPrev.findIndex((itemFind) => {
+            //         var i = _items.indexOf(JSON.stringify(itemFind))
+            //         if (i != -1) {
+            //             _items.splice(i, 1)
+            //             return false;
+            //         }
+            //         else return true
+            //     });
+            // }
+            // else return -1;
+            // })(props.items, prevProps.items)       
 
         }
     }
