@@ -23,35 +23,45 @@ class ListView extends Component {
         // this._onClick = this._onClick.bind(this);
     }
 
-    getIndex = (items1, items2) => new Promise((resolve, project) => {
-        var index = (() => {
-            if (items1.length != items2.length && items2.length != 0) {
-                if (items1.length < items2.length) {
-                    var _items = items1.map(item => JSON.stringify(item));
-                    var _itemsPrev = items2;
-                }
-                else if (items1.length > items2.length) {
-                    var _items = items2.map(item => JSON.stringify(item));
-                    var _itemsPrev = items1;
-                }
-                return _itemsPrev.findIndex((itemFind) => {
-                    var i = _items.indexOf(JSON.stringify(itemFind))
-                    if (i != -1) {
-                        _items.splice(i, 1)
-                        return false;
+    getIndex(items1, items2) {
+        return new Promise(async (resolve) => {
+            console.log('3.1 ' + new Date())
+            resolve(await (async () => {
+                var index = -1;
+                if (items1.length != items2.length && items2.length != 0) {
+                    if (items1.length < items2.length) {
+                        var _items = items1.map(item => JSON.stringify(item));
+                        var _itemsPrev = items2;
                     }
-                    else return true
-                });
-            }
-            else return -1;
-        })()
-        resolve(index)
-    })
+                    else if (items1.length > items2.length) {
+                        var _items = items2.map(item => JSON.stringify(item));
+                        var _itemsPrev = items1;
+                    }
+                    index = _itemsPrev.findIndex((itemFind) => {
+                        var i = _items.indexOf(JSON.stringify(itemFind))
+                        if (i != -1) {
+                            _items.splice(i, 1)
+                            return false;
+                        }
+                        else return true
+                    });
+                }
+                return index;
+            })())
+        })
+    }
+
+    async getIndexAsync(items1, items2) {
+        console.log('3 ' + new Date())
+        return await this.getIndex(items1, items2)
+    }
 
     componentWillUpdate(props, prevProps) {
         // if (props.items !== prevProps.items || props.setSelectedIndex !== prevProps.setSelectedIndex) {
         if (props.items !== prevProps.items) {
-            this.getIndex(props.items, prevProps.items).then((index) => {
+            console.log('1 ' + new Date())
+            this.getIndexAsync(props.items, prevProps.items).then((index) => {
+                console.log('4 ' + new Date())
                 index = props.items.length == index ? index - 1 : index;
                 this.rowRenderer = props.rowRenderer;
                 this.setState({
@@ -61,31 +71,9 @@ class ListView extends Component {
                     setSelectedIndex: index,
                 })
             })
-            // ((items1, items2) => {                
-            // var i = await this.getIndex(items1, items2)
-            // return i;
-            // if (props.items.length != prevProps.items.length && prevProps.items.length != 0) {
-            //     if (props.items.length < prevProps.items.length) {
-            //         var _items = props.items.map(item => JSON.stringify(item));
-            //         var _itemsPrev = prevProps.items;
-            //     }
-            //     else if (props.items.length > prevProps.items.length) {
-            //         var _items = prevProps.items.map(item => JSON.stringify(item));
-            //         var _itemsPrev = props.items;
-            //     }
-            //     return _itemsPrev.findIndex((itemFind) => {
-            //         var i = _items.indexOf(JSON.stringify(itemFind))
-            //         if (i != -1) {
-            //             _items.splice(i, 1)
-            //             return false;
-            //         }
-            //         else return true
-            //     });
-            // }
-            // else return -1;
-            // })(props.items, prevProps.items)       
-
+            console.log('2 ' + new Date())
         }
+        console.log('5 ' + new Date())
     }
 
     componentDidMount(e, s, r) {
