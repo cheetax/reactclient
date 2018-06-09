@@ -14,7 +14,6 @@ class ListView extends Component {
             setSelectedIndex: props.setSelectedIndex,
             prevItem: null
         }
-
         this.rowRenderer = props.rowRenderer;
         this.onSelected = props.onSelected;
         this.onSelectedIndex = props.onSelectedIndex;
@@ -23,45 +22,57 @@ class ListView extends Component {
         // this._onClick = this._onClick.bind(this);
     }
 
-    getIndex(items1, items2) {
-        return new Promise(async (resolve) => {
-            console.log('3.1 ' + new Date())
-            resolve(await (async () => {
-                var index = -1;
-                if (items1.length != items2.length && items2.length != 0) {
-                    if (items1.length < items2.length) {
-                        var _items = items1.map(item => JSON.stringify(item));
-                        var _itemsPrev = items2;
-                    }
-                    else if (items1.length > items2.length) {
-                        var _items = items2.map(item => JSON.stringify(item));
-                        var _itemsPrev = items1;
-                    }
-                    index = _itemsPrev.findIndex((itemFind) => {
-                        var i = _items.indexOf(JSON.stringify(itemFind))
-                        if (i != -1) {
-                            _items.splice(i, 1)
-                            return false;
-                        }
-                        else return true
-                    });
-                }
-                return index;
-            })())
-        })
-    }
 
-    async getIndexAsync(items1, items2) {
-        console.log('3 ' + new Date())
-        return await this.getIndex(items1, items2)
-    }
+    getIndexAsync = async (items1, items2) => await new Promise(async (resolve) => {
+        resolve(await (async () => {
+            console.log(new Date().getMilliseconds())
+            var index = -1;
+            var i = 0;
+            if (items1.length != items2.length && items2.length != 0) {
+                if (items1.length < items2.length) {
+                    //var _itemsSearch = items1.map(item => JSON.stringify(item));
+                    var _itemsSearch = [...items1];
+                    var _itemsElements = [...items2];
+                }
+                else if (items1.length > items2.length) {
+                    //var _itemsSearch = items2.map(item => JSON.stringify(item));
+                    var _itemsSearch = [...items2];
+                    var _itemsElements = [...items1];
+                }
+               
+                for (var i = (_itemsElements.length / 2 | 0) ; _itemsElements.length - i > 1 && i > 1  ; ) {
+
+                    if (JSON.stringify(_itemsElements[i]) === JSON.stringify(_itemsSearch[i])) {
+                        // _itemsSearch.splice(0, i);
+                        // _itemsElements.splice(0, i);
+                        i = i + ((_itemsElements.length - i) / 2 | 0);
+                    }
+                    else {
+                        // _itemsSearch.splice(i + 1, _itemsSearch.length - i)
+                        // _itemsElements.splice(i+1, _itemsElements.length - i)
+                        i = (i / 2 | 0)
+                    }
+
+                }              
+                // _itemsSearch = _itemsSearch.map(item => JSON.stringify(item))
+                // index = _itemsElements.findIndex((itemFind) => {
+                //     var i = _itemsSearch.indexOf(JSON.stringify(itemFind));
+                //     if (i != -1) {
+                //         _itemsSearch.splice(i, 1);
+                //         return false;
+                //     }
+                //     else return true;
+                // });
+
+            }
+            console.log(new Date().getMilliseconds())
+            return i;
+        })())
+    })
 
     componentWillUpdate(props, prevProps) {
-        // if (props.items !== prevProps.items || props.setSelectedIndex !== prevProps.setSelectedIndex) {
         if (props.items !== prevProps.items) {
-            console.log('1 ' + new Date())
             this.getIndexAsync(props.items, prevProps.items).then((index) => {
-                console.log('4 ' + new Date())
                 index = props.items.length == index ? index - 1 : index;
                 this.rowRenderer = props.rowRenderer;
                 this.setState({
@@ -71,14 +82,8 @@ class ListView extends Component {
                     setSelectedIndex: index,
                 })
             })
-            console.log('2 ' + new Date())
         }
-        console.log('5 ' + new Date())
     }
-
-    componentDidMount(e, s, r) {
-    }
-
 
     _onClick = (key) => {
         var _key = parseInt(key, 10)
