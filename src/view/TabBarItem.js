@@ -6,7 +6,7 @@ const TabBarItem = ({ onClick, children, text, disabled }) => {
 
     }
     return (
-        <li >
+        <div >
 
             {disabled ?
                 <div className='disabled' >
@@ -15,7 +15,7 @@ const TabBarItem = ({ onClick, children, text, disabled }) => {
                 <a onClick={onClick}>
                     {children ? children : text}
                 </a>}
-        </li>
+        </div>
     )
 }
 

@@ -72,7 +72,7 @@ class App extends Component {
         </header>
         <TabsBarView className='blue lighten-2' onSelectedIndex={this.onSelectedItem} >
           <TabBarItem left disabled={!this.props.login} >Пользователи</TabBarItem>
-          <TabBarItem left onClick={this.getUsers} disabled={!this.props.login} >Заявки</TabBarItem>
+          <TabBarItem left disabled={!this.props.login} >Заявки</TabBarItem>
           {this.login()}
         </TabsBarView>
         {this.content()}
