@@ -5,6 +5,7 @@ import Avatar from './Avatar';
 import ContactInfo from './ContactInfo';
 import ToolbarPanel from './ToolbarPanel';
 import UserEdit from './UserEdit';
+import { getUsers } from '../actions/users';
 import 'react-virtualized/styles.css';
 import './ListUsersPage.css';
 
@@ -33,6 +34,14 @@ class ListUsersPage extends Component {
 
   componentWillUpdate(e, r) {
 
+  }
+
+  componentWillMount() {
+    this.props.dispatch({
+      type: 'GET_ROLES',
+      payload: {},
+    })
+    this.props.dispatch(getUsers());
   }
 
   componentDidUpdate(prevProps) {

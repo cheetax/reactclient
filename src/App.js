@@ -22,7 +22,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      contentView: null
+      contentView: -1,
     }
   }
 
@@ -40,12 +40,12 @@ class App extends Component {
   }
 
   getUsers = () => {
-    this.setState({contentView: 1})
-    this.props.dispatch({
-      type: 'GET_ROLES',
-      payload: {},
-    })
-    this.props.dispatch(getUsers());
+    //this.setState({contentView: 1})
+
+  }
+
+  onSelectedItem = (index) => {
+    return this.setState({ contentView: index })
   }
 
   login = () => {
@@ -55,7 +55,8 @@ class App extends Component {
 
   content = () => {
     switch (this.state.contentView) {
-      case 1:
+      case 0:
+        
         return <ListUsersPage />
       default:
         return <div />
@@ -69,8 +70,9 @@ class App extends Component {
         <header className="App-header">
           <h6>Тестовая модель клиента на React</h6>
         </header>
-        <TabsBarView className='blue lighten-2' >
-          <TabBarItem left onClick={this.getUsers} >Пользователи</TabBarItem>
+        <TabsBarView className='blue lighten-2' onSelectedIndex={this.onSelectedItem} >
+          <TabBarItem left disabled={!this.props.login} >Пользователи</TabBarItem>
+          <TabBarItem left onClick={this.getUsers} disabled={!this.props.login} >Заявки</TabBarItem>
           {this.login()}
         </TabsBarView>
         {this.content()}

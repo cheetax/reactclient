@@ -18,7 +18,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                 [event.target.id]: event.target.value,
             }
         })
-        
+
     }
 
     Name = () => {
@@ -27,11 +27,11 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
             <div>
                 <div className="name-edit input-field">
                     <input id="firstName" value={user.firstName} type="text" className="validate" onChange={this.onChange} />
-                    <label htmlFor="firstName">Имя</label>
+                    <label htmlFor="firstName" className={user.firstName ? 'active' : ''}>Имя</label>
                 </div>
                 <div className="name-edit input-field">
                     <input id="surName" type="text" value={user.surName} className="validate" onChange={this.onChange} />
-                    <label htmlFor="surName">Фамилия</label>
+                    <label htmlFor="surName" className={user.surName ? 'active' : ''} >Фамилия</label>
                 </div>
             </div>
 
@@ -43,7 +43,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         return (
             <div className="phone-edit input-field">
                 <input id="phone" value={user.phone} type="text" className="validate" onChange={this.onChange} />
-                <label htmlFor="phone">Телефон</label>
+                <label htmlFor="phone" className={user.phone ? 'active' : ''}>Телефон</label>
             </div>
         )
     }
@@ -53,7 +53,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         return (
             <div className='email-edit input-field' >
                 <input id="email" value={user.email} type="email" className="validate" onChange={this.onChange} />
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email" className={user.email ? 'active' : ''} >Email</label>
             </div>
         )
     }
@@ -63,7 +63,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         return (
             <div className='post-edit input-field' >
                 <input id="post" value={user.post} type="text" className="validate" onChange={this.onChange} />
-                <label htmlFor="post">Должность</label>
+                <label htmlFor="post" className={user.post ? 'active' : ''} >Должность</label>
             </div>
         )
     }
@@ -73,7 +73,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         return (
             <div className='office-edit input-field' >
                 <input id="office" value={user.office} type="text" className="validate" onChange={this.onChange} />
-                <label htmlFor="office">Местоположение офиса</label>
+                <label htmlFor="office" className={user.office ? 'active' : ''} >Местоположение офиса</label>
             </div>
         )
     }
@@ -82,10 +82,17 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         var user = this.state.user
         return (
             <div className='roles-edit input-field' >
-                <div>Роли:</div>
-                {this.props.selectedUser.roles.map((item, id) => <div key={id} style={{ fontWeight: '900', margin: '5px 0 0 0' }} >{item}</div>)}
+                <div className='title' >
+                    <div>Роли</div>
+                    <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => this.btnEdit()} ><i className="material-icons left"  >edit</i>Изменить</a>
+                </div>
+                {user.roles.map((item, id) => <div key={id} style={{ fontWeight: '900', margin: '5px 0 0 0' }} >{item}</div>)}
             </div>
         )
+    }
+
+    btnEdit = () => {
+
     }
 
     Buttons = () => {
@@ -115,9 +122,9 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                         <this.Email />
                         <this.Post />
                         <this.Office />
-                        {/* <Roles/> */}
-                        <this.Buttons />
+                        <this.Roles />
                     </form>
+                    <this.Buttons />
                 </div>
             </div>
         )

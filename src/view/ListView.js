@@ -8,11 +8,14 @@ class ListView extends Component {
     constructor(props) {
 
         super(props)
-        this.state = {
-            items_select: props.items.map((item, index) => ({ active: (props.setSelectedIndex == index) })),
+        var setSelectedIndex = -1;
+        if (props.setSelectedIndex) setSelectedIndex = props.setSelectedIndex
+        this.state = {            
+            rowHeight: props.rowHeight,
+            items_select: props.items.map((item, index) => ({ active: (setSelectedIndex == index) })),
             items: props.items,
-            setSelectedIndex: props.setSelectedIndex,
-            prevItem: null
+            setSelectedIndex: setSelectedIndex,
+            prevItem: -1
         }
         this.rowRenderer = props.rowRenderer;
         this.onSelected = props.onSelected;
@@ -22,51 +25,35 @@ class ListView extends Component {
         // this._onClick = this._onClick.bind(this);
     }
 
-
     getIndexAsync = async (items1, items2) => await new Promise(async (resolve) => {
         resolve(await (async () => {
-            console.log(new Date().getMilliseconds())
-            var index = -1;
-            var i = 0;
+            var i = -1;
+            var _itemsSearch = [...items1];
+            var _itemsElements = [...items2];
             if (items1.length != items2.length && items2.length != 0) {
-                if (items1.length < items2.length) {
-                    //var _itemsSearch = items1.map(item => JSON.stringify(item));
-                    var _itemsSearch = [...items1];
-                    var _itemsElements = [...items2];
+                if (items1.length > items2.length) {
+                    _itemsSearch = [...items2];
+                    _itemsElements = [...items1];
                 }
-                else if (items1.length > items2.length) {
-                    //var _itemsSearch = items2.map(item => JSON.stringify(item));
-                    var _itemsSearch = [...items2];
-                    var _itemsElements = [...items1];
-                }
-               
-                for (var i = (_itemsElements.length / 2 | 0) ; _itemsElements.length - i > 1 && i > 1  ; ) {
+                var i_end = _itemsElements.length;
+                for (var i = (i_end / 2 | 0); i_end - i > 1 && i > 1;) {
 
                     if (JSON.stringify(_itemsElements[i]) === JSON.stringify(_itemsSearch[i])) {
-                        // _itemsSearch.splice(0, i);
-                        // _itemsElements.splice(0, i);
-                        i = i + ((_itemsElements.length - i) / 2 | 0);
+                        i = i + ((i_end - i) / 2 | 0);
                     }
                     else {
-                        // _itemsSearch.splice(i + 1, _itemsSearch.length - i)
-                        // _itemsElements.splice(i+1, _itemsElements.length - i)
-                        i = (i / 2 | 0)
+                        i_end = i;
+                        i = (i / 2 | 0);
                     }
-
-                }              
-                // _itemsSearch = _itemsSearch.map(item => JSON.stringify(item))
-                // index = _itemsElements.findIndex((itemFind) => {
-                //     var i = _itemsSearch.indexOf(JSON.stringify(itemFind));
-                //     if (i != -1) {
-                //         _itemsSearch.splice(i, 1);
-                //         return false;
-                //     }
-                //     else return true;
-                // });
-
+                }
             }
-            console.log(new Date().getMilliseconds())
-            return i;
+
+            _itemsSearch = _itemsSearch.splice(i - 1, i_end + 1).map(item => JSON.stringify(item));
+            _itemsElements = _itemsElements.splice(i - 1, i_end + 1);
+
+            i = i - 1 + _itemsElements.findIndex(item => !_itemsSearch.includes(JSON.stringify(item)));
+            console.log(i + ' ' + items1.length);
+            return i < 0 ? -1 : i;
         })())
     })
 
@@ -80,6 +67,7 @@ class ListView extends Component {
                     items: props.items,
                     items_select: props.items.map((item, i) => ({ active: (i == index) })),
                     setSelectedIndex: index,
+                    prevItem: index,
                 })
             })
         }
@@ -88,7 +76,7 @@ class ListView extends Component {
     _onClick = (key) => {
         var _key = parseInt(key, 10)
         var _items_select = this.state.items_select;
-        if (this.state.prevItem != null && this.state.prevItem < _items_select.length) _items_select[this.state.prevItem].active = false;
+        if (this.state.prevItem != -1 && this.state.prevItem < _items_select.length) _items_select[this.state.prevItem].active = false;
         _items_select[_key].active = true;
         this.setState({
             items_select: _items_select,

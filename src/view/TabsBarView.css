@@ -14,11 +14,12 @@
     line-height: 48px;
     height: 48px;
   }
-  .flex-item {
+  .left-item {
     flex: auto;
   }
   
-  .flex-menu > .raw-item {
+  .flex-menu > .right-item {
+    
   }
   .flex-container {
     font-family: Consolas, Arial, sans-serif;
