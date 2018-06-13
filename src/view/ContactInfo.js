@@ -1,7 +1,7 @@
 import React from 'react';
 import './ContactInfo.css'
 
-const ContactInfo = ({ selectedUser, btnEdit, btnDelete }) => {
+const ContactInfo = ({ selectedUser, btnEdit, btnDelete, roles }) => {
   const Title = () => {
     return (
       <div className='title valign-wrapper' >
@@ -54,9 +54,13 @@ const ContactInfo = ({ selectedUser, btnEdit, btnDelete }) => {
     return (
       <div className='roles valign-wrapper' >
         <div>Роли:</div>
-        {selectedUser.roles.map((item, id) => <div key={id} style={{ fontWeight: '900', margin: '5px 0 0 0' }} >{item}</div>)}
+        {selectedUser.roles.map((item, id) => <div key={id} style={{ fontWeight: '900', margin: '5px 0 0 0' }} >{_rolesByID(item)}</div>)}
       </div>
     )
+  }
+
+  const _rolesByID = (item) => {
+    return roles[item].name
   }
 
   return (

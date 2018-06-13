@@ -11,6 +11,11 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         }
     }
 
+    componentDidMount() {
+        //  $('.dropdown-trigger').dropdown();
+        //var x = $('.dropdown-button').dropdown();        
+    }
+
     onChange = (event) => {
         this.setState({
             user: {
@@ -86,13 +91,25 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                     <div>Роли</div>
                     <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => this.btnEdit()} ><i className="material-icons left"  >edit</i>Изменить</a>
                 </div>
-                {user.roles.map((item, id) => <div key={id} style={{ fontWeight: '900', margin: '5px 0 0 0' }} >{item}</div>)}
+                {user.roles.map((item, id) => <div key={id} style={{ fontWeight: '900', margin: '5px 0 0 0' }} >{this._rolesByID(item)}</div>)}
+                <ul id='dropdown1' className='dropdown-content' style={{ position: 'absolute', width: 'auto', height: 'auto',  display: 'block', opacity: '1', background: 'red'}} >
+                    <li><a href="#!">one</a></li>
+                    <li><a href="#!">two</a></li>
+                    <li className="divider"></li>
+                    <li><a href="#!">three</a></li>
+                    <li><a href="#!"><i className="material-icons">view_module</i>four</a></li>
+                    <li><a href="#!"><i className="material-icons">cloud</i>five</a></li>
+                </ul>
             </div>
         )
     }
 
     btnEdit = () => {
 
+    }
+
+    _rolesByID = (item) => {
+        return this.props.roles[item].name
     }
 
     Buttons = () => {

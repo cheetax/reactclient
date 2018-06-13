@@ -167,14 +167,14 @@ class ListUsersPage extends Component {
           {(this.state.selectedUser) ? <Avatar selectedUser={this.state.selectedUser} /> : null}
         </div>
         <div className='two-panel' >
-          <ContactInfo selectedUser={this.state.selectedUser} btnEdit={this.btnEdit} btnDelete={this.btnDelete} />
+          <ContactInfo selectedUser={this.state.selectedUser} btnEdit={this.btnEdit} btnDelete={this.btnDelete} roles={this.props.roles} />
         </div>
       </div>
     )
   }
 
   userEdit = () => {
-    return <UserEdit selectedUser={this.state.selectedUser} btnSave={this.btnSave} />
+    return <UserEdit selectedUser={this.state.selectedUser} btnSave={this.btnSave} roles={this.props.roles} />
   }
 
   render() {

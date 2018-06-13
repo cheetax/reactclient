@@ -6,7 +6,7 @@ export default function roles(state = {}, action) {
         case 'INITIAL_STATE':
             break;    
         case 'GET_ROLES':
-            newState = {...action.payload};
+            newState = {...action.payload.roles};
             break;
         default:
             newState = {...state};
