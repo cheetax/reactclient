@@ -92,14 +92,8 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                     <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => this.btnEdit()} ><i className="material-icons left"  >edit</i>Изменить</a>
                 </div>
                 {user.roles.map((item, id) => <div key={id} style={{ fontWeight: '900', margin: '5px 0 0 0' }} >{this._rolesByID(item)}</div>)}
-                <ul id='dropdown1' className='dropdown-content' style={{ position: 'absolute', width: 'auto', height: 'auto',  display: 'block', opacity: '1', background: 'red'}} >
-                    <li><a href="#!">one</a></li>
-                    <li><a href="#!">two</a></li>
-                    <li className="divider"></li>
-                    <li><a href="#!">three</a></li>
-                    <li><a href="#!"><i className="material-icons">view_module</i>four</a></li>
-                    <li><a href="#!"><i className="material-icons">cloud</i>five</a></li>
-                </ul>
+
+
             </div>
         )
     }
@@ -141,6 +135,24 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                         <this.Office />
                         <this.Roles />
                     </form>
+                    <div id='modal1' className='modal open' style={{
+                        position: 'absolute',
+                        top: '10%',
+                        width: '280px',
+                        display: 'block',
+                        opacity: '1',
+                        background: 'red',
+                        zIndex: '1003'
+                    }} >
+                        <ul id='dropdown1' >
+                            <li><a href="#!">one</a></li>
+                            <li><a href="#!">two</a></li>
+                            <li className="divider"></li>
+                            <li><a href="#!">three</a></li>
+                            <li><a href="#!"><i className="material-icons">view_module</i>four</a></li>
+                            <li><a href="#!"><i className="material-icons">cloud</i>five</a></li>
+                        </ul>
+                    </div>
                     <this.Buttons />
                 </div>
             </div>
