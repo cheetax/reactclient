@@ -9,6 +9,13 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         this.state = {
             user: props.selectedUser,
             openModal: false,
+            roles: (() => {
+                var roles = [];
+                for (var roleKey in this.props.roles) {
+                    roles.push(this.props.roles[roleKey])
+                }
+                return roles;
+            })(),
         }
         this.modal = this.modal.bind(this)
     }
@@ -85,10 +92,6 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
     }
 
     modal = () => {
-        var roles = [];
-        for (var roleKey in this.props.roles) {
-            roles.push(this.props.roles[roleKey])
-        }
         return (
             <div style={{ position: 'relative' }} >
                 <div style={this.state.openModal ? {
@@ -110,7 +113,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                         Выберите роли:
                     </div>
                     <div className='collection'  >
-                        {roles.map((item) => <a key={item.id} className='collection-item'>{item.name}</a>)}
+                        {this.state.roles.map((item) => <a key={item.id} className='collection-item'>{item.name}</a>)}
                     </div>
                     <div className='footer' >
                         <a className='waves-effect waves-teal btn-flat' onClick={() => {
