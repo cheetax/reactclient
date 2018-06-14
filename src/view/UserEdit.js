@@ -113,13 +113,19 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                         Выберите роли:
                     </div>
                     <div className='collection'  >
-                        {this.state.roles.map((item) => <a key={item.id} className='collection-item'>{item.name}</a>)}
+                        {this.state.roles.map((item) =>
+                            <a key={item.id} className='collection-item'>
+                           
+                                <input type='checkbox' className="filled-in" id="filled-in-box" />
+
+                                {item.name}
+                            </a>)}
                     </div>
                     <div className='footer' >
                         <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => {
                         }} >Отменить</a>
                         <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => {
-                        }} >Сохранить</a>
+                        }} >Принять</a>
 
                     </div>
                 </div>
