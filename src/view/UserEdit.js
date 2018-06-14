@@ -8,7 +8,9 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         super(props)
         this.state = {
             user: props.selectedUser,
+            openModal: false,
         }
+        this.modal = this.modal.bind(this)
     }
 
     componentDidMount() {
@@ -23,7 +25,6 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                 [event.target.id]: event.target.value,
             }
         })
-
     }
 
     Name = () => {
@@ -83,13 +84,63 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         )
     }
 
+    modal = () => {
+        var roles = [];
+        for (var roleKey in this.props.roles) {
+            roles.push(this.props.roles[roleKey])
+        }
+        return (
+            <div style={{ position: 'relative' }} >
+                <div style={this.state.openModal ? {
+                    position: 'fixed',
+                    background: 'black',
+                    opacity: '0.08',
+                    top: '0px',
+                    left: '0px',
+                    width: '100%',
+                    height: '100%',
+                    zIndex: '999',
+                } : null} />
+                <div id='modal1' className='modal-menu' style={this.state.openModal ? {
+                    width: '280px',
+                    display: 'block',
+                    opacity: '1',
+                } : null} >
+                    <div className='header' >
+                        Выберите роли:
+                    </div>
+                    <div className='collection'  >
+                        {roles.map((item) => <a key={item.id} className='collection-item'>{item.name}</a>)}
+                    </div>
+                    <div className='footer' >
+                        <a className='waves-effect waves-teal btn-flat' onClick={() => {
+                        }} >Сохранить</a>
+                        <a className='waves-effect waves-teal btn-flat' onClick={() => {
+                        }} >Отменить</a>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     Roles = () => {
         var user = this.state.user
         return (
             <div className='roles-edit input-field' >
+                {this.modal(this)}
+
                 <div className='title' >
                     <div>Роли</div>
-                    <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => this.btnEdit()} ><i className="material-icons left"  >edit</i>Изменить</a>
+                    <div>
+                        <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => this.setState({ openModal: true })} >
+                            <div >
+                                <i className="material-icons left"  >edit</i>
+                                Изменить
+                        </div>
+                        </a>
+                    </div>
+
+
                 </div>
                 {user.roles.map((item, id) => <div key={id} style={{ fontWeight: '900', margin: '5px 0 0 0' }} >{this._rolesByID(item)}</div>)}
 
@@ -98,7 +149,8 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         )
     }
 
-    btnEdit = () => {
+    btnEdit = (event) => {
+        var x = event.target.currentTarget
 
     }
 
@@ -135,24 +187,8 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                         <this.Office />
                         <this.Roles />
                     </form>
-                    <div id='modal1' className='modal open' style={{
-                        position: 'absolute',
-                        top: '10%',
-                        width: '280px',
-                        display: 'block',
-                        opacity: '1',
-                        background: 'red',
-                        zIndex: '1003'
-                    }} >
-                        <ul id='dropdown1' >
-                            <li><a href="#!">one</a></li>
-                            <li><a href="#!">two</a></li>
-                            <li className="divider"></li>
-                            <li><a href="#!">three</a></li>
-                            <li><a href="#!"><i className="material-icons">view_module</i>four</a></li>
-                            <li><a href="#!"><i className="material-icons">cloud</i>five</a></li>
-                        </ul>
-                    </div>
+
+
                     <this.Buttons />
                 </div>
             </div>
