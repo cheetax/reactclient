@@ -67,6 +67,14 @@
     font-size: 12px
 }
 
+.footer > .my-btn-flat {
+    padding: 0 8px;
+    margin: 0 4px;
+    font-size: 12px;
+    height: 36px;
+
+}
+
 .modal-menu > .header {
     font-size: 18px;
     font-weight: bold;
@@ -79,6 +87,7 @@
 
 .modal-menu > .collection > .collection-item {
     height: 48px;
+    font-size: 16px;
     padding: 10px 24px
 }
 
@@ -89,10 +98,12 @@
 .modal-menu > .footer {
     font-size: 18px;
     font-weight: bold;
-    margin: 0 24px;
+    margin: 0 4px 0 24px;
     height: 52px;
     flex-direction: row;
     align-items: center;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .title-edit {
@@ -137,7 +148,7 @@ form.edit{
     /* padding: 0; */
     /* max-height: 70%; */
     margin: 0 10px;
-    border-radius: 2px;
+    border-radius: 4px;
     will-change: top, opacity;
     box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);    
     z-index: 1003;

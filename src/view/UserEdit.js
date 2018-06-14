@@ -116,10 +116,11 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                         {this.state.roles.map((item) => <a key={item.id} className='collection-item'>{item.name}</a>)}
                     </div>
                     <div className='footer' >
-                        <a className='waves-effect waves-teal btn-flat' onClick={() => {
-                        }} >Сохранить</a>
-                        <a className='waves-effect waves-teal btn-flat' onClick={() => {
+                        <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => {
                         }} >Отменить</a>
+                        <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => {
+                        }} >Сохранить</a>
+
                     </div>
                 </div>
             </div>
