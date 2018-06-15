@@ -117,8 +117,11 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                         {this.state.roles.map((item) =>
                             <a key={item.id} className='collection-item'>
 
-                                {/* <input type='checkbox' className="filled-in" id="filled-in-box" /> */}
-                                <Checkbox />
+                                <label>
+                                    <input type='checkbox' className="filled-in" />
+                                    <span></span>
+                                </label>
+                                {/* <Checkbox /> */}
                                 {item.name}
                             </a>)}
                     </div>

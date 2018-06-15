@@ -76,6 +76,41 @@
 
 }
 
+.footer > .my-btn-flat:hover {
+    background: lightgray;
+}
+
+[type="checkbox"]+span:not(.lever) {
+    padding-left: 48px;
+    display: inline;
+    line-height: 24px;
+}
+
+[type="checkbox"].filled-in:checked+span:not(.lever):before {
+    width: 10px;
+    height: 14px;
+}
+
+[type="checkbox"].filled-in:not(:checked)+span:not(.lever):after {
+    height: 24px;
+    width: 24px;
+    background-color: transparent;
+    border: 2px solid #5a5a5a;
+    top: 0px;
+    z-index: 0;
+}
+
+[type="checkbox"].filled-in:checked+span:not(.lever):after {
+    top: 0;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #26a69a;
+    background-color: #26a69a;
+    z-index: 0;
+}
+
+
+
 .modal-menu > .header {
     font-size: 21px;
     font-weight: bold;
@@ -95,15 +130,6 @@
     
 }
 
-.filled-in {
-    width: 24px;
-    height: 24px;
-    background: transparent;
-}
-
-input[type="checkbox" i] {
-    background: red;
-}
 
 .modal-menu > .collection {
     margin: 0;
