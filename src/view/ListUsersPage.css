@@ -43,6 +43,7 @@
       border-left: 1px lightgrey solid ;
       flex-direction: row; 
       justify-content: center;
+      flex: auto;
       /* padding: 20px;  */
       /* height: 130px; */
   }

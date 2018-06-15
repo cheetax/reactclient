@@ -1,14 +1,18 @@
 import React from 'react';
+import Avatar from './Avatar'
 import './ContactInfo.css'
 
 const ContactInfo = ({ selectedUser, btnEdit, btnDelete, roles }) => {
   const Title = () => {
     return (
       <div className='title valign-wrapper' >
-        <div>Контакт</div>
+        {/* <div>Контакт</div> */}
+        <div id='NamePanel' className='one-panel grey lighten-4' >
+          {(selectedUser) ? <Avatar selectedUser={selectedUser} btnEdit={btnEdit} /> : null}
+        </div>
         <div>
-          <a className='waves-effect waves-light btn-floating btn-large' onClick={() => btnEdit()} ><i className="material-icons left"  >edit</i></a>
-          <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => btnDelete()} ><i className="material-icons center"  >delete</i></a>
+          
+          {/* <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => btnDelete()} ><i className="material-icons center"  >delete</i></a> */}
         </div>
       </div>
 

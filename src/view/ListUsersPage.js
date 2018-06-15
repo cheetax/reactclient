@@ -163,9 +163,7 @@ class ListUsersPage extends Component {
   userInfo = () => {
     return (
       <div className='userInfo' >
-        <div id='NamePanel' className='one-panel grey lighten-4' >
-          {(this.state.selectedUser) ? <Avatar selectedUser={this.state.selectedUser} /> : null}
-        </div>
+        
         <div className='two-panel' >
           <ContactInfo selectedUser={this.state.selectedUser} btnEdit={this.btnEdit} btnDelete={this.btnDelete} roles={this.props.roles} />
         </div>
