@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Avatar from './Avatar'
+import Avatar from './Avatar';
+import Checkbox from '../components/checkbox';
 import './UserEdit.css'
 
 class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
@@ -115,9 +116,9 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                     <div className='collection'  >
                         {this.state.roles.map((item) =>
                             <a key={item.id} className='collection-item'>
-                           
-                                <input type='checkbox' className="filled-in" id="filled-in-box" />
 
+                                {/* <input type='checkbox' className="filled-in" id="filled-in-box" /> */}
+                                <Checkbox />
                                 {item.name}
                             </a>)}
                     </div>

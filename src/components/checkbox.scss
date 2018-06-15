@@ -1,0 +1,40 @@
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.React__checkbox--input {
+  display: none;
+}
+
+.React__checkbox--input {
+  + span {
+    color: red;
+    display: flex;
+    width: 24px;
+    height: 24px;
+    background: black;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin: 5px;
+    border: 0px solid #00CECC;
+    box-sizing: border-box;
+    transition: all 150ms;
+  }
+  &:checked {
+    + span {
+      border-width: 24px / 2;
+      &::before {
+        content: 'check';
+        font-family: 'Material Icons';
+        font-size: 24px;
+        color: black;
+      }
+    }
+  }
+  &:disabled {
+    + span {
+      background: rgba(0, 0, 0, .35);
+    }
+  }
+}
