@@ -17,8 +17,12 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                 }
                 return roles;
             })(),
+            userRoles: [...props.selectedUser.roles],
         }
         this.modal = this.modal.bind(this)
+        this._onChecked = this._onChecked.bind(this)
+        this._onAccepted = this._onAccepted.bind(this)
+
     }
 
     componentDidMount() {
@@ -93,6 +97,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
     }
 
     modal = () => {
+        var user = {...this.state.user};
         return (
             <div style={{ position: 'relative' }} >
                 <div style={this.state.openModal ? {
@@ -116,9 +121,8 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                     <div className='collection'  >
                         {this.state.roles.map((item) =>
                             <a key={item.id} className='collection-item'>
-
                                 <label>
-                                    <input type='checkbox' className="filled-in" />
+                                    <input id={item.id} checked={this.state.userRoles.includes(item.id)} type='checkbox' className="filled-in" onChange={this._onChecked} />
                                     <span></span>
                                 </label>
                                 {/* <Checkbox /> */}
@@ -126,10 +130,8 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                             </a>)}
                     </div>
                     <div className='footer' >
-                        <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => {
-                        }} >Отменить</a>
-                        <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => {
-                        }} >Принять</a>
+                        <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => this.setState({ openModal: false, userRoles: [...this.state.user.roles] })} >Закрыть</a>
+                        <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={this._onAccepted} >Принять</a>
 
                     </div>
                 </div>
@@ -144,7 +146,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                 {this.modal(this)}
 
                 <div className='title' >
-                    <div>Роли</div>
+                    <div>Роли:</div>
                     <div>
                         <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => this.setState({ openModal: true })} >
                             <div >
@@ -156,7 +158,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
 
 
                 </div>
-                {user.roles.map((item, id) => <div key={id} style={{ fontWeight: '900', margin: '5px 0 0 0' }} >{this._rolesByID(item)}</div>)}
+                {user.roles.map((item, id) => <div key={id} style={{ margin: '5px 0 0 0' }} >{this._rolesByID(item)}</div>)}
 
 
             </div>
@@ -166,6 +168,23 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
     btnEdit = (event) => {
         var x = event.target.currentTarget
 
+    }
+
+    _onChecked = (event) => {
+        var roles = [...this.state.userRoles];
+        if (event.target.checked) roles.push(event.target.id)
+        else roles = roles.filter(item => item != event.target.id)
+        this.setState({
+            userRoles: roles,
+        })
+        console.log(event);
+    }
+
+    _onAccepted = () => {
+        this.setState({
+            user: { ...this.state.user, roles: this.state.userRoles },
+            openModal: false
+        })
     }
 
     _rolesByID = (item) => {

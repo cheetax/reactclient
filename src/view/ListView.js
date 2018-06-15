@@ -10,7 +10,7 @@ class ListView extends Component {
         super(props)
         var setSelectedIndex = -1;
         if (props.setSelectedIndex) setSelectedIndex = props.setSelectedIndex
-        this.state = {            
+        this.state = {
             rowHeight: props.rowHeight,
             items_select: props.items.map((item, index) => ({ active: (setSelectedIndex == index) })),
             items: props.items,
@@ -52,7 +52,6 @@ class ListView extends Component {
             _itemsElements = _itemsElements.splice(i - 1, i_end + 1);
 
             i = i - 1 + _itemsElements.findIndex(item => !_itemsSearch.includes(JSON.stringify(item)));
-            console.log(i + ' ' + items1.length);
             return i < 0 ? -1 : i;
         })())
     })
@@ -60,6 +59,7 @@ class ListView extends Component {
     componentWillUpdate(props, prevProps) {
         if (props.items !== prevProps.items) {
             this.getIndexAsync(props.items, prevProps.items).then((index) => {
+                if (index == -1) index = this.state.prevItem;
                 index = props.items.length == index ? index - 1 : index;
                 this.rowRenderer = props.rowRenderer;
                 this.setState({
@@ -69,6 +69,7 @@ class ListView extends Component {
                     setSelectedIndex: index,
                     prevItem: index,
                 })
+
             })
         }
     }
