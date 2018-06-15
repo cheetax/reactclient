@@ -7,7 +7,7 @@ const ContactInfo = ({ selectedUser, btnEdit, btnDelete, roles }) => {
       <div className='title valign-wrapper' >
         <div>Контакт</div>
         <div>
-          <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => btnEdit()} ><i className="material-icons left"  >edit</i>Изменить</a>
+          <a className='waves-effect waves-light btn-floating btn-large' onClick={() => btnEdit()} ><i className="material-icons left"  >edit</i></a>
           <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => btnDelete()} ><i className="material-icons center"  >delete</i></a>
         </div>
       </div>

@@ -15,8 +15,12 @@ const Avatar = ({ selectedUser }) => {
 
   return (
     <div className='valign-wrapper user-info' >
-      <div className='circle grey darken-1 white-text valign-wrapper md-32 avatar' style={{ minWidth: 85, minHeight: 85 }} >{avatar()}</div>
-      <div className='md-18 margin-18'>{name()}</div>
+
+      <div className='circle grey darken-1 white-text valign-wrapper md-32 avatar' >{avatar()}</div>
+
+
+
+      <div className='title'>{name()}</div>
     </div>
   )
 }

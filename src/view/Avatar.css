@@ -3,6 +3,9 @@
     font-weight: normal;
     display: flex;
     justify-content: center;
+    min-width: 85px;
+    min-height: 85px;
+    margin: 24px;
   }
 
 .user-info {
@@ -10,6 +13,18 @@
     font-size: 18px;
     font-weight: bold;
     word-break: break-all;
+    display: flex;
+    flex: auto;
+    flex-direction: column;
   }
 
+  .user-info > .title {
+    padding: 10px 24px;
+    flex: auto;
+    margin: 0px;
+    font-weight: normal;
+    background-color: #fff;
+    justify-content: flex-start;
+    align-self: stretch;
+  }
 .margin-18 {margin: 18px}
