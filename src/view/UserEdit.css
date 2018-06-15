@@ -101,10 +101,6 @@
     background: transparent;
 }
 
-input[type="checkbox" i] {
-    background: red;
-}
-
 .modal-menu > .collection {
     margin: 0;
     border-right-width: 0px;
