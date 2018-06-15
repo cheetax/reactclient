@@ -159,8 +159,6 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
 
                 </div>
                 {user.roles.map((item, id) => <div key={id} style={{ margin: '5px 0 0 0' }} >{this._rolesByID(item)}</div>)}
-
-
             </div>
         )
     }
