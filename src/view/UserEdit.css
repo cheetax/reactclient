@@ -76,9 +76,6 @@
 
 }
 
-.footer > .my-btn-flat:hover {
-    background: lightgray;
-}
 
 [type="checkbox"]+span:not(.lever) {
     padding-left: 48px;

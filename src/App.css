@@ -54,3 +54,8 @@
 .flex-container {
   font-family: Consolas, Arial, sans-serif;
 }
+
+.my-btn-flat:hover {
+  background-color: rgba(0,0,0,0.1);
+  box-shadow: none;
+}
