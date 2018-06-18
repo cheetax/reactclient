@@ -88,7 +88,9 @@ class ListUsersPage extends Component {
       phone: '',
       email: '',
       post: '',
-      office: '',
+      office: '',      
+      usePassword: false,
+      password: '',
       roles: []
     }
     this.setState({

@@ -44,6 +44,15 @@
     font-weight: normal;
 }
 
+.password-edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: flex-start;
+    margin: 8px 0px 0 0px ;
+    font-weight: normal;
+}
+
 .roles-edit {
     display: flex;
     flex-direction: column;
@@ -68,26 +77,29 @@
     overflow: unset;
 }
 
-
-.title-edit > .my-btn-flating {
-    border-radius: 50%;
-    padding: 0 8px;
+.my-checkbox {
+    margin: 0 0 16px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
 }
 
-.footer > .my-btn-flat {
-    padding: 0 8px;
-    margin: 12px 8px 8px 8px;
-    font-size: 14px;
-    height: 36px;    
-    color: #26a69a;
 
+.my-btn-flating {
+    border-radius: 50%;
+    padding: 0 8px;
+   
+}
+
+.my-btn-flat {
+    font-weight: bold;
 }
 
 .header-edit {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    margin: 0 0 0 32px 
+    margin: 0 0 0 24px 
 }
 
 
@@ -159,7 +171,7 @@
 }
 
 .title-edit {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 900;
     display: flex;
     text-overflow: clip;
@@ -168,6 +180,20 @@
     align-items: center;
     height: 56px;
 }
+
+.title-roles {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    /* margin: 15px 10px 0 20px ; */
+    /* font-weight: 900; */
+}
+.color-accent {
+    color: #26a69a;
+}
+
 
 @media (min-height: 720px) {
 .avatar-panel {
@@ -188,7 +214,7 @@
         flex-direction: column; 
         justify-content: flex-start;
         flex: auto;
-        padding: 8px 8px 0px 16px; 
+        padding: 0px 8px 0px 16px; 
     }}
 
 form.edit{
@@ -234,6 +260,7 @@ form.edit{
 .modal-more-item {
     height: 32px;
     color: black;
+    font-weight: normal;
     flex: auto;
     padding: 0 16px;
     font-size: 16px;

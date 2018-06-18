@@ -20,9 +20,10 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
             })(),
             userRoles: [...props.selectedUser.roles],
         }
-        this.modal = this.modal.bind(this)
-        this._onChecked = this._onChecked.bind(this)
-        this._onAccepted = this._onAccepted.bind(this)
+        this.modal = this.modal.bind(this);
+        this._onCheckedRoles = this._onCheckedRoles.bind(this);
+        this._onCheckedPassword = this._onCheckedPassword.bind(this);
+        this._onAccepted = this._onAccepted.bind(this);
 
     }
 
@@ -123,7 +124,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                         {this.state.roles.map((item) =>
                             <a key={item.id} className='collection-item'>
                                 <label>
-                                    <input id={item.id} checked={this.state.userRoles.includes(item.id)} type='checkbox' className="filled-in" onChange={this._onChecked} />
+                                    <input id={item.id} checked={this.state.userRoles.includes(item.id)} type='checkbox' className="filled-in" onChange={this._onCheckedRoles} />
                                     <span></span>
                                 </label>
                                 {/* <Checkbox /> */}
@@ -159,7 +160,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                 } : null} >
                     <div className='modal-more-menu' >
                         <a className='modal-more-item' onClick={() => {
-                            this.setState({openModalMore: false})
+                            this.setState({ openModalMore: false })
                             this.props.btnDelete()
                         }} >Удалить</a>
                     </div>
@@ -175,10 +176,10 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
             <div className='roles-edit input-field' >
                 {this.modal(this)}
 
-                <div className='title' >
+                <div className='title-roles' >
                     <div>Роли:</div>
                     <div>
-                        <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => this.setState({ openModal: true })} >
+                        <a className='waves-effect waves-teal btn-flat my-btn-flat color-accent' onClick={() => this.setState({ openModal: true })} >
                             <div >
                                 <i className="material-icons left"  >edit</i>
                                 Изменить
@@ -193,12 +194,37 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         )
     }
 
+    Password = () => {
+        var user = this.state.user
+        return (
+            <div>
+                <div className='my-checkbox'>
+                    <div>Использовать пароль</div>
+                    <div className='switch'>
+                        <label>
+                            <input checked={user.usePassword} type='checkbox' className="filled-in" onChange={this._onCheckedPassword} />
+                            <span className="lever" ></span>
+                        </label>
+                    </div>
+
+                </div>
+
+                <div className='password-edit input-field' >
+                    <input checked={user.usePassword} type='checkbox' className="filled-in" onChange={this._onCheckedPassword} />
+                    <input id="password" value={user.password} disabled={!user.usePassword} type="password" className="" onChange={this.onChange} />
+                    <label htmlFor="password" className={user.password ? 'active' : ''} >Пароль</label>
+                </div>
+            </div>
+
+        )
+    }
+
     btnEdit = (event) => {
         var x = event.target.currentTarget
 
     }
 
-    _onChecked = (event) => {
+    _onCheckedRoles = (event) => {
         var roles = [...this.state.userRoles];
         if (event.target.checked) roles.push(event.target.id)
         else roles = roles.filter(item => item != event.target.id)
@@ -206,6 +232,15 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
             userRoles: roles,
         })
         console.log(event);
+    }
+
+    _onCheckedPassword = (event) => {
+        this.setState({
+            user: {
+                ...this.state.user,
+                usePassword: event.target.checked,
+            }
+        })
     }
 
     _onAccepted = () => {
@@ -257,13 +292,15 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                         </div>
 
                     </div>
-                    <Avatar selectedUser={this.props.selectedUser} />
+
                     <form className='edit' >
+                        <Avatar selectedUser={this.props.selectedUser} />
                         <this.Name />
                         <this.Phone />
                         <this.Email />
                         <this.Post />
                         <this.Office />
+                        <this.Password />
                         <this.Roles />
                     </form>
                 </div>
