@@ -40,7 +40,6 @@
     .one-panel {
       border-bottom: 1px lightgrey solid ;
       display: flex;
-      border-left: 1px lightgrey solid ;
       flex-direction: row; 
       justify-content: center;
       flex: auto;
@@ -51,7 +50,6 @@
     .two-panel {
       flex-direction: column;
       border-bottom: 1px lightgrey solid;
-      border-left: 1px lightgrey solid ;
       flex: auto;
   }
 

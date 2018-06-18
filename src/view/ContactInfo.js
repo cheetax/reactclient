@@ -3,6 +3,12 @@ import Avatar from './Avatar'
 import './ContactInfo.css'
 
 const ContactInfo = ({ selectedUser, btnEdit, btnDelete, roles }) => {
+
+  const name = () => {
+    if (selectedUser) return selectedUser.firstName + ' ' + selectedUser.surName
+    else '';
+  }
+  
   const Title = () => {
     return (
       <div className='title valign-wrapper' >
@@ -10,10 +16,13 @@ const ContactInfo = ({ selectedUser, btnEdit, btnDelete, roles }) => {
         <div id='NamePanel' className='one-panel grey lighten-4' >
           {(selectedUser) ? <Avatar selectedUser={selectedUser} btnEdit={btnEdit} /> : null}
         </div>
-        <div>
-          
-          {/* <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => btnDelete()} ><i className="material-icons center"  >delete</i></a> */}
+        <div style={{ height: '0px', alignSelf: 'flex-end' }} >
+          <a className='waves-effect waves-light btn-floating btn-large my-btn-floating' onClick={() => btnEdit()} ><i className="material-icons"  >edit</i></a>
+
         </div>
+
+
+        <div className='name-user'>{name()}</div>
       </div>
 
     )

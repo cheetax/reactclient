@@ -10,6 +10,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         this.state = {
             user: props.selectedUser,
             openModal: false,
+            openModalMore: false,
             roles: (() => {
                 var roles = [];
                 for (var roleKey in this.props.roles) {
@@ -97,7 +98,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
     }
 
     modal = () => {
-        var user = {...this.state.user};
+        var user = { ...this.state.user };
         return (
             <div style={{ position: 'relative' }} >
                 <div style={this.state.openModal ? {
@@ -134,6 +135,32 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                         <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={this._onAccepted} >Принять</a>
 
                     </div>
+                </div>
+            </div>
+        )
+    }
+
+    modalMore = () => {
+        return (
+            <div >
+                <div style={this.state.openModalMore ? {
+                    position: 'fixed',
+                    background: 'black',
+                    opacity: '0.08',
+                    top: '0px',
+                    left: '0px',
+                    width: '100%',
+                    height: '100%',
+                    zIndex: '999',
+                } : null} />
+                <div id='modal1' className='modal-more' style={this.state.openModalMore ? {
+                    display: 'block',
+                    opacity: '1',
+                } : null} >
+                    <div className='modal-more-menu' >
+                        <a className='modal-more-item'>Удалить</a>
+                    </div>
+
                 </div>
             </div>
         )
@@ -193,9 +220,9 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         var user = this.state.user
         return (
             <div className='button-panel'>
-                <a className='waves-effect waves-light btn' onClick={() => {
+                <a className='waves-effect waves-teal btn-flat' onClick={() => {
                     if (user !== null) this.props.btnSave(user)
-                }} >Сохранить</a>
+                }} ></a>
                 <a className='waves-effect waves-light btn' onClick={() => {
                     this.props.btnSave(null)
                 }} >Отменить</a>
@@ -204,11 +231,27 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
         )
     }
     render() {
+        var user = this.state.user
         return (
 
             <div className='valign-wrapper contact-info' >
                 <div id='NamePanel' className='avatar-panel grey lighten-4' >
-                    <div className='title-edit' >{(!this.props.selectedUser.id) ? 'Новый пользователь' : 'Редактирование пользователя'} </div>
+                    <div className='title-edit' >
+                        <a className='btn-back my-btn-flating' onClick={() => {
+                            this.props.btnSave(null)
+                        }} ><i className="material-icons md-18">close</i></a>
+                        <div className='header-edit' >
+                            {(!this.props.selectedUser.id) ? 'Новый пользователь' : 'Изменить пользователя'}
+                        </div>
+                        <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => {
+                            if (user !== null) this.props.btnSave(user)
+                        }} >Сохранить</a>
+
+                        <a className='btn-back my-btn-flating' onClick={() => this.setState({ openModalMore: true })} >
+                            {this.modalMore(this)}
+                            <i className="material-icons md-18">more_vert</i>
+                        </a>
+                    </div>
                     <Avatar selectedUser={this.props.selectedUser} />
                     <form className='edit' >
                         <this.Name />
@@ -218,9 +261,6 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                         <this.Office />
                         <this.Roles />
                     </form>
-
-
-                    <this.Buttons />
                 </div>
             </div>
         )
