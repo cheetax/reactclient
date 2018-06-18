@@ -158,7 +158,10 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                     opacity: '1',
                 } : null} >
                     <div className='modal-more-menu' >
-                        <a className='modal-more-item'>Удалить</a>
+                        <a className='modal-more-item' onClick={() => {
+                            this.setState({openModalMore: false})
+                            this.props.btnDelete()
+                        }} >Удалить</a>
                     </div>
 
                 </div>
@@ -246,11 +249,13 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                         <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => {
                             if (user !== null) this.props.btnSave(user)
                         }} >Сохранить</a>
-
-                        <a className='btn-back my-btn-flating' onClick={() => this.setState({ openModalMore: true })} >
+                        <div style={{ position: 'relative' }} >
                             {this.modalMore(this)}
-                            <i className="material-icons md-18">more_vert</i>
-                        </a>
+                            <a className='btn-back my-btn-flating' onClick={() => this.setState({ openModalMore: true })} >
+                                <i className="material-icons md-18">more_vert</i>
+                            </a>
+                        </div>
+
                     </div>
                     <Avatar selectedUser={this.props.selectedUser} />
                     <form className='edit' >

@@ -111,18 +111,21 @@ class ListUsersPage extends Component {
     if (this.state.selectedIndex == this.props.users.length - 1) {
       this.setState({
         selectedUser: this.props.users[this.state.selectedIndex-1],
-        selectedIndex: this.state.selectedIndex-1,
+        selectedIndex: this.state.selectedIndex - 1,
+        edit: false
       })
     }
     else {
       this.setState({
-        selectedUser: this.props.users[this.state.selectedIndex+1],
+        selectedUser: this.props.users[this.state.selectedIndex + 1],
+        edit: false
       })
     }
     this.props.dispatch({
       type: 'DELETE_USER',
       payload: this.state.selectedUser
     })
+    
   }
 
   btnSave = (editUser) => {
@@ -172,7 +175,7 @@ class ListUsersPage extends Component {
   }
 
   userEdit = () => {
-    return <UserEdit selectedUser={this.state.selectedUser} btnSave={this.btnSave} roles={this.props.roles} />
+    return <UserEdit selectedUser={this.state.selectedUser} btnSave={this.btnSave} btnDelete={this.btnDelete} roles={this.props.roles} />
   }
 
   render() {
