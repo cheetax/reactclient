@@ -1,0 +1,21 @@
+.img-cont {
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+.img-cover {
+    object-fit: cover;
+    /* height: 100%; */
+    width: 100%;
+}
+
+.cont-img {
+    display: flex;
+    /* height: 50%; */
+    /* width: 50%; */
+    align-items: stretch;
+    justify-content: stretch;
+}

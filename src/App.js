@@ -6,6 +6,7 @@ import { setLogin, getLogin } from './actions/login'
 import ListUsersPage from './view/ListUsersPage'
 import TabsBarView from './view/TabsBarView'
 import TabBarItem from './view/TabBarItem'
+import LoginPage from './view/LoginPage'
 //import { Navbar, NavItem } from 'react-materialize'
 import './App.css';
 //import './materialize/css/materialize.css'
@@ -55,9 +56,10 @@ class App extends Component {
 
   content = () => {
     switch (this.state.contentView) {
-      case 0:
-        
+      case 0:        
         return <ListUsersPage />
+      case 1:
+       return <LoginPage />  
       default:
         return <div />
     }
