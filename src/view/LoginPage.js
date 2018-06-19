@@ -29,12 +29,21 @@ class LoginPage extends Component {
   render() {
 
     return (
-      <div className='img-cont' >
-        <div className='cont-img' >
-          <img className='img-cover' src='./img/login.jpg' />
+      <div className='login-main-panel' >
+        <div className='login-left-panel'>
+          <div className='img-cont' >
+            <div className='cont-img' >
+              <img className='img-cover' src='./img/login.png' />
+            </div>
+
+          </div>
         </div>
-        
+        <div className='login-right-panel'>
+          <div className='login-form' />
+        </div>
+
       </div>
+
     );
   }
 }
