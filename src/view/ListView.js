@@ -12,7 +12,7 @@ class ListView extends Component {
         if (props.setSelectedIndex) setSelectedIndex = props.setSelectedIndex
         this.state = {
             rowHeight: props.rowHeight,
-            items_select: props.items.map((item, index) => ({ active: (setSelectedIndex == index) })),
+            items_select: props.items.map((item, index) => ({ active: (setSelectedIndex === index) })),
             items: props.items,
             setSelectedIndex: setSelectedIndex,
             prevItem: -1
@@ -30,13 +30,13 @@ class ListView extends Component {
             var i = -1;
             var _itemsSearch = [...items1];
             var _itemsElements = [...items2];
-            if (items1.length != items2.length && items2.length != 0) {
+            if (items1.length !== items2.length && items2.length !== 0) {
                 if (items1.length > items2.length) {
                     _itemsSearch = [...items2];
                     _itemsElements = [...items1];
                 }
                 var i_end = _itemsElements.length;
-                for (var i = (i_end / 2 | 0); i_end - i > 1 && i > 1;) {
+                for (i = (i_end / 2 | 0); i_end - i > 1 && i > 1;) {
 
                     if (JSON.stringify(_itemsElements[i]) === JSON.stringify(_itemsSearch[i])) {
                         i = i + ((i_end - i) / 2 | 0);
@@ -59,13 +59,13 @@ class ListView extends Component {
     componentWillUpdate(props, prevProps) {
         if (props.items !== prevProps.items) {
             this.getIndexAsync(props.items, prevProps.items).then((index) => {
-                if (index == -1) index = this.state.prevItem;
-                index = props.items.length == index ? index - 1 : index;
+                if (index === -1) index = this.state.prevItem;
+                index = props.items.length === index ? index - 1 : index;
                 this.rowRenderer = props.rowRenderer;
                 this.setState({
                     rowHeight: props.rowHeight,
                     items: props.items,
-                    items_select: props.items.map((item, i) => ({ active: (i == index) })),
+                    items_select: props.items.map((item, i) => ({ active: (i === index) })),
                     setSelectedIndex: index,
                     prevItem: index,
                 })
@@ -77,7 +77,7 @@ class ListView extends Component {
     _onClick = (key) => {
         var _key = parseInt(key, 10)
         var _items_select = this.state.items_select;
-        if (this.state.prevItem != -1 && this.state.prevItem < _items_select.length) _items_select[this.state.prevItem].active = false;
+        if (this.state.prevItem !== -1 && this.state.prevItem < _items_select.length) _items_select[this.state.prevItem].active = false;
         _items_select[_key].active = true;
         this.setState({
             items_select: _items_select,
