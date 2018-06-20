@@ -51,23 +51,25 @@ class LoginPage extends Component {
             <span className='logo-text' >
               <img src='./img/logo-text.svg' />
             </span>
+
+
+          </span>
+          <div className='login-form'>
             <div className='login-text' >
               ВХОД
-            </div>
-            <div className='login-form'>
-            <a class="waves-effect waves-light btn-small btn-login color-blue">Используя учетную запись</a>
-              <div className="div-field">
-                <input id="login" value={this.state.login} type="email" className="inp-field browser-default" onChange={this.onChange} />
-                <label htmlFor="login" className={this.state.login ? 'active' : ''}>Пользователь (email)</label>
               </div>
-              <div className="input-field">
-                <input id="password" type="password" value={this.state.password} onChange={this.onChange} />
-                <label htmlFor="password" className={this.state.password ? 'active' : ''} >Пароль</label>
-              </div>
-              <a class="waves-effect waves-light btn-small btn-login color-green">ВОЙТИ</a>
-            </div>
-          </span>
+            <a className="waves-effect waves-light btn-small btn-login color-blue">Войти с учетной записью</a>
 
+            <div className="div-field">
+              <input id="login" value={this.state.login} type="email" className="inp-field browser-default login" onChange={this.onChange} />
+              <label htmlFor="login" className={this.state.login ? 'active' : ''}>EMAIL</label>
+            </div>
+            <div className="div-field">
+              <input id="password" type="password" value={this.state.password} className="inp-field browser-default login" onChange={this.onChange} />
+              <label htmlFor="password" className={this.state.password ? 'active' : ''} >Пароль</label>
+            </div>
+            <a className={(() => "waves-effect waves-light btn-small btn-login color-green " + ((!this.state.login || !this.state.password) ? "disabled" : ''))()}>ВОЙТИ</a>
+          </div>
         </div>
 
       </div>
