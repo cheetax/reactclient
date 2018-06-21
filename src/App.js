@@ -14,7 +14,8 @@ import './App.css';
 const mapStateToProps = (state) => {
   return {
     users: state.users,
-    login: state.login
+    login: state.login,
+    contentView: state.contentView,
   };
 }
 
@@ -23,12 +24,12 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      contentView: -1,
+      
     }
   }
 
   componentWillMount() {
-    this.props.dispatch(getLogin())
+    if (!document.cookie) this.props.dispatch(setLogin())
   }
 
   componentDidMount() {
@@ -37,7 +38,8 @@ class App extends Component {
   }
 
   btnLogin = () => {
-    this.props.dispatch(setLogin())
+    this.dispatch({type: 'NEW_PAGE', payload: -1})
+    //this.props.dispatch(setLogin())
   }
 
   getUsers = () => {
@@ -46,7 +48,7 @@ class App extends Component {
   }
 
   onSelectedItem = (index) => {
-    return this.setState({ contentView: index })
+    return this.setState({ type: 'NEW_PAGE', payload: index })
   }
 
   login = () => {
@@ -55,10 +57,10 @@ class App extends Component {
   }
 
   content = () => {
-    switch (this.state.contentView) {
+    switch (this.props.contentView) {
       case 0:        
         return <ListUsersPage />
-      case 1:
+      case -1:
        return <LoginPage />  
       default:
         return <div />

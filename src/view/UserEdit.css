@@ -282,12 +282,6 @@ input[type=email]:not(.login) {
     height: 2.5rem;
 }
 
-.btn {
-    height: 32.4px;
-    line-height: 32.4px;
-    font-size: 13px;
-}
-
 .btn-back {
     position: relative;
     height: 24px;

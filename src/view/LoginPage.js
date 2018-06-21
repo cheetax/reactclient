@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { setLogin, getLogin } from '../actions/login'
 import './LoginPage.css'
 
 const mapStateToProps = (state) => {
@@ -27,11 +28,15 @@ class LoginPage extends Component {
   }
 
   onChange = (event) => {
-    this.setState({
+      this.setState({
       [event.target.id]: event.target.value,
     })
   }
 
+  btnLogin = () => {
+    this.props.dispatch(getLogin(this.state))
+  }
+ 
   render() {
 
     return (
@@ -58,17 +63,20 @@ class LoginPage extends Component {
             <div className='login-text' >
               ВХОД
               </div>
-            <a className="waves-effect waves-light btn-small btn-login color-blue">Войти с учетной записью</a>
+            <a className="waves-effect waves-light btn btn-login color-blue">Войти с учетной записью</a>
 
             <div className="div-field">
-              <input id="login" value={this.state.login} type="email" className="inp-field browser-default login" onChange={this.onChange} />
+              <input id="login" value={this.state.login} type="email" className="inp-field browser-default login validate" onChange={this.onChange} />
               <label htmlFor="login" className={this.state.login ? 'active' : ''}>EMAIL</label>
             </div>
             <div className="div-field">
               <input id="password" type="password" value={this.state.password} className="inp-field browser-default login" onChange={this.onChange} />
               <label htmlFor="password" className={this.state.password ? 'active' : ''} >Пароль</label>
             </div>
-            <a className={(() => "waves-effect waves-light btn-small btn-login color-green " + ((!this.state.login || !this.state.password) ? "disabled" : ''))()}>ВОЙТИ</a>
+            <a
+              className={(() => "waves-effect waves-light btn btn-login color-green " + ((!this.state.login || !this.state.password) ? "disabled" : ''))()}
+              onClick={this.btnLogin}
+            >ВОЙТИ</a>
           </div>
         </div>
 
