@@ -28,7 +28,7 @@ class LoginPage extends Component {
   }
 
   onChange = (event) => {
-      this.setState({
+    this.setState({
       [event.target.id]: event.target.value,
     })
   }
@@ -36,7 +36,7 @@ class LoginPage extends Component {
   btnLogin = () => {
     this.props.dispatch(getLogin(this.state))
   }
- 
+
   render() {
 
     return (
@@ -66,7 +66,20 @@ class LoginPage extends Component {
             <a className="waves-effect waves-light btn btn-login color-blue">Войти с учетной записью</a>
 
             <div className="div-field">
-              <input id="login" value={this.state.login} type="email" className="inp-field browser-default login validate" onChange={this.onChange} />
+              <input
+                id="login"
+                value={this.state.login}
+                type="email"
+                className="inp-field browser-default login validate"
+                autoComplete='off'
+                autoFocus
+                onFocus={
+                  (e)=>{
+                    console.log(e)
+                  }
+                }
+                onChange={this.onChange}
+              />
               <label htmlFor="login" className={this.state.login ? 'active' : ''}>EMAIL</label>
             </div>
             <div className="div-field">

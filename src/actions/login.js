@@ -1,9 +1,14 @@
 export const setLogin = () => (dispath) => {
     console.log(window.location)
     window.document.location = 'http://localhost:3001/login';
+    dispath({
+        type: 'NEW_PAGE',
+        payload: -1
+    })
 };
 
 export const getLogin = (account) => (dispatch) => {
+    if (account === undefined) account = {};
     fetch('http://localhost:3001/login',
         {
             method: 'POST',
@@ -18,13 +23,14 @@ export const getLogin = (account) => (dispatch) => {
         }).then((data) => {
             dispatch({
                 type: 'LOGIN',
-                payload: data.status
+                payload: data
             })
-            if (data.status) {
-                dispatch({
-                    type: 'NEW_PAGE',
-                    payload: null
-                })
-            }
+
+            dispatch({
+                type: 'NEW_PAGE',
+                payload: data.status ? null : -1
+            })
+            
         })
 };
+

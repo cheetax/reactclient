@@ -28,17 +28,13 @@ class App extends Component {
     }
   }
 
-  componentWillMount() {
-    if (!document.cookie) this.props.dispatch(setLogin())
-  }
-
   componentDidMount() {
-    //document.readyState
-    //$('.button-collapse').sideNav(this.props.options);
+    if (!document.cookie) this.props.dispatch(setLogin())
+    else this.props.dispatch(getLogin());
   }
 
   btnLogin = () => {
-    this.dispatch({type: 'NEW_PAGE', payload: -1})
+    this.props.dispatch({type: 'NEW_PAGE', payload: -1})
     //this.props.dispatch(setLogin())
   }
 
@@ -48,12 +44,12 @@ class App extends Component {
   }
 
   onSelectedItem = (index) => {
-    return this.setState({ type: 'NEW_PAGE', payload: index })
+    return this.props.dispatch({ type: 'NEW_PAGE', payload: index })
   }
 
   login = () => {
-    if (!this.props.login) { return <TabBarItem right onClick={this.btnLogin.bind(this)} >Войти</TabBarItem> }
-    else { return <TabBarItem right disabled>Добро пожаловать</TabBarItem> }
+    if (!this.props.login.status) { return <TabBarItem right onClick={this.btnLogin.bind(this)} >Войти</TabBarItem> }
+    else { return <TabBarItem right disabled>Добро пожаловать {this.props.login.user.firstName}</TabBarItem> }
   }
 
   content = () => {
@@ -61,6 +57,7 @@ class App extends Component {
       case 0:        
         return <ListUsersPage />
       case -1:
+      case 1:
        return <LoginPage />  
       default:
         return <div />

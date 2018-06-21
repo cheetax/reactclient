@@ -1,6 +1,6 @@
-var newState = [];
+var newState = {};
 
-export default function login (state = false, action) {
+export default function login (state = {login: false, user: null}, action) {
     
     switch (action.type) {        
         case 'INITIAL_STATE':

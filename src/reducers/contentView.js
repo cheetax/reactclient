@@ -1,6 +1,6 @@
 var newState = -1;
 
-export default function contentView (state = -1, action) {
+export default function contentView (state = null, action) {
     
     switch (action.type) {        
         case 'NEW_PAGE':
