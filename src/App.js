@@ -24,8 +24,9 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      
+
     }
+    this.onSelectedItem = this.onSelectedItem.bind(this);
   }
 
   componentDidMount() {
@@ -34,7 +35,7 @@ class App extends Component {
   }
 
   btnLogin = () => {
-    this.props.dispatch({type: 'NEW_PAGE', payload: -1})
+    this.props.dispatch({ type: 'NEW_PAGE', payload: -1 })
     //this.props.dispatch(setLogin())
   }
 
@@ -44,43 +45,66 @@ class App extends Component {
   }
 
   onSelectedItem = (index) => {
-    return this.props.dispatch({ type: 'NEW_PAGE', payload: index })
+
+    if (this.props.login.status) this.props.dispatch({ type: 'NEW_PAGE', payload: index })
   }
 
-  login = () => {
-    if (!this.props.login.status) { return <TabBarItem right onClick={this.btnLogin.bind(this)} >Войти</TabBarItem> }
-    else { return <TabBarItem right disabled>Добро пожаловать {this.props.login.user.firstName}</TabBarItem> }
+  getTabBarItem = () => {
+    var elements = [];
+    if (this.props.login.user.roles.includes('administartor')) {
+      elements.push(<TabBarItem left >Пользователи</TabBarItem>)
+
+    }
+    if (this.props.login.user.roles.includes('customer')) {
+      elements.push(<TabBarItem left  >Заявки</TabBarItem>)      
+    }
+
+    return elements;
   }
 
-  content = () => {
-    switch (this.props.contentView) {
-      case 0:        
-        return <ListUsersPage />
-      case -1:
-      case 1:
-       return <LoginPage />  
-      default:
-        return <div />
+    login = () => {
+      if (!this.props.login.status) {
+        return <TabBarItem right onClick={this.btnLogin.bind(this)} >Войти</TabBarItem>
+      }
+      else {
+        return
+        <div>
+          {this.getTabBarItem().map(item => item)}
+          <TabBarItem right>Добро пожаловать {this.props.login.user.firstName}</TabBarItem>
+        </div>
+        
+      }
+    }
+
+    content = () => {
+      switch (this.props.contentView) {
+        case 0:
+          return <ListUsersPage />
+        case -1:
+        case 1:
+          return <LoginPage />
+        default:
+          return <div />
+      }
+    }
+
+    render() {
+
+      return (
+        <div className='flex-page' >
+          <header className="App-header">
+            <h6>Тестовая модель клиента на React</h6>
+          </header>
+          <TabsBarView className='color-blue' onSelectedIndex={this.onSelectedItem} >
+            {/* <TabBarItem left disabled={!this.props.login.status} >Пользователи</TabBarItem>
+            <TabBarItem left disabled={!this.props.login.status} >Заявки</TabBarItem> */}
+            {this.login()}
+          </TabsBarView>
+          {this.content()}
+
+        </div>
+      );
     }
   }
 
-  render() {
-
-    return (
-      <div className='flex-page' >
-        <header className="App-header">
-          <h6>Тестовая модель клиента на React</h6>
-        </header>
-        <TabsBarView className='blue lighten-2' onSelectedIndex={this.onSelectedItem} >
-          <TabBarItem left disabled={!this.props.login} >Пользователи</TabBarItem>
-          <TabBarItem left disabled={!this.props.login} >Заявки</TabBarItem>
-          {this.login()}
-        </TabsBarView>
-        {this.content()}
-
-      </div>
-    );
-  }
-}
-
-export default connect(mapStateToProps)(App);
+  export default connect(mapStateToProps)(App);

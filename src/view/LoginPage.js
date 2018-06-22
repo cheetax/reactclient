@@ -17,6 +17,7 @@ class LoginPage extends Component {
       login: '',
       password: '',
     }
+    this.onClassName = this.onClassName.bind(this);
   }
 
   componentWillMount() {
@@ -35,6 +36,10 @@ class LoginPage extends Component {
 
   btnLogin = () => {
     this.props.dispatch(getLogin(this.state))
+  }
+
+  onClassName = () => {
+    console.log()
   }
 
   render() {
@@ -71,20 +76,15 @@ class LoginPage extends Component {
                 value={this.state.login}
                 type="email"
                 className="inp-field browser-default login validate"
-                autoComplete='off'
-                autoFocus
-                onFocus={
-                  (e)=>{
-                    console.log(e)
-                  }
-                }
+                autoFocus                
                 onChange={this.onChange}
               />
-              <label htmlFor="login" className={this.state.login ? 'active' : ''}>EMAIL</label>
+              {/* <label htmlFor="login" className={this.state.login ? 'active' : ''}>EMAIL</label> */}
+              <label htmlFor="login">EMAIL</label>
             </div>
             <div className="div-field">
               <input id="password" type="password" value={this.state.password} className="inp-field browser-default login" onChange={this.onChange} />
-              <label htmlFor="password" className={this.state.password ? 'active' : ''} >Пароль</label>
+              <label htmlFor="password" >Пароль</label>
             </div>
             <a
               className={(() => "waves-effect waves-light btn btn-login color-green " + ((!this.state.login || !this.state.password) ? "disabled" : ''))()}

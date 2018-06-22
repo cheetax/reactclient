@@ -125,4 +125,13 @@
   padding-left: 12px;
   color: #013a81;
   font-size: 12px;
+  /* transition: transform .15s cubic-bezier(.4,0,.2,1); */
+}
+
+.color-blue {
+  background: #013a81;
+}
+
+.active-bar-item {
+  background-color: #00b259;
 }

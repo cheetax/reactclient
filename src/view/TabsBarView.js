@@ -25,12 +25,12 @@ class TabsBarView extends Component {
     
 
     _element_l = (items) => {
-        if (!Array.isArray(items)) items = [...items]
-        return items.map((item, index) => !item.props.right ? <li key={index} onClick={() => this._onClick(index)}  className= { this.state.selectedItem === index ? 'active' : '' } >{item}</li> : null)
+        if (!Array.isArray(items)) items = [items]
+        return items.map((item, index) => !item.props.right ? <li key={index} onClick={() => this._onClick(index)}  className= { !item.props.disabled ? this.state.selectedItem === index ? 'active-bar-item' : '': 'disabled' } >{item}</li> : null)
     }
 
     _element_r = (items) => {
-        if (!Array.isArray(items)) items = [...items]
+        if (!Array.isArray(items)) items = [items]
         return items.map(item => item.props.right ? item : null)
     }
 
