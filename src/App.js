@@ -27,6 +27,7 @@ class App extends Component {
 
     }
     this.onSelectedItem = this.onSelectedItem.bind(this);
+    //this.getTabBarItem = this.getTabBarItem.bind(this)
   }
 
   componentDidMount() {
@@ -50,61 +51,58 @@ class App extends Component {
   }
 
   getTabBarItem = () => {
+//    console.log('getTabBarItem')
     var elements = [];
-    if (this.props.login.user.roles.includes('administartor')) {
+    if (this.props.login.user.roles.includes('administrator')) {
       elements.push(<TabBarItem left >Пользователи</TabBarItem>)
 
     }
     if (this.props.login.user.roles.includes('customer')) {
-      elements.push(<TabBarItem left  >Заявки</TabBarItem>)      
+      elements.push(<TabBarItem left  >Заявки</TabBarItem>)
     }
-
+    elements.push(<TabBarItem right>Добро пожаловать {this.props.login.user.firstName}</TabBarItem>)
     return elements;
   }
 
-    login = () => {
-      if (!this.props.login.status) {
-        return <TabBarItem right onClick={this.btnLogin.bind(this)} >Войти</TabBarItem>
-      }
-      else {
-        return
-        <div>
-          {this.getTabBarItem().map(item => item)}
-          <TabBarItem right>Добро пожаловать {this.props.login.user.firstName}</TabBarItem>
-        </div>
-        
-      }
+  login = () => {
+    //this.getTabBarItem();
+    if (!this.props.login.status) {
+      return <TabBarItem right onClick={this.btnLogin.bind(this)} >Войти</TabBarItem>
     }
-
-    content = () => {
-      switch (this.props.contentView) {
-        case 0:
-          return <ListUsersPage />
-        case -1:
-        case 1:
-          return <LoginPage />
-        default:
-          return <div />
-      }
-    }
-
-    render() {
-
-      return (
-        <div className='flex-page' >
-          <header className="App-header">
-            <h6>Тестовая модель клиента на React</h6>
-          </header>
-          <TabsBarView className='color-blue' onSelectedIndex={this.onSelectedItem} >
-            {/* <TabBarItem left disabled={!this.props.login.status} >Пользователи</TabBarItem>
-            <TabBarItem left disabled={!this.props.login.status} >Заявки</TabBarItem> */}
-            {this.login()}
-          </TabsBarView>
-          {this.content()}
-
-        </div>
-      );
+    else {
+      return this.getTabBarItem().map(item => item)
     }
   }
 
-  export default connect(mapStateToProps)(App);
+  content = () => {
+    switch (this.props.contentView) {
+      case 0:
+        return <ListUsersPage />
+      case -1:
+      case 1:
+        return <LoginPage />
+      default:
+        return <div />
+    }
+  }
+
+  render() {
+
+    return (
+      <div className='flex-page' >
+        <header className="App-header">
+          <h6>Тестовая модель клиента на React</h6>
+        </header>
+        <TabsBarView className='color-blue' onSelectedIndex={this.onSelectedItem} >
+          {/* <TabBarItem left disabled={!this.props.login.status} >Пользователи</TabBarItem>
+            <TabBarItem left disabled={!this.props.login.status} >Заявки</TabBarItem> */}
+          {this.login()}
+        </TabsBarView>
+        {this.content()}
+
+      </div>
+    );
+  }
+}
+
+export default connect(mapStateToProps)(App);

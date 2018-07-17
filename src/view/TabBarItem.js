@@ -2,9 +2,7 @@ import React from 'react';
 import './TabBarItem.css'
 
 const TabBarItem = ({ onClick, children, text, disabled }) => {
-    const _onClick = () => {
-
-    }
+    
     return (
         <div >
 

@@ -65,18 +65,16 @@ class LoginPage extends Component {
 
           </span>
           <div className='login-form'>
-            <div className='login-text' >
-              ВХОД
-              </div>
+            <div className='login-text' >ВХОД</div>
             <a className="waves-effect waves-light btn btn-login color-blue">Войти с учетной записью</a>
-
+            <div className='login-text'>- или используя - </div>
             <div className="div-field">
               <input
                 id="login"
                 value={this.state.login}
                 type="email"
                 className="inp-field browser-default login validate"
-                autoFocus                
+                autoFocus
                 onChange={this.onChange}
               />
               {/* <label htmlFor="login" className={this.state.login ? 'active' : ''}>EMAIL</label> */}
