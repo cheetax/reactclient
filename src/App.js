@@ -41,7 +41,7 @@ class App extends Component {
   }
 
   btnLogout = () => {
-    this.props.dispatch(getLogout())    
+    this.props.dispatch(getLogout())
     this.setState({ openModalLogout: false })
   }
 
@@ -66,12 +66,13 @@ class App extends Component {
       elements.push(<TabBarItem key='orders' left  >Заявки</TabBarItem>)
     }
     elements.push(
-      <TabBarItem key='logout' right onClick={() => {
-        this.setState({ openModalLogout: true })
-      }}>
+      <TabBarItem key='logout' right >
         <div style={{ position: 'relative' }} >
           {this.modalLogout(this)}
-          Добро пожаловать {this.props.login.user.firstName}          
+          Добро пожаловать {this.props.login.user.firstName}
+          <div onClick={() => {
+            this.setState({ openModalLogout: true })
+          }}></div>
         </div>
       </TabBarItem>)
     return elements;
