@@ -24,7 +24,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      openModalLogout: false,
     }
     this.onSelectedItem = this.onSelectedItem.bind(this);
     //this.getTabBarItem = this.getTabBarItem.bind(this)
@@ -40,6 +40,11 @@ class App extends Component {
     //this.props.dispatch(setLogin())
   }
 
+  btnLogout = () => {
+    this.props.dispatch(getLogout())    
+    this.setState({ openModalLogout: false })
+  }
+
   getUsers = () => {
     //this.setState({contentView: 1})
 
@@ -51,7 +56,7 @@ class App extends Component {
   }
 
   getTabBarItem = () => {
-//    console.log('getTabBarItem')
+    //    console.log('getTabBarItem')
     var elements = [];
     if (this.props.login.user.roles.includes('administrator')) {
       elements.push(<TabBarItem key='users' left >Пользователи</TabBarItem>)
@@ -60,7 +65,13 @@ class App extends Component {
     if (this.props.login.user.roles.includes('customer')) {
       elements.push(<TabBarItem key='orders' left  >Заявки</TabBarItem>)
     }
-    elements.push(<TabBarItem key='login' right>Добро пожаловать {this.props.login.user.firstName}</TabBarItem>)
+    elements.push(
+      <TabBarItem key='logout' right onClick={() => {this.setState({ openModalLogout: true })}}>
+        <div style={{ position: 'relative' }} >
+          {this.modalLogout(this)}
+          Добро пожаловать {this.props.login.user.firstName}          
+        </div>
+      </TabBarItem>)
     return elements;
   }
 
@@ -72,6 +83,34 @@ class App extends Component {
     else {
       return this.getTabBarItem().map(item => item)
     }
+  }
+
+  modalLogout = () => {
+    return (
+      <div >
+        <div style={this.state.openModalLogout ? {
+          position: 'fixed',
+          background: 'black',
+          opacity: '0.08',
+          top: '0px',
+          left: '0px',
+          width: '100%',
+          height: '100%',
+          zIndex: '999',
+        } : null} />
+        <div id='modal1' className='modal-more' style={this.state.openModalLogout ? {
+          display: 'block',
+          opacity: '1',
+        } : null} >
+          <div className='modal-more-menu' >
+            <a className='modal-more-item' onClick={() => {
+              this.btnLogout()
+            }} >Выйти</a>
+          </div>
+
+        </div>
+      </div>
+    )
   }
 
   content = () => {
