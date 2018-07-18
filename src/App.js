@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import logo from './logo.svg';
 import { getUsers } from './actions/users';
-import { setLogin, getLogin } from './actions/login'
+import { setLogin, getLogin, getLogout } from './actions/login'
 import ListUsersPage from './view/ListUsersPage'
 import TabsBarView from './view/TabsBarView'
 import TabBarItem from './view/TabBarItem'
