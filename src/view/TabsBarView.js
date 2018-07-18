@@ -29,7 +29,7 @@ class TabsBarView extends Component {
         if (!Array.isArray(items) && items) items = [items]
         return items.map((item, index) => {
             return !item.props.right ?
-                <li key={index} onClick={() => this._onClick(index)} className={
+                <li key={index} onClick={() => this._onClick(item.key)} className={
                     !item.props.disabled ? this.state.selectedItem === index ? 'active-bar-item' : '' : 'disabled'
                 } >{item}</li> : null || null
         })

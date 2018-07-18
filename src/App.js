@@ -54,20 +54,20 @@ class App extends Component {
 //    console.log('getTabBarItem')
     var elements = [];
     if (this.props.login.user.roles.includes('administrator')) {
-      elements.push(<TabBarItem left >Пользователи</TabBarItem>)
+      elements.push(<TabBarItem key='users' left >Пользователи</TabBarItem>)
 
     }
     if (this.props.login.user.roles.includes('customer')) {
-      elements.push(<TabBarItem left  >Заявки</TabBarItem>)
+      elements.push(<TabBarItem key='orders' left  >Заявки</TabBarItem>)
     }
-    elements.push(<TabBarItem right>Добро пожаловать {this.props.login.user.firstName}</TabBarItem>)
+    elements.push(<TabBarItem key='login' right>Добро пожаловать {this.props.login.user.firstName}</TabBarItem>)
     return elements;
   }
 
   login = () => {
     //this.getTabBarItem();
     if (!this.props.login.status) {
-      return <TabBarItem right onClick={this.btnLogin.bind(this)} >Войти</TabBarItem>
+      return <TabBarItem key='login' right onClick={this.btnLogin.bind(this)} >Войти</TabBarItem>
     }
     else {
       return this.getTabBarItem().map(item => item)
@@ -76,10 +76,10 @@ class App extends Component {
 
   content = () => {
     switch (this.props.contentView) {
-      case 0:
+      case 'users':
         return <ListUsersPage />
+      case 'orders':
       case -1:
-      case 1:
         return <LoginPage />
       default:
         return <div />
