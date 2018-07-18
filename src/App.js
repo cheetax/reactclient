@@ -66,7 +66,9 @@ class App extends Component {
       elements.push(<TabBarItem key='orders' left  >Заявки</TabBarItem>)
     }
     elements.push(
-      <TabBarItem key='logout' right onClick={() => {this.setState({ openModalLogout: true })}}>
+      <TabBarItem key='logout' right onClick={() => {
+        this.setState({ openModalLogout: true })
+      }}>
         <div style={{ position: 'relative' }} >
           {this.modalLogout(this)}
           Добро пожаловать {this.props.login.user.firstName}          
