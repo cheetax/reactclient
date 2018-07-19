@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { setLogin, getLogin } from '../actions/login'
+import { setLogin, getLogin, getLoginAccount } from '../actions/login'
 import './LoginPage.css'
 
 const mapStateToProps = (state) => {
@@ -38,6 +38,10 @@ class LoginPage extends Component {
     this.props.dispatch(getLogin(this.state))
   }
 
+  btnLoginAccount = () => {
+    this.props.dispatch(getLoginAccount(this.state))
+  }
+
   onClassName = () => {
     console.log()
   }
@@ -66,7 +70,7 @@ class LoginPage extends Component {
           </span>
           <div className='login-form'>
             <div className='login-text' >ВХОД</div>
-            <a className="waves-effect waves-light btn btn-login color-blue">Войти с учетной записью</a>
+            <a className="waves-effect waves-light btn btn-login color-blue" onClick={this.btnLoginAccount} >Войти с учетной записью</a>
             <div className='login-text'>- или используя - </div>
             <div className="div-field">
               <input

@@ -31,8 +31,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if (!document.cookie) this.props.dispatch(setLogin())
-    else this.props.dispatch(getLogin());
+    this.props.dispatch(setLogin())
+    
   }
 
   btnLogin = () => {
@@ -70,11 +70,17 @@ class App extends Component {
         <div style={{ position: 'relative' }} >
           {this.modalLogout(this)}
           Добро пожаловать {this.props.login.user.firstName}
-          <div onClick={() => {
-            this.setState({ openModalLogout: true })
-          }}></div>
+          <div style={{
+            height: '100%',
+            width: '100%',
+            top: '0px',
+            position: 'absolute',
+          }}
+            onClick={() => {
+              this.setState({ openModalLogout: true })
+            }}></div>
         </div>
-      </TabBarItem>)
+      </TabBarItem >)
     return elements;
   }
 
@@ -100,11 +106,21 @@ class App extends Component {
           width: '100%',
           height: '100%',
           zIndex: '999',
-        } : null} />
+        } : null}
+        onClick={() => {
+          this.setState({ openModalLogout: false })
+        }}/>
         <div id='modal1' className='modal-more' style={this.state.openModalLogout ? {
           display: 'block',
           opacity: '1',
+          top: '100%',
+          margin: '5px 0px',
+          width: '100%'
         } : null} >
+          <div className='modal-more-menu' >
+            <a className='modal-more-item' onClick={() => {}} >Настройки</a>
+          </div>
+          <hr size='1' width='100%' style={{margin: '0' }} />
           <div className='modal-more-menu' >
             <a className='modal-more-item' onClick={() => {
               this.btnLogout()
