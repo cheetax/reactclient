@@ -47,11 +47,11 @@ class ListUsersPage extends Component {
   }
 
   componentDidMount() {
-    this.setState({ visibleAddButtons: this.props.visibleAddButtons })
+   // this.setState({ visibleAddButtons: this.props.visibleAddButtons })
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.visibleAddButtons !== prevProps.visibleAddButtons) {
+    if (this.props.visibleAddButtons !== this.state.visibleAddButtons) {
       //   var index = this.props.users.findIndex(item => item.id === this.props.newUser.id);
       //   if (index !== -1) {
       this.setState({
@@ -59,8 +59,7 @@ class ListUsersPage extends Component {
         //       newUser: this.props.newUser,
         //       selectedIndex: index,
         //       selectedUser: this.props.users[index],
-      })
-      //   }
+      })      //   }
     }
   }
 
