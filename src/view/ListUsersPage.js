@@ -12,6 +12,7 @@ import './ListUsersPage.css';
 const mapStateToProps = (state) => {
   return {
     users: state.users.users,
+    visibleAddButtons: state.users.status,
     newUser: state.users.newUser,
     roles: state.roles,
   };
@@ -29,6 +30,7 @@ class ListUsersPage extends Component {
       selectedIndex: -1,
       edit: false,
       newUser: {},
+      visibleAddButtons: false,
     }
   }
 
@@ -44,16 +46,21 @@ class ListUsersPage extends Component {
     this.props.dispatch(getUsers());
   }
 
+  componentDidMount() {
+    this.setState({ visibleAddButtons: this.props.visibleAddButtons })
+  }
+
   componentDidUpdate(prevProps) {
-    if (this.props.newUser !== prevProps.newUser) {
-      var index = this.props.users.findIndex(item => item.id === this.props.newUser.id);
-      if (index !== -1) {
-        this.setState({
-          newUser: this.props.newUser,
-          selectedIndex: index,
-          selectedUser: this.props.users[index],
-        })
-      }
+    if (this.props.visibleAddButtons !== prevProps.visibleAddButtons) {
+      //   var index = this.props.users.findIndex(item => item.id === this.props.newUser.id);
+      //   if (index !== -1) {
+      this.setState({
+        visibleAddButtons: this.props.visibleAddButtons
+        //       newUser: this.props.newUser,
+        //       selectedIndex: index,
+        //       selectedUser: this.props.users[index],
+      })
+      //   }
     }
   }
 
@@ -88,7 +95,7 @@ class ListUsersPage extends Component {
       phone: '',
       email: '',
       post: '',
-      office: '',      
+      office: '',
       usePassword: false,
       password: '',
       roles: []
@@ -112,7 +119,7 @@ class ListUsersPage extends Component {
 
     if (this.state.selectedIndex == this.props.users.length - 1) {
       this.setState({
-        selectedUser: this.props.users[this.state.selectedIndex-1],
+        selectedUser: this.props.users[this.state.selectedIndex - 1],
         selectedIndex: this.state.selectedIndex - 1,
         edit: false
       })
@@ -127,7 +134,7 @@ class ListUsersPage extends Component {
       type: 'DELETE_USER',
       payload: this.state.selectedUser
     })
-    
+
   }
 
   btnSave = (editUser) => {
@@ -168,7 +175,7 @@ class ListUsersPage extends Component {
   userInfo = () => {
     return (
       <div className='userInfo' >
-        
+
         <div className='two-panel' >
           <ContactInfo selectedUser={this.state.selectedUser} btnEdit={this.btnEdit} btnDelete={this.btnDelete} roles={this.props.roles} />
         </div>
@@ -184,10 +191,11 @@ class ListUsersPage extends Component {
 
     return (
       <div className="flex-container_list">
-        <div className='left-panel grey lighten-4' >
+        {/* <div className='left-panel grey lighten-4' >
           <ToolbarPanel onClick={this.btnAdd} />
-        </div>
+        </div> */}
         <div className='center-panel' >
+
           <ListView
             className='collection'
             items={this.props.users}
@@ -201,18 +209,34 @@ class ListUsersPage extends Component {
                 newUser: {},
               })
             }}
-            //setSelectedIndex={this.state.selectedIndex}
+          //setSelectedIndex={this.state.selectedIndex}
           />
+          <div style={{ position: 'relative' }} >
+            <div id='modal1' className='' style={{
+              position: 'absolute',
+              display: 'flex',
+              opacity: '1',
+              bottom: '100%',
+              right: '0px',
+              margin: '16px 34px',
+              zIndex: '1000',
+              height: '56px',
+              width: '56px',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }} >
+              <a className={this.state.visibleAddButtons ? 'waves-effect waves-light btn-floating btn-large' : 'waves-effect waves-light btn-floating btn-0'} onClick={() => this.btnAdd()} ><i className="material-icons"  >add</i></a>
+            </div>
+          </div>
         </div>
         <div className='right-panel'>
           <this.ContentRightPanel />
-
         </div>
         <div >
 
         </div>
         <div  ></div>
-      </div>
+      </div >
 
     );
   }

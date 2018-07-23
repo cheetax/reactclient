@@ -153,10 +153,14 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                     width: '100%',
                     height: '100%',
                     zIndex: '999',
-                } : null} />
+                } : null}
+                onClick={() => {
+                    this.setState({ openModalMore: false })
+                  }}/>
                 <div id='modal1' className='modal-more' style={this.state.openModalMore ? {
                     display: 'block',
-                    opacity: '1',
+                    opacity: '1',                    
+                    padding: '8px 0px'
                 } : null} >
                     <div className='modal-more-menu' >
                         <a className='modal-more-item' onClick={() => {

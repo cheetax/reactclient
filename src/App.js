@@ -7,6 +7,8 @@ import ListUsersPage from './view/ListUsersPage'
 import TabsBarView from './view/TabsBarView'
 import TabBarItem from './view/TabBarItem'
 import LoginPage from './view/LoginPage'
+import MyOrders from './view/MyOrders'
+import OrdersOnWater from './view/OrdersOnWater'
 //import { Navbar, NavItem } from 'react-materialize'
 import './App.css';
 //import './materialize/css/materialize.css'
@@ -63,7 +65,11 @@ class App extends Component {
 
     }
     if (this.props.login.user.roles.includes('customer')) {
-      elements.push(<TabBarItem key='orders' left  >Заявки</TabBarItem>)
+      elements.push(<TabBarItem key='myOrders' left  >Мои заявки</TabBarItem>)
+    }
+
+    if (this.props.login.user.roles.includes('stockman')) {
+      elements.push(<TabBarItem key='orders' left  >Заявки на воду</TabBarItem>)
     }
     elements.push(
       <TabBarItem key='logout' right >
@@ -115,6 +121,7 @@ class App extends Component {
           opacity: '1',
           top: '100%',
           margin: '5px 0px',
+          padding: '8px 0px',
           width: '100%'
         } : null} >
           <div className='modal-more-menu' >
@@ -136,7 +143,10 @@ class App extends Component {
     switch (this.props.contentView) {
       case 'users':
         return <ListUsersPage />
-      case 'orders':
+      case 'myOrders':
+        return <MyOrders/>
+      case 'orders':  
+        return <OrdersOnWater/>
       case -1:
         return <LoginPage />
       default:

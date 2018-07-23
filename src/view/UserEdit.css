@@ -255,11 +255,11 @@ form.edit{
 
 .modal-more-menu {
     display: flex;
-    padding: 8px 0px;
+    padding: 0px 0px;
 }
 
 .modal-more-item {
-    height: 32px;
+    height: 48px;
     color: black;
     font-weight: normal;
     flex: auto;

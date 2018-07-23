@@ -71,6 +71,14 @@ body {
   box-shadow: none;
 }
 
+.btn-0 {
+  height: 0px;
+  width: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .color-accent {
   color: #26a69a;
 }
@@ -140,4 +148,8 @@ body {
 
 .active-bar-item {
   background-color: #00b259;
+}
+
+:focus {
+  outline: 0px;
 }

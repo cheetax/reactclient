@@ -1,6 +1,6 @@
 var newState = [];
 
-export default function users(state = { users: [], newUser: {}}, action) {
+export default function users(state = { users: [], newUser: {}, status: false}, action) {
     console.log(action);
     switch (action.type) {          
         case 'INITIAL_STATE':
