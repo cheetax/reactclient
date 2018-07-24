@@ -46,8 +46,12 @@ class ListUsersPage extends Component {
     this.props.dispatch(getUsers());
   }
 
-  componentDidMount() {
+  componentWillUnmount() {
    // this.setState({ visibleAddButtons: this.props.visibleAddButtons })
+    this.props.dispatch({
+      type: 'INITIAL_USERS',
+      payload: {}
+    })
   }
 
   componentDidUpdate(prevProps) {

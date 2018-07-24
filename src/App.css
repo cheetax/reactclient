@@ -79,6 +79,12 @@ body {
   align-items: center;
 }
 
+.btn-floating.btn-large {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .color-accent {
   color: #26a69a;
 }

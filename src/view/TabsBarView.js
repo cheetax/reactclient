@@ -14,10 +14,19 @@ class TabsBarView extends Component {
     }
 
     _onClick = (index) => {
-        this.setState({
-            selectedItem: index
-        })
-        if (this.props.onSelectedIndex) this.props.onSelectedIndex(index)
+        var i = index;
+        if (this.state.selectedItem !== index) {
+            this.setState({
+                selectedItem: index
+            })
+        }
+        else {
+            this.setState({
+                selectedItem: -1,
+            })
+            i = null;
+        }
+        if (this.props.onSelectedIndex) this.props.onSelectedIndex(i)
 
         // console.log(event.target.currentTarget)
     }
@@ -30,16 +39,16 @@ class TabsBarView extends Component {
         return items.map((item, index) => {
             return !item.props.right ?
                 <li key={index} onClick={() => this._onClick(item.key)} className={
-                    !item.props.disabled ? this.state.selectedItem === index ? 'active-bar-item' : '' : 'disabled'
+                    !item.props.disabled ? this.state.selectedItem === item.key ? 'active-bar-item' : '' : 'disabled'
                 } >{item}</li> : null || null
         })
-    
+
     }
 
     _element_r = (items) => {
         if (!items) return null
         if (!Array.isArray(items)) items = [items]
-        return items.map(item => item.props.right ? item : null)
+        return items.map(item => item.props.right ? <div onClick={() => this._onClick(item.key)} className={this.state.selectedItem === item.key ? 'active-bar-item' : ''} >{item}</div> : null)
     }
 
     render() {
