@@ -1,4 +1,8 @@
 export const setLogin = () => (dispatch) => {
+    if (!localStorage['useAccount']) {
+        localStorage.key = 'useAccount';
+        localStorage['useAccount'] = false;
+    }
     if (JSON.parse(localStorage['useAccount'])) {
         dispatch(getLoginAccount())
     }
