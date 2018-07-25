@@ -15,7 +15,9 @@ class ListView extends Component {
             items_select: props.items.map((item, index) => ({ active: (setSelectedIndex === index) })),
             items: props.items,
             setSelectedIndex: setSelectedIndex,
-            prevItem: -1
+            prevItem: -1,
+            height: 0,
+            width: 0,
         }
         this.rowRenderer = props.rowRenderer;
         this.onSelected = props.onSelected;
@@ -56,10 +58,6 @@ class ListView extends Component {
         })())
     })
 
-    componentDidMount() {
-        console.log('1')
-    }
-
     componentWillUpdate(props, prevProps) {
         if (props.items !== prevProps.items) {
             this.getIndexAsync(props.items, prevProps.items).then((index) => {
@@ -74,6 +72,27 @@ class ListView extends Component {
                     prevItem: index,
                 })
 
+            })
+        }
+    }
+
+    resize = () => this.forceUpdate()
+
+    componentDidMount() {
+        window.addEventListener('resize', this._getElem)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this._getElem)
+    }
+
+    _getElem = (elem) => {
+        if (elem) {
+            var elemHeight = elem.clientHeight;
+            var elemWidth = elem.clientWidth;
+            this.setState({
+                height: elemHeight,
+                width: elemWidth,
             })
         }
     }
@@ -128,16 +147,21 @@ class ListView extends Component {
 
     render() {
         return (
-            <List
-                className={this.props.className}
-                width={window.innerWidth}
-                height={window.innerHeight}
+            <div
                 style={{ width: 'auto', height: '100%', margin: 0, }}
-                rowCount={this.state.items.length}
-                rowHeight={this._rowHeight}
-                rowRenderer={this._rowRenderer}
-                scrollToIndex={this.state.setSelectedIndex}
-            />
+                ref={this._getElem}>
+                <List
+                    className={this.props.className}
+                    width={this.state.width}
+                    height={this.state.height}
+                    style={{ width: 'auto', height: '100%', margin: 0, }}
+                    rowCount={this.state.items.length}
+                    rowHeight={this._rowHeight}
+                    rowRenderer={this._rowRenderer}
+                    scrollToIndex={this.state.setSelectedIndex}
+                />
+            </div>
+
         )
     }
 }
