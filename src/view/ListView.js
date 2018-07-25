@@ -56,6 +56,10 @@ class ListView extends Component {
         })())
     })
 
+    componentDidMount() {
+        console.log('1')
+    }
+
     componentWillUpdate(props, prevProps) {
         if (props.items !== prevProps.items) {
             this.getIndexAsync(props.items, prevProps.items).then((index) => {
@@ -132,6 +136,7 @@ class ListView extends Component {
                 rowCount={this.state.items.length}
                 rowHeight={this._rowHeight}
                 rowRenderer={this._rowRenderer}
+                scrollToIndex={this.state.setSelectedIndex}
             />
         )
     }
