@@ -3,36 +3,44 @@ import { connect } from "react-redux";
 import './MyOrders.css'
 
 const mapStateToProps = (state) => {
-    return {
-      
-    };
+  return {
+    login: state.login,
+    orders: state.orders.orders,
+    visibleAddButtons: state.orders.status,
+  };
+}
+
+class MyOrders extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      visibleAddButtons: false,
+    }
   }
 
-  class MyOrders extends Component {
+  componentWillMount() {
+    this.props.dispatch({
+      type: 'SET_FILTER',
+      payload: {user: this.props.login.user},
+    })
+  }
 
-    constructor(props) {
-      super(props)      
-      this.state = {
-        
-      }
-    }  
-      
-    componentWillMount() {
-      
-    }
-  
-    componentDidUpdate(prevProps) {
-      
-    }
-  
-    
-    render() {
-  
-      return (
-        <div className="flex-container_list">
-          Список моих заявок на воду
-        </div>  
-      );
+  componentDidUpdate(prevProps) {
+    if (this.props.visibleAddButtons !== this.state.visibleAddButtons) {
+      this.setState({
+        visibleAddButtons: this.props.visibleAddButtons
+      })
     }
   }
-  export default connect(mapStateToProps)(MyOrders);
+
+  render() {
+
+    return (
+      <div className="flex-container_list">
+        Список моих заявок на воду
+        </div>
+    );
+  }
+}
+export default connect(mapStateToProps)(MyOrders);

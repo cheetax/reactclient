@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, ReactDOM } from 'react';
 import { List } from 'react-virtualized'
 
 
@@ -18,13 +18,19 @@ class ListView extends Component {
             prevItem: -1,
             height: 0,
             width: 0,
+            elem: null
         }
         this.rowRenderer = props.rowRenderer;
         this.onSelected = props.onSelected;
         this.onSelectedIndex = props.onSelectedIndex;
         this._rowRenderer = this._rowRenderer.bind(this)
+        this.resize = this.resize.bind(this);
         //this._rowHeight = this._rowHeight.bind(this)
         // this._onClick = this._onClick.bind(this);
+    }
+
+    _getRowHeight = (elemRow) => {
+        console.log('1')
     }
 
     getIndexAsync = async (items1, items2) => await new Promise(async (resolve) => {
@@ -76,14 +82,14 @@ class ListView extends Component {
         }
     }
 
-    resize = () => this.forceUpdate()
+    resize = () => this._getElem(this.state.elem)
 
     componentDidMount() {
-        window.addEventListener('resize', this._getElem)
+        window.addEventListener('resize', this.resize)
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this._getElem)
+        window.removeEventListener('resize', this.resize)
     }
 
     _getElem = (elem) => {
@@ -93,6 +99,7 @@ class ListView extends Component {
             this.setState({
                 height: elemHeight,
                 width: elemWidth,
+                elem: elem
             })
         }
     }
@@ -111,22 +118,15 @@ class ListView extends Component {
         (this.onSelectedIndex) ? this.onSelectedIndex(_key) : null;
     }
 
-    _rowHeight = ({ index }) => {
-        return this.state.rowHeight ? this.state.rowHeight : 32;
-    }
+    _rowHeight = ({ index }) => this.state.rowHeight ? this.state.rowHeight : 32;
 
-    _className = (index) => {
-        return this.state.items_select[index].active ? 'collection-item active' : 'collection-item'
-    }
+    _className = (index) => this.state.items_select[index].active ? 'collection-item active' : 'collection-item'
 
-    _rowRenderer = ({
-        key,         // Unique key within array of rows
-        index,       // Index of row within collection
-        isScrolling, // The List is currently being scrolled
-        isVisible,   // This row is visible within the List (eg it is not an overscanned row)
-        style        // Style object to be applied to row (to position it)
-    }) => {
+    _rowRendererElem = (param) => this.rowRenderer(param)
+
+    _rowRenderer = (param) => {
         //var _style = {...style , height: 'auto'};
+        var { key, style, index } = param;
         return (
             <a
                 className={this._className(index)}
@@ -134,13 +134,7 @@ class ListView extends Component {
                 style={style}
                 onClick={() => this._onClick(key)}
             >
-                {this.rowRenderer({
-                    key,         // Unique key within array of rows
-                    index,       // Index of row within collection
-                    isScrolling, // The List is currently being scrolled
-                    isVisible,   // This row is visible within the List (eg it is not an overscanned row)
-                    style        // Style object to be applied to row (to position it)
-                })}
+                {this._rowRendererElem(param)}
             </a>
         )
     }

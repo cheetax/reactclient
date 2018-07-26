@@ -6,9 +6,10 @@ import rootReducer from './reducers/index';
 import App from './App';
 import users from './middlewares/users'
 import roles from './middlewares/roles'
+import orders from './middlewares/orders'
 //import { CookiesProvider } from 'react-cookie
 
-var store = createStore(rootReducer, applyMiddleware(thunk, roles, users))
+var store = createStore(rootReducer, applyMiddleware(thunk, roles, users, orders))
 
 export default function Root() {
     return (
