@@ -1,4 +1,5 @@
 import React, { Component, ReactDOM } from 'react';
+//import StyleSheet  from 'react-style'
 import { List } from 'react-virtualized'
 
 
@@ -18,13 +19,19 @@ class ListView extends Component {
             prevItem: -1,
             height: 0,
             width: 0,
-            elem: null
+            elem: null,
+            readHeader: true,
+            columnWidth: [],
+            header: []
         }
+        this.headerRenderer = props.headerRenderer;
+        this._headerRenderer = this._headerRenderer.bind(this);
         this.rowRenderer = props.rowRenderer;
         this.onSelected = props.onSelected;
         this.onSelectedIndex = props.onSelectedIndex;
         this._rowRenderer = this._rowRenderer.bind(this)
         this.resize = this.resize.bind(this);
+
         //this._rowHeight = this._rowHeight.bind(this)
         // this._onClick = this._onClick.bind(this);
     }
@@ -76,8 +83,11 @@ class ListView extends Component {
                     items_select: props.items.map((item, i) => ({ active: (i === index) })),
                     setSelectedIndex: index,
                     prevItem: index,
+                    columnWidth: [],
+                    columnHeigth: [],
+                    readHeader: true,
                 })
-
+                this._setHeader();
             })
         }
     }
@@ -104,6 +114,19 @@ class ListView extends Component {
         }
     }
 
+    _getElemRowColumns = (elem, index) => {
+        if (elem) {
+            var columnHeigth = this.state.columnHeigth;
+            var columnWidth = this.state.columnWidth;
+            columnWidth[index] = elem.clientWidth
+            columnHeigth[index] = elem.clientHeight
+            // this.setState({
+            //     columnWidth: columnWidth,
+            //     columnHeigth: columnHeigth
+            // })
+        }
+    }
+
     _onClick = (key) => {
         var _key = parseInt(key, 10)
         var _items_select = this.state.items_select;
@@ -122,7 +145,16 @@ class ListView extends Component {
 
     _className = (index) => this.state.items_select[index].active ? 'collection-item active' : 'collection-item'
 
-    _rowRendererElem = (param) => this.rowRenderer(param)
+    _rowRendererElem = (param) => {
+        var rowColumns = this.rowRenderer(param)
+        if (!Array.isArray(rowColumns)) rowColumns = [rowColumns];
+
+        return (
+            <div style={{ display: 'flex', }} >
+                {rowColumns.map((item, index) => <span key={index}>{item}</span>)}
+            </div>
+        )
+    }
 
     _rowRenderer = (param) => {
         //var _style = {...style , height: 'auto'};
@@ -139,22 +171,56 @@ class ListView extends Component {
         )
     }
 
+    _setHeader = () => {
+        var style = {
+            width: 'auto',
+            height: 'auto',
+            margin: 0,
+            padding: 20,
+        }
+        var param = {
+            style
+        }
+        var columnWidth = [];
+        var headerColumns = this.headerRenderer(param)
+        if (!Array.isArray(headerColumns)) headerColumns = [headerColumns]
+        
+        var e = headerColumns.map((item, index) => {
+            columnWidth[index] = item.width || 40;
+            var style = {
+                width: columnWidth[index],
+            }
+            return (<span key={index} style={style} >{item} </span>)
+        })
+        this.setState({
+            columnWidth: columnWidth,
+            header: < div style={{ display: 'flex' }} >{e}</div >
+        })
+    }
+
+    _headerRenderer = () => this.state.header
+
     render() {
         return (
-            <div
-                style={{ width: 'auto', height: '100%', margin: 0, }}
-                ref={this._getElem}>
-                <List
-                    className={this.props.className}
-                    width={this.state.width}
-                    height={this.state.height}
+            <div style={{ width: 'auto', height: '100%', margin: 0, border: '1px solid #e0e0e0', borderRadius: '2px' }}>
+                {this._headerRenderer()}
+                <div
                     style={{ width: 'auto', height: '100%', margin: 0, }}
-                    rowCount={this.state.items.length}
-                    rowHeight={this._rowHeight}
-                    rowRenderer={this._rowRenderer}
-                    scrollToIndex={this.state.setSelectedIndex}
-                />
+                    ref={this._getElem}>
+                    <List
+                        className={this.props.className}
+                        width={this.state.width}
+                        height={this.state.height}
+                        style={{ width: 'auto', height: '100%', margin: 0, }}
+                        rowCount={this.state.items.length}
+                        rowHeight={this._rowHeight}
+                        rowRenderer={this._rowRenderer}
+                        scrollToIndex={this.state.setSelectedIndex}
+                    />
+                </div>
             </div>
+
+
 
         )
     }

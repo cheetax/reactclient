@@ -47,7 +47,7 @@ class ListUsersPage extends Component {
   }
 
   componentWillUnmount() {
-   // this.setState({ visibleAddButtons: this.props.visibleAddButtons })
+    // this.setState({ visibleAddButtons: this.props.visibleAddButtons })
     this.props.dispatch({
       type: 'INITIAL_USERS',
       payload: {}
@@ -83,12 +83,13 @@ class ListUsersPage extends Component {
     style        // Style object to be applied to row (to position it)
   }) => {
     if (this.props.users.length - 1 < index) return null;
-    return (
-      <div className='valign-wrapper' >
-        {this.props.users[index].firstName} {this.props.users[index].surName}
-      </div>
-    )
+    return [
+        <span  style={{ paddingRight: 10, }} >{this.props.users[index].firstName} {this.props.users[index].surName}</span>,
+        <span  style={{ paddingRight: 10 }} >{this.props.users[index].email}</span>
+    ]
   }
+
+  headerRenderer = (param) => <div style={param.style}  >Пользователь</div>
 
   btnAdd = () => {
     var user = {
@@ -200,6 +201,7 @@ class ListUsersPage extends Component {
         <div className='center-panel' >
 
           <ListView
+            headerRenderer={this.headerRenderer}
             className='collection'
             items={this.props.users}
             rowHeight={42}
