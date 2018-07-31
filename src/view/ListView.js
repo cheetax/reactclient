@@ -22,9 +22,10 @@ class ListView extends Component {
             elem: null,
             readHeader: true,
             columnWidth: [],
-            header: null
+            header: null,
+            toolsPanel: props.toolsPanel
         }
-        this.headerRenderer = props.headerRenderer;
+        this.headerRenderer = props.headerRenderer;        
         this._headerRenderer = this._headerRenderer.bind(this);
         this.rowRenderer = props.rowRenderer;
         this.onSelected = props.onSelected;
@@ -217,11 +218,13 @@ class ListView extends Component {
         })
     }
 
+    _toolsPanel = () => <div style={{ display: 'flex', paddingLeft: '20px', fontWeight: 'bold', borderBottom: '1px solid #e0e0e0' }} >{this.state.toolsPanel}</div >
     _headerRenderer = () => < div style={{ display: 'flex', paddingLeft: '20px', fontWeight: 'bold', borderBottom: '1px solid #e0e0e0' }} >{this.state.header}</div >
 
     render() {
         return (
             <div style={{ width: 'auto', height: '100%', margin: 0, border: '1px solid #e0e0e0', borderRadius: '2px' }}>
+                {this._toolsPanel()}
                 {this._headerRenderer()}
                 <div
                     style={{ width: 'auto', height: '100%', margin: 0, }}

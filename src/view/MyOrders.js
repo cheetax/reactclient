@@ -72,7 +72,7 @@ class MyOrders extends Component {
   }) => {
     if (this.props.orders.length - 1 < index) return null;
     return [
-      <span style={{ paddingRight: 10 }} >{this.props.orders[index].data} {this.props.users[index].surName}</span>,
+      <span style={{ paddingRight: 10 }} >{this.props.orders[index].data}</span>,
       <span style={{ paddingRight: 10 }} >{this.props.orders[index].nomer}</span>
     ]
   }
@@ -169,11 +169,10 @@ class MyOrders extends Component {
 
     return (
       <div className="flex-container_list">
-        {/* <div className='left-panel grey lighten-4' >
-          <ToolbarPanel onClick={this.btnAdd} />
-        </div> */}
+        <div >
+          Панель фильтров
+        </div>
         <div className='center-panel' >
-
           <ListView
             headerRenderer={this.headerRenderer}
             className='collection'
