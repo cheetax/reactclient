@@ -22,7 +22,7 @@ class ListView extends Component {
             elem: null,
             readHeader: true,
             columnWidth: [],
-            header: []
+            header: null
         }
         this.headerRenderer = props.headerRenderer;
         this._headerRenderer = this._headerRenderer.bind(this);
@@ -31,7 +31,7 @@ class ListView extends Component {
         this.onSelectedIndex = props.onSelectedIndex;
         this._rowRenderer = this._rowRenderer.bind(this)
         this.resize = this.resize.bind(this);
-
+        this._setHeader();
         //this._rowHeight = this._rowHeight.bind(this)
         // this._onClick = this._onClick.bind(this);
     }
@@ -83,11 +83,9 @@ class ListView extends Component {
                     items_select: props.items.map((item, i) => ({ active: (i === index) })),
                     setSelectedIndex: index,
                     prevItem: index,
-                    columnWidth: [],
-                    columnHeigth: [],
                     readHeader: true,
                 })
-                this._setHeader();
+
             })
         }
     }
@@ -148,10 +146,23 @@ class ListView extends Component {
     _rowRendererElem = (param) => {
         var rowColumns = this.rowRenderer(param)
         if (!Array.isArray(rowColumns)) rowColumns = [rowColumns];
-
+        var columnWidth = this.state.columnWidth;
         return (
             <div style={{ display: 'flex', }} >
-                {rowColumns.map((item, index) => <span key={index}>{item}</span>)}
+                {rowColumns.map((item, index) => {
+                    var style = {
+                        width: columnWidth[index],
+                        // display: 'flex',
+                        // justifyContent: 'center',
+                        // alignItems: 'center',
+                        flex: columnWidth[index] !== 'auto' ? 'none' : 'auto',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        margin: '0 10px'
+                    }
+                    return <span key={index} style={style} >{item}</span>
+                })}
             </div>
         )
     }
@@ -159,6 +170,10 @@ class ListView extends Component {
     _rowRenderer = (param) => {
         //var _style = {...style , height: 'auto'};
         var { key, style, index } = param;
+        style = {
+            ...style,
+            cursor: 'pointer',
+        }
         return (
             <a
                 className={this._className(index)}
@@ -175,8 +190,6 @@ class ListView extends Component {
         var style = {
             width: 'auto',
             height: 'auto',
-            margin: 0,
-            padding: 20,
         }
         var param = {
             style
@@ -184,21 +197,27 @@ class ListView extends Component {
         var columnWidth = [];
         var headerColumns = this.headerRenderer(param)
         if (!Array.isArray(headerColumns)) headerColumns = [headerColumns]
-        
+
         var e = headerColumns.map((item, index) => {
-            columnWidth[index] = item.width || 40;
+            columnWidth[index] = item.props.width || 'auto';
             var style = {
                 width: columnWidth[index],
+                display: 'flex',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                margin: '10px 10px',
+                flex: item.props.width ? 'none' : 'auto'
             }
             return (<span key={index} style={style} >{item} </span>)
         })
-        this.setState({
+        this.state = ({
+            ...this.state,
             columnWidth: columnWidth,
-            header: < div style={{ display: 'flex' }} >{e}</div >
+            header: e
         })
     }
 
-    _headerRenderer = () => this.state.header
+    _headerRenderer = () => < div style={{ display: 'flex', paddingLeft: '20px', fontWeight: 'bold', borderBottom: '1px solid #e0e0e0' }} >{this.state.header}</div >
 
     render() {
         return (

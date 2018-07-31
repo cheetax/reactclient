@@ -84,12 +84,13 @@ class ListUsersPage extends Component {
   }) => {
     if (this.props.users.length - 1 < index) return null;
     return [
-        <span  style={{ paddingRight: 10, }} >{this.props.users[index].firstName} {this.props.users[index].surName}</span>,
-        <span  style={{ paddingRight: 10 }} >{this.props.users[index].email}</span>
+      <span style={{ paddingRight: 10, }} >{this.props.users[index].firstName} {this.props.users[index].surName}</span>,
+      <span style={{ paddingRight: 10 }} >{this.props.users[index].email}</span>
     ]
   }
 
-  headerRenderer = (param) => <div style={param.style}  >Пользователь</div>
+  headerRenderer = (param) => [<span width={150} style={param.style}   >Имя, Фамилия</span> ,
+              <span style={param.style}  >Email</span>]
 
   btnAdd = () => {
     var user = {
