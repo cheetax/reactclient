@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import ListView from './ListView';
+import SelectTimePeriod from './SelectTimePeriod'
 import './MyOrders.css'
 
 const mapStateToProps = (state) => {
@@ -165,16 +166,17 @@ class MyOrders extends Component {
     })
   }
 
+  toolsPanelRenderer = () => <SelectTimePeriod />
+
   render() {
 
     return (
       <div className="flex-container_list">
-        <div >
-          Панель фильтров
-        </div>
+
         <div className='center-panel' >
           <ListView
             headerRenderer={this.headerRenderer}
+            toolsPanelRenderer = {this.toolsPanelRenderer}
             className='collection'
             items={this.props.orders}
             rowHeight={42}

@@ -231,7 +231,8 @@ class ListUsersPage extends Component {
               justifyContent: 'center',
               alignItems: 'center',
             }} >
-              <a className={this.state.visibleAddButtons ? 'waves-effect waves-light btn-floating btn-large' : 'waves-effect waves-light btn-floating btn-0'} onClick={() => this.btnAdd()} ><i className="material-icons"  >add</i></a>
+              <a className={this.state.visibleAddButtons ? 'waves-effect waves-light btn-floating btn-large' : 'waves-effect waves-light btn-floating btn-0'}
+                onClick={() => this.btnAdd()} ><i className="material-icons"  >add</i></a>
             </div>
           </div>
         </div>

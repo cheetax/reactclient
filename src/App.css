@@ -43,6 +43,17 @@ body {
   flex-direction: column;
   justify-content: flex-end; 
 }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .flex-container > .flex-menu {
   display: flex;
   flex-direction: row;
@@ -66,6 +77,12 @@ body {
   box-shadow: none;
 }
 
+.my-btn-flat-circle:hover {
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 50%;
+  box-shadow: none;
+}
+
 .my-btn-flating:hover {
   background-color: rgba(0,0,0,0.1);
   box-shadow: none;
@@ -79,10 +96,29 @@ body {
   align-items: center;
 }
 
+.btn-large:hover {
+  background-color: #2bbbad;
+}
+
+
+.btn:hover {
+  background-color: #2bbbad;
+}
+
 .btn-floating.btn-large {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.btn-raised-floating {
+  color: #fff;
+  z-index: 1;
+  width: auto;
+  height: 40px;
+  line-height: 40px;
+  background-color: #26a69a;
+  border-radius: 20px;
 }
 
 .color-accent {
