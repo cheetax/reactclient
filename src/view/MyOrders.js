@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import ListView from './ListView';
 import SelectTimePeriod from './SelectTimePeriod'
+
 import './MyOrders.css'
 
 const mapStateToProps = (state) => {
@@ -166,7 +167,7 @@ class MyOrders extends Component {
     })
   }
 
-  toolsPanelRenderer = () => <SelectTimePeriod />
+  toolsPanelRenderer = () => <SelectTimePeriod dataFrom='01/08/2018' dataTo='15/08/2018' />
 
   render() {
 
