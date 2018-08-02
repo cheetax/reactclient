@@ -11,26 +11,43 @@ moment.locale('ru');
 //   };
 // }
 
+const matrixArray = (row, col) => {
+  var arr = new Array(row);
+  for (var i = 0; i < row; i++) {
+    arr[i] = new Array(col);
+  }
+  return arr;
+}
+
 class Calendar extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      monthArray: Array(7, 6),
+      calendar: {
+        year: moment(props.data).year(),
+        month: moment(props.data).month(),
+        monthArray: [],
+      },
       data: moment(props.data),
     }
   }
 
   componentWillMount() {
-    var monthArray = Array(...Array(7));
+    var month = moment({ year: this.state.calendar.year, month: this.state.calendar.month });
+    var monthArray = matrixArray(6, 7);
     for (var week = 0; week <= 5; week++) {
       for (var day = 0; day <= 6; day++) {
-        console.log(moment(this.state.data).day((week * 7) + (day + 1)).format('L'))
-        monthArray[day][week] = moment(this.state.data).day((week * 7) + (day + 1)).format('L')
-        console.log(monthArray);
+        monthArray[week][day] = moment(month).day((week * 7) + (day + 1)).date()
       }
     }
-    
+    this.setState({
+      calendar: {
+        ...this.state.calendar,
+        monthArray,
+      }
+    })
+    console.log(monthArray);
   }
 
   componentDidUpdate(prevProps) {
@@ -39,10 +56,14 @@ class Calendar extends Component {
 
 
   render() {
-
+    const arr = this.state.calendar.monthArray;
     return (
-      <div className="flex-row">
-        Календарь
+      <div style={{justifyContent: 'space-between'}} className="flex-column">
+        {arr.map((week) => {
+          return <div style={{justifyContent: 'space-between'}} className='flex-row' >{week.map((day) => {
+            return <span style={{height: 40, width: 40, display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: 20}} >{day}</span>
+          })}</div>
+        })}
       </div>
     );
   }
