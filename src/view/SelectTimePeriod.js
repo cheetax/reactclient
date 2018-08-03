@@ -158,7 +158,7 @@ class SelectTimePeriod extends Component {
       result = this.state.dataFrom.format('Qo') + ' квартал';
       resultType = 'quarter';
     }   //if ()
-    console.log(moment(this.state.dataFrom).endOf('month').format())
+//    console.log(moment(this.state.dataFrom).endOf('month').format())
     if (this.state.resultType !== resultType) {
       this.setState({
         resultType: resultType,
@@ -173,7 +173,7 @@ class SelectTimePeriod extends Component {
 
     return (
       <div className="flex-row">
-        <Calendar data={moment().toObject()} />
+        
         <a className='waves-effect waves-light btn-floating btn'
           onClick={() => this._downPeriod()} >
           <i className="material-icons"  >keyboard_arrow_left</i>
@@ -187,7 +187,7 @@ class SelectTimePeriod extends Component {
           onClick={() => this._upPeriod()} >
           <i className="material-icons"  >keyboard_arrow_right</i>
         </a>
-
+        <Calendar data={moment().toObject()} />
 
       </div>
     );
