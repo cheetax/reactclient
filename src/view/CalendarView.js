@@ -25,14 +25,16 @@ class Calendar extends Component {
 
   constructor(props) {
     super(props)
+    var data = moment(props.data);
     this.state = {
       calendar: {
         year: moment(props.data).year(),
         month: moment(props.data).month(),
         monthArray: [],
       },
-      selectDay: { w: null, d: null },
-      data: moment(props.data),
+      selectDay: { w: this._getWeekOfDay(moment(props.data).date()), d: moment(props.data).day() - 1 },
+      data,
+      openModalMore: false,
     }
     this._fillMonthArray = this._fillMonthArray.bind(this);
     this._upMonth = this._upMonth.bind(this);
@@ -46,7 +48,7 @@ class Calendar extends Component {
     var current = false;
     for (var week = 0; week <= 5; week++) {
       for (var day = 0; day <= 6; day++) {
-        current = moment(month).day((week * 7) + (day + 1)).isSame(this.state.data, 'day')
+        current = moment(month).day((week * 7) + (day + 1)).isSame(moment(), 'day')
         if ((selectDay.w === null && selectDay.d === null) && current) selectDay = { w: week, d: day }
         monthArray[week][day] = {
           day: moment(month).day((week * 7) + (day + 1)).date(),
@@ -56,14 +58,9 @@ class Calendar extends Component {
       }
     }
     return monthArray;
-    // this.setState({
-    //   calendar: {
-    //     ...this.state.calendar,
-    //     monthArray,
-    //   },
-    //   selectDay: selectDay,
-    // })
   }
+
+  _getWeekOfDay = (day) => Math.ceil(day / 7) - 1;
 
   _upMonth = () => {
     var month = this.state.calendar.month;
@@ -79,22 +76,24 @@ class Calendar extends Component {
         month,
         year,
       }
-    },
-      //this._fillMonthArray()
-    )
-    // this.setState({
-    //   test:222,
-    //   calendar: {
-    //     ...this.state.calendar,
-    //     month: month,
-    //     year: year,
-    //   },
-    // }, this._fillMonthArray())
-    //this._fillMonthArray();
+    })
   }
 
   _downMonth = () => {
-
+    var month = this.state.calendar.month;
+    var year = this.state.calendar.year;
+    if (month === 0) {
+      month = 11;
+      year--;
+    }
+    else month--;
+    this.setState({
+      calendar: {
+        ...this.state.calendar,
+        month,
+        year,
+      }
+    })
   }
 
   componentWillMount() {
@@ -112,7 +111,7 @@ class Calendar extends Component {
       dayweek[i] = moment().day(i + 1).format('dd');
     }
     return (
-      <div style={{ justifyContent: 'space-between' }} className='flex-row' >
+      <div style={{ justifyContent: 'space-between', textTransform: 'capitalize' }} className='flex-row' >
         {
           dayweek.map((day, i) => <span key={i} style={{ height: 30, width: 30, display: 'flex', justifyContent: 'center', alignItems: 'center', }} >{day}</span>)
         }
@@ -126,7 +125,53 @@ class Calendar extends Component {
 
   }
 
+  _fillSelectYear = (year) => {
+    return [
+      year - 2,
+      year - 1,
+      year,
+      year + 1
+    ]
+  }
 
+  modalMore = () => {
+    return (
+      <div >
+        <div style={this.state.openModalMore ? {
+          position: 'fixed',
+          background: 'transparen',
+          opacity: '0.00',
+          top: '0px',
+          left: '0px',
+          width: '100%',
+          height: '100%',
+          zIndex: '999',
+        } : null}
+          onClick={() => {
+            this.setState({ openModalMore: false })
+          }} />
+        <div id='modal1' className='modal-dropdown' style={this.state.openModalMore ? {
+          display: 'block',
+          opacity: '1',
+          padding: '8px 0px'
+        } : null} >
+          <div className='dropdown-menu' >
+            {this._fillSelectYear(this.state.calendar.year).map(year => <a className='dropdown-item' onClick={() => {
+              this.setState({
+                openModalMore: false,
+                calendar: {
+                  ...this.state.calendar,
+                  year
+                }
+              })
+
+            }} >{year}</a>)}
+          </div>
+
+        </div>
+      </div>
+    )
+  }
 
   render() {
     const calendar = this.state.calendar;
@@ -152,11 +197,20 @@ class Calendar extends Component {
                 margin: 1,
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center',
+                alignItems: 'center'
                 //fontSize: 20,
               }} > <i className="material-icons"  >keyboard_arrow_left</i>
             </a>
-            <div >{moment({ year: calendar.year, month: calendar.month }).format('MMMM')}</div>
+            <div style={{
+              display: 'flex',
+              flex: 1,
+              justifyContent: 'center',
+              'align-self': 'stretch',
+              'align-items': 'center',
+              margin: 1,
+              cursor: 'arrow',
+              userSelect: 'none'
+            }} >{moment({ year: calendar.year, month: calendar.month }).format('MMMM')}</div>
             <a
               className='btn-select-day'
               onClick={this._upMonth}
@@ -171,8 +225,45 @@ class Calendar extends Component {
               }} > <i className="material-icons"  >keyboard_arrow_right</i>
             </a>
           </div>
-
-          <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>2018</div>
+          <div className='flex-column'
+            style={{
+              display: 'flex',
+              flex: 1,
+              justifyContent: 'center',
+              'align-self': 'stretch',
+              'align-items': 'center',
+              margin: 1
+            }} >
+            <div
+              style={{
+                display: 'flex',
+                flex: 1,
+                justifyContent: 'center',
+                'align-self': 'stretch',
+                'align-items': 'center',
+                margin: 1,
+                cursor: 'arrow',
+                userSelect: 'none'
+              }}>{calendar.year}</div>
+          </div>
+          <div style={{ position: 'relative' }} >
+            <a
+              className='btn-select-day'
+              onClick={() => this.setState({ openModalMore: true })}
+              style={{
+                height: 32,
+                width: 32,
+                margin: 1,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                //fontSize: 20,
+              }} >
+              <i className={(this.state.openModalMore) ? "icon-down-arrow dropdown-active" : "icon-down-arrow"}></i>
+              {/* <i className='icon-down-arrow '></i> */}
+            </a>            
+            {this.modalMore(this)}
+          </div>
         </div>
 
 

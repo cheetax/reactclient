@@ -11,6 +11,7 @@ import MyOrders from './view/MyOrders'
 import OrdersOnWater from './view/OrdersOnWater'
 //import { Navbar, NavItem } from 'react-materialize'
 import './App.css';
+import './view/modal.css';
 //import './materialize/css/materialize.css'
 
 const mapStateToProps = (state) => {

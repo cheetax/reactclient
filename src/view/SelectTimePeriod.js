@@ -187,7 +187,7 @@ class SelectTimePeriod extends Component {
           onClick={() => this._upPeriod()} >
           <i className="material-icons"  >keyboard_arrow_right</i>
         </a>
-        <Calendar data={moment().toObject()} />
+        <Calendar data={moment('15/08/18', 'DD-MM-YY').toObject()} />
 
       </div>
     );

@@ -1,9 +1,9 @@
-.btn-select-day.active:hover, .btn-select-day:hover, .btn-select-day.current:hover  {
+.btn-select-day.active:hover, .btn-select-day:hover, .btn-select-day.current:hover,  .btn-select:hover  {
     cursor: pointer;
     border: 2px solid #adb0b2; 
 }
 
-.btn-select-day:active {
+.btn-select-day:active, .btn-select:active {
     /* border: 2px solid red; */
     background: #adb0b2;
 }
@@ -16,9 +16,30 @@ a.btn-select-day {
     user-select: none;
 }
 
+a.btn-select {
+    cursor: pointer;    
+    transition: all ease 0.3s;
+    border-radius: 16px;
+    border: 2px solid transparent;
+    user-select: none;
+}
+
 .btn-select-day.active {
     border: 2px solid #00b259; 
 }
 .btn-select-day.current {
     border: 2px solid #013a812e;
+}
+
+i.icon-down-arrow {
+    border: 4px solid transparent;
+    border-bottom: 4px solid #26a69a;
+    border-left: 4px solid #26a69a;
+    transform: rotate(-45deg);
+    transition:  0.3s;
+}
+
+.icon-down-arrow.dropdown-active{
+    transform: rotate(-225deg);
+    transition:  0.3s;
 }

@@ -135,41 +135,7 @@
 
 
 
-.modal-menu > .header {
-    font-size: 21px;
-    font-weight: bold;
-    margin: 0 24px;
-    height: 64px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
 
-.modal-menu > .collection > .collection-item {
-    height: 48px;
-    font-size: 16px;
-    padding: 10px 24px;
-    border-bottom: 0px;
-    color: black;
-    
-}
-
-
-.modal-menu > .collection {
-    margin: 0;
-    border-right-width: 0px;
-    border-left-width: 0px;
-}
-
-.modal-menu > .footer {
-    font-weight: bolder;
-    margin: 0 4px 0 24px;
-    height: 52px;
-    flex-direction: row;
-    align-items: center;
-    display: flex;
-    justify-content: flex-end;
-}
 
 .title-edit {
     font-size: 20px;
@@ -223,56 +189,6 @@ form.edit{
     overflow: auto;
 }
 
-.modal-menu {
-    display: none;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: #FFFFFF;
-    /* padding: 0; */
-    /* max-height: 70%; */
-    margin: 0 10px;
-    border-radius: 4px;
-    will-change: top, opacity;
-    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);    
-    z-index: 1003;
-}
-.modal-more {
-    display: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 112px;
-    background: #FFFFFF;
-    /* padding: 0; */
-    /* max-height: 70%; */
-    margin: 0 10px;
-    border-radius: 4px;
-    will-change: top, opacity;
-    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);    
-    z-index: 1003;
-}
-
-.modal-more-menu {
-    display: flex;
-    padding: 0px 0px;
-}
-
-.modal-more-item {
-    height: 48px;
-    color: black;
-    font-weight: normal;
-    flex: auto;
-    padding: 0 16px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.modal-more-item:hover {
-    background-color:  rgba(0,0,0,0.1);
-}
 
 input[type=text] {
     height: 2.5rem;
