@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import dropdownArrow from './img/baseline-arrow_drop_down-24px.svg'
-import arrowBefore from './img/baseline-navigate_before-24px.svg'
-import arrowNext from './img/baseline-navigate_next-24px.svg'
 import 'moment/locale/ru';
 import './CalendarView.css'
 
@@ -36,7 +33,8 @@ class Calendar extends Component {
         monthArray: [],
       },
       data,
-      openModalMore: false,
+      openModalSelectYear: false,
+      openModalSelectMonth: false,
     }
     this._fillMonthArray = this._fillMonthArray.bind(this);
     this._upMonth = this._upMonth.bind(this);
@@ -50,7 +48,7 @@ class Calendar extends Component {
     for (var week = 0; week <= 5; week++) {
       for (var day = 0; day <= 6; day++) {
         current = moment(month).weekday((week * 7) + (day)).isSame(moment(), 'day')
-        console.log(moment(month).weekday((week * 7) + (day )).date())
+        console.log(moment(month).weekday((week * 7) + (day)).date())
         monthArray[week][day] = {
           data: moment(month).weekday((week * 7) + (day)),
           day: moment(month).weekday((week * 7) + (day)).date(),
@@ -138,10 +136,18 @@ class Calendar extends Component {
     ]
   }
 
-  modalMore = () => {
+  _fillSelectMonth = () => {
+    var arrayMonth= [];
+    for (var m = 0; m <=11; m++) {
+      arrayMonth.push(moment().month(m).format('MMMM'));
+    }
+    return arrayMonth;
+  }
+
+  modalSelectYear = () => {
     return (
       <div >
-        <div style={this.state.openModalMore ? {
+        <div style={this.state.openModalSelectYear ? {
           position: 'fixed',
           background: 'transparen',
           opacity: '0.00',
@@ -152,9 +158,9 @@ class Calendar extends Component {
           zIndex: '999',
         } : null}
           onClick={() => {
-            this.setState({ openModalMore: false })
+            this.setState({ openModalSelectYear: false })
           }} />
-        <div id='modal1' className='modal-dropdown' style={this.state.openModalMore ? {
+        <div id='modal1' className='modal-dropdown' style={this.state.openModalSelectYear ? {
           display: 'block',
           opacity: '1',
           padding: '8px 0px'
@@ -162,7 +168,7 @@ class Calendar extends Component {
           <div className='dropdown-menu' >
             {this._fillSelectYear(this.state.calendar.year).map(year => <a className='dropdown-item' onClick={() => {
               this.setState({
-                openModalMore: false,
+                openModalSelectYear: false,
                 calendar: {
                   ...this.state.calendar,
                   year
@@ -170,6 +176,45 @@ class Calendar extends Component {
               })
 
             }} >{year}</a>)}
+          </div>
+
+        </div>
+      </div>
+    )
+  }
+
+  modalSelectMonth = () => {
+    return (
+      <div >
+        <div style={this.state.openModalSelectMonth ? {
+          position: 'fixed',
+          background: 'transparen',
+          opacity: '0.00',
+          top: '0px',
+          left: '0px',
+          width: '100%',
+          height: '100%',
+          zIndex: '999',
+        } : null}
+          onClick={() => {
+            this.setState({ openModalSelectMonth: false })
+          }} />
+        <div id='modal1' className='modal-dropdown' style={this.state.openModalSelectMonth ? {
+          display: 'block',
+          opacity: '1',
+          padding: '8px 0px'
+        } : null} >
+          <div className='dropdown-menu' style={{ height: 200, overflow: 'auto'}} >
+            {this._fillSelectMonth().map((month, m) => <a className='dropdown-item' onClick={() => {
+              this.setState({
+                openModalSelectMonth: false,
+                calendar: {
+                  ...this.state.calendar,
+                  month: m
+                }
+              })
+
+            }} >{month}</a>)}
           </div>
 
         </div>
@@ -202,7 +247,7 @@ class Calendar extends Component {
     <div style={{ position: 'relative' }} >
       <a
         className='btn-select-day'
-        onClick={() => this.setState({ openModalMore: true })}
+        onClick={() => this.setState({ openModalSelectYear: true })}
         style={{
           height: 32,
           width: 32,
@@ -212,70 +257,98 @@ class Calendar extends Component {
           alignItems: 'center',
           //fontSize: 20,
         }} >
-
         <svg xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          className={(this.state.openModalMore) ? "icon-down-arrow dropdown-active" : "icon-down-arrow"}>
+          className={(this.state.openModalSelectYear) ? "icon-down-arrow dropdown-active" : "icon-down-arrow"}>
           <path d="M7 10l5 5 5-5z" />
-          {/* <path d="M0 0h24v24H0z" fill="none" /> */}
         </svg>
-
-        {/* <i className='icon-down-arrow '></i> */}
       </a>
-      {this.modalMore(this)}
+      {this.modalSelectYear(this)}
     </div>
   </div>
 
-  _selectMonth = (calendar) => <div className="flex-row" style={{ display: 'flex', flex: 3, justifyContent: 'space-between', alignItems: 'center' }} >
-    <a
-      className='btn-select-day'
-      onClick={this._downMonth}
+  _selectMonth = (calendar) =>
+    <div className="flex-row"
       style={{
-        height: 32,
-        width: 32,
-        margin: 1,
         display: 'flex',
-        justifyContent: 'center',
+        flex: 3,
+        justifyContent: 'space-between',
         alignItems: 'center'
-        //fontSize: 20,
       }} >
-      {/* <i className="material-icons"  >keyboard_arrow_left</i> */}
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='icon-svg' >
-        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-      </svg>
-    </a>
-    <div style={{
-      display: 'flex',
-      flex: 1,
-      justifyContent: 'center',
-      alignSelf: 'stretch',
-      alignItems: 'center',
-      margin: 1,
-      cursor: 'arrow',
-      userSelect: 'none'
-    }} >{moment({ year: calendar.year, month: calendar.month }).format('MMMM')}</div>
-    <a
-      className='btn-select-day'
-      onClick={this._upMonth}
-      style={{
-        height: 32,
-        width: 32,
-        margin: 1,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        //fontSize: 20,
-      }} >
-      {/* <i className="material-icons"  >keyboard_arrow_right</i> */}
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='icon-svg' >
-        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-      </svg>
+      <a
+        className='btn-select-day'
+        onClick={this._downMonth}
+        style={{
+          height: 32,
+          width: 32,
+          margin: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+          //fontSize: 20,
+        }}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='icon-svg' >
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+        </svg>
+      </a>
+      <div className='flex-row' style={{flex: 'auto'}} >
+        <div style={
+          {
+            display: 'flex',
+            flex: 1,
+            justifyContent: 'center',
+            alignSelf: 'stretch',
+            alignItems: 'center',
+            margin: 1,
+            cursor: 'arrow',
+            userSelect: 'none'
+          }} >
+          {moment({ year: calendar.year, month: calendar.month }).format('MMMM')}
+        </div>
+        <div style={{ position: 'relative', alignSelf: 'flex-end' }} >
+          <a
+            className='btn-select-day'
+            onClick={() => this.setState({ openModalSelectMonth: true })}
+            style={{
+              height: 32,
+              width: 32,
+              margin: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              //fontSize: 20,
+            }} >
+            <svg xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              className={(this.state.openModalSelectMonth) ? "icon-down-arrow dropdown-active" : "icon-down-arrow"}>
+              <path d="M7 10l5 5 5-5z" />
+            </svg>
+          </a>
+          {this.modalSelectMonth(this)}
+        </div>
+      </div>
 
-      {/* <img src={arrowNext} /> */}
-    </a>
-  </div>
+      <a
+        className='btn-select-day'
+        onClick={this._upMonth}
+        style={{
+          height: 32,
+          width: 32,
+          margin: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          //fontSize: 20,
+        }} >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className='icon-svg' >
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+      </a>
+    </div>
 
   render() {
     const calendar = this.state.calendar;
@@ -299,7 +372,7 @@ class Calendar extends Component {
         {arr.map((week, wi) => <div key={wi} style={{ justifyContent: 'space-between' }} className='flex-row' >
           {week.map((day, di) =>
             <a key={di}
-              className={(moment(data).isSame(day.data)) ? 'btn-select-day active' : (day.current) ? 'btn-select-day current' : 'btn-select-day'}
+              className={(moment(data).isSame(day.data)) ? day.month !== calendar.month ? 'btn-select-day no-current-month active' : 'btn-select-day active' : (day.current) ? 'btn-select-day current' : day.month !== calendar.month ? 'btn-select-day no-current-month': 'btn-select-day'}
               onClick={() => this._onClick(day.data)}
               style={{
                 height: 32,
@@ -309,7 +382,7 @@ class Calendar extends Component {
                 justifyContent: 'center',
                 alignItems: 'center',
                 //fontSize: 20,
-                opacity: day.month !== calendar.month ? '.4' : '1'
+                //opacity: day.month !== calendar.month ? '.4' : '1'
               }} >
               {day.day}
             </a>

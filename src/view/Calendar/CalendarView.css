@@ -21,6 +21,10 @@ a.btn-select-day {
     user-select: none;
 }
 
+.no-current-month.btn-select-day {
+    color: #99e0bd;
+}
+
 a.btn-select {
     cursor: pointer;    
     transition: all ease 0.3s;
@@ -67,8 +71,8 @@ a.btn-select {
 }
 
 .dropdown-menu {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     padding: 0px 0px;
 }
 
