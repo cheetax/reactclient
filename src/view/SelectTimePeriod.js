@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import Calendar from './CalendarView'
+import Calendar from './Calendar/CalendarView'
 import moment from 'moment';
 import 'moment/locale/ru';
 moment.locale('ru');

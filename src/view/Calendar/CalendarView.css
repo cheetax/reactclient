@@ -1,0 +1,89 @@
+.btn-select-day.active:hover, .btn-select-day:hover, .btn-select-day.current:hover,  .btn-select:hover  {
+    cursor: pointer;
+    border: 2px solid #adb0b2; 
+}
+
+.btn-select-day.active:hover {
+    cursor: pointer;
+    border: 2px solid #02d86d; 
+}
+
+.btn-select-day:active, .btn-select:active {
+    /* border: 2px solid red; */
+    background: #adb0b2;
+}
+
+a.btn-select-day {
+    cursor: pointer;    
+    transition: all ease 0.3s;
+    border-radius: 50%;
+    border-color: transparent;
+    user-select: none;
+}
+
+a.btn-select {
+    cursor: pointer;    
+    transition: all ease 0.3s;
+    border-radius: 16px;
+    border: 2px solid transparent;
+    user-select: none;
+}
+
+.btn-select-day.active {
+    border: 2px solid #00b259; 
+}
+.btn-select-day.current {
+    border: 2px solid #013a812e;
+}
+
+.icon-down-arrow {
+    transition:  0.3s;
+    fill: #013a81;
+}
+
+.icon-svg {
+    fill: #013a81;
+}
+
+.icon-down-arrow.dropdown-active{
+    transform: rotate(-180deg);
+    transition:  0.3s;
+}
+
+.modal-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    /* width: 112px; */
+    background: #FFFFFF;
+    /* padding: 0; */
+    /* max-height: 70%; */
+    /* margin: 0 10px; */
+    border-radius: 4px;
+    will-change: top, opacity;
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.3);    
+    z-index: 1003;
+}
+
+.dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 0px;
+}
+
+.dropdown-item {
+    height: 32px;
+    /* color: black; */
+    /* font-weight: normal; */
+    flex: auto;
+    padding: 0 16px;
+    /* font-size: 16px; */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color:  rgba(0,0,0,0.1);
+}
