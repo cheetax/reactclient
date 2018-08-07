@@ -388,8 +388,8 @@ class Calendar extends Component {
         <div style={{ flex: 1, background: 'green' }} >
           <div style={{ height: 50 }} />
         </div>
-        <div className='test' style={{ flex: 1, background: 'red' }} >
-          <div style={{ width: 50, height: 50 }} />
+        <div className='test2' style={{ flex: 1, }} >
+          <div className='test' style={{ width: 50, height: 50, background: 'red'  }} />
         </div>
       </div>
 

@@ -113,11 +113,19 @@ a.btn-select {
 
 .test {
     position: relative;
-    right: 0;
+    transition: 1s;
 }
 
-.test:hover {
-    position: absolute;
-    right: -100%;
-    transition: 2s;
+.test:hover {    
+    position: relative;
+    /* right: -100%; */
+    transform: translateX(100%);
+    transition: 1s;
+}
+.test2{
+    width: 100%;
+}
+.test2:hover {
+    width: 0;
+    transition: 1s;
 }
