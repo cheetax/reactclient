@@ -22,7 +22,7 @@ a.btn-select-day {
 }
 
 .no-current-month.btn-select-day {
-    color: #99e0bd;
+    color: #039be559;
 }
 
 a.btn-select {
@@ -90,4 +90,34 @@ a.btn-select {
 
 .dropdown-item:hover {
     background-color:  rgba(0,0,0,0.1);
+}
+
+.select-month {
+    transition: 1s;
+}
+
+.not-year {
+    position: absolute;
+    right: -100%;
+    width: 100%;
+    transition: 1s;
+    overflow: hidden;
+}
+.select-year {
+    position: relative;
+    right: 0;
+    width: 100%;
+    transition: 1s;
+    overflow: hidden;
+}
+
+.test {
+    position: relative;
+    right: 0;
+}
+
+.test:hover {
+    position: absolute;
+    right: -100%;
+    transition: 2s;
 }

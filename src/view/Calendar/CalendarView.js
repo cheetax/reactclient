@@ -48,7 +48,7 @@ class Calendar extends Component {
     for (var week = 0; week <= 5; week++) {
       for (var day = 0; day <= 6; day++) {
         current = moment(month).weekday((week * 7) + (day)).isSame(moment(), 'day')
-        console.log(moment(month).weekday((week * 7) + (day)).date())
+        //console.log(moment(month).weekday((week * 7) + (day)).date())
         monthArray[week][day] = {
           data: moment(month).weekday((week * 7) + (day)),
           day: moment(month).weekday((week * 7) + (day)).date(),
@@ -137,8 +137,8 @@ class Calendar extends Component {
   }
 
   _fillSelectMonth = () => {
-    var arrayMonth= [];
-    for (var m = 0; m <=11; m++) {
+    var arrayMonth = [];
+    for (var m = 0; m <= 11; m++) {
       arrayMonth.push(moment().month(m).format('MMMM'));
     }
     return arrayMonth;
@@ -204,7 +204,7 @@ class Calendar extends Component {
           opacity: '1',
           padding: '8px 0px'
         } : null} >
-          <div className='dropdown-menu' style={{ height: 200, overflow: 'auto'}} >
+          <div className='dropdown-menu' style={{ height: 200, overflow: 'auto' }} >
             {this._fillSelectMonth().map((month, m) => <a className='dropdown-item' onClick={() => {
               this.setState({
                 openModalSelectMonth: false,
@@ -222,16 +222,8 @@ class Calendar extends Component {
     )
   }
 
-  _selectYear = (year) => <div className='flex-row' >
-    <div
-      style={{
-        display: 'flex',
-        flex: 1,
-        justifyContent: 'center',
-        alignSelf: 'stretch',
-        alignItems: 'center',
-        margin: 1
-      }} >
+  _selectYear = (year) => <div className={(this.state.openModalSelectMonth) ? 'flex-row ' : 'flex-row '} style={{ display: 'flex', position: 'relative', alignSelf: 'stretch' }} >
+    <div className={(this.state.openModalSelectMonth) ? 'flex-row not-year' : 'flex-row select-year'} >
       <div
         style={{
           display: 'flex',
@@ -239,35 +231,36 @@ class Calendar extends Component {
           justifyContent: 'center',
           alignSelf: 'stretch',
           alignItems: 'center',
-          margin: 1,
-          cursor: 'arrow',
-          userSelect: 'none'
-        }}>{year}</div>
-    </div>
-    <div style={{ position: 'relative' }} >
-      <a
-        className='btn-select-day'
-        onClick={() => this.setState({ openModalSelectYear: true })}
-        style={{
-          height: 32,
-          width: 32,
-          margin: 1,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          //fontSize: 20,
+          margin: 1
         }} >
-        <svg xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          className={(this.state.openModalSelectYear) ? "icon-down-arrow dropdown-active" : "icon-down-arrow"}>
-          <path d="M7 10l5 5 5-5z" />
-        </svg>
-      </a>
-      {this.modalSelectYear(this)}
+        {year}
+      </div>
+      <div style={{ position: 'relative' }} >
+        <a
+          className='btn-select-day'
+          onClick={() => this.setState({ openModalSelectYear: true })}
+          style={{
+            height: 32,
+            width: 32,
+            margin: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            //fontSize: 20,
+          }} >
+          <svg xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            className={(this.state.openModalSelectYear) ? "icon-down-arrow dropdown-active" : "icon-down-arrow"}>
+            <path d="M7 10l5 5 5-5z" />
+          </svg>
+        </a>
+        {this.modalSelectYear(this)}
+      </div>
     </div>
   </div>
+
 
   _selectMonth = (calendar) =>
     <div className="flex-row"
@@ -293,7 +286,7 @@ class Calendar extends Component {
           <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
         </svg>
       </a>
-      <div className='flex-row' style={{flex: 'auto'}} >
+      <div className='flex-row' style={{ flex: 'auto' }} >
         <div style={
           {
             display: 'flex',
@@ -356,40 +349,51 @@ class Calendar extends Component {
     const arr = this._fillMonthArray();
     const data = this.state.data;
 
-    return (
-      <div style={{
-        justifyContent: 'space-between',
-        //fontSize: 20,
-        border: '1px solid #e0e0e0'
-      }}
-        className="flex-column">
-        <div style={{ borderBottom: '1px solid #e0e0e0', alignItems: 'center', textTransform: 'capitalize' }} className="flex-row">
-          {this._selectMonth(calendar)}
-          {this._selectYear(calendar.year)}
-        </div>
+    // return (
+    //   <div style={{
+    //     justifyContent: 'space-between',
+    //     //fontSize: 20,
+    //     border: '1px solid #e0e0e0'
+    //   }}
+    //     className="flex-column">
+    //     <div style={{ borderBottom: '1px solid #e0e0e0', alignItems: 'center', textTransform: 'capitalize' }} className="flex-row">
+    //       {this._selectMonth(calendar)}
+    //       {this._selectYear(calendar.year)}
+    //     </div>
 
-        {this.dayweek()}
-        {arr.map((week, wi) => <div key={wi} style={{ justifyContent: 'space-between' }} className='flex-row' >
-          {week.map((day, di) =>
-            <a key={di}
-              className={(moment(data).isSame(day.data)) ? day.month !== calendar.month ? 'btn-select-day no-current-month active' : 'btn-select-day active' : (day.current) ? 'btn-select-day current' : day.month !== calendar.month ? 'btn-select-day no-current-month': 'btn-select-day'}
-              onClick={() => this._onClick(day.data)}
-              style={{
-                height: 32,
-                width: 32,
-                margin: 1,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                //fontSize: 20,
-                //opacity: day.month !== calendar.month ? '.4' : '1'
-              }} >
-              {day.day}
-            </a>
-          )}</div>
-        )}
+    //     {this.dayweek()}
+    //     {arr.map((week, wi) => <div key={wi} style={{ justifyContent: 'space-between' }} className='flex-row' >
+    //       {week.map((day, di) =>
+    //         <a key={di}
+    //           className={(moment(data).isSame(day.data)) ? day.month !== calendar.month ? 'btn-select-day no-current-month active' : 'btn-select-day active' : (day.current) ? 'btn-select-day current' : day.month !== calendar.month ? 'btn-select-day no-current-month' : 'btn-select-day'}
+    //           onClick={() => this._onClick(day.data)}
+    //           style={{
+    //             height: 32,
+    //             width: 32,
+    //             margin: 1,
+    //             display: 'flex',
+    //             justifyContent: 'center',
+    //             alignItems: 'center',
+    //             //fontSize: 20,
+    //             //opacity: day.month !== calendar.month ? '.4' : '1'
+    //           }} >
+    //           {day.day}
+    //         </a>
+    //       )}</div>
+    //     )}
+    //   </div>
+    // );
+    return (
+      <div style={{ width: 100, position: 'relative' }} className='flex-row' >
+        <div style={{ flex: 1, background: 'green' }} >
+
+        </div>
+        <div className='test' style={{ flex: 1, background: 'red' }} >
+          <div style={{ width: 50, height: 50 }} />
+        </div>
       </div>
-    );
+
+    )
   }
 }
 //export default connect(mapStateToProps)(LoginPage);
