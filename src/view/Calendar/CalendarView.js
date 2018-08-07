@@ -386,7 +386,7 @@ class Calendar extends Component {
     return (
       <div style={{ width: 100, position: 'relative' }} className='flex-row' >
         <div style={{ flex: 1, background: 'green' }} >
-
+          <div style={{ height: 50 }} />
         </div>
         <div className='test' style={{ flex: 1, background: 'red' }} >
           <div style={{ width: 50, height: 50 }} />
