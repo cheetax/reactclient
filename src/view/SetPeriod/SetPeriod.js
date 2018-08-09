@@ -52,10 +52,12 @@ class SetPeriod extends Component {
 
         return <div className='flex-row' >
 
-            <div className='flex-column' >
+            <div className='flex-column' style={{margin: '5px 0', padding: '0 5px 0 0', borderRight: '1px solid #ddd'}} >
+                <div style={{margin: '5px 0', }} >Начало периода:</div>
                 <Calendar data={dataFrom} toClose={false} onSelect={this._setDataFrom} />
             </div>
-            <div className='flex-column' >
+            <div className='flex-column' style={{margin: 5, borderRight: 1}} >
+            <div style={{margin: '5px 0', }}>Конец периода:</div>
                 <Calendar data={dataTo} toClose={false} onSelect={this._setDataTo} />
             </div>
         </div>
@@ -91,9 +93,8 @@ class SetPeriod extends Component {
             <div style={{
                 display: (isActive) ? 'block' : 'none'
             }}>
-                <div>Установлен период: с {dataFrom} по {dataTo}</div>
+                <div style={{margin: '5px 0', }}>Установлен период: с {dataFrom} по {dataTo}</div>
                 {this._tabs()}
-
             </div>
         );
     }

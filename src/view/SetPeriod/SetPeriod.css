@@ -2,3 +2,8 @@
     
     border-bottom: 3px solid #00b259;
 }
+
+.rwt__tab[aria-selected="true"]:hover {
+    background-color: rgba(0,0,0,0.05);
+    position: relative;
+}
