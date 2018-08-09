@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import Calendar from './Calendar/CalendarView'
+import SetPeriod from './SetPeriod/SetPeriod'
 import moment from 'moment';
 import 'moment/locale/ru';
 moment.locale('ru');
@@ -168,6 +168,10 @@ class SelectTimePeriod extends Component {
     return result;
   }
 
+  _setPeriod = (period) => {
+    console.log(period)
+  }
+
 
   render() {
 
@@ -187,7 +191,7 @@ class SelectTimePeriod extends Component {
           onClick={() => this._upPeriod()} >
           <i className="material-icons"  >keyboard_arrow_right</i>
         </a>
-        <Calendar data={moment('15/08/18', 'DD-MM-YY').toObject()} />
+        <SetPeriod onClick={this._setPeriod} />
 
       </div>
     );

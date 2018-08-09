@@ -4,14 +4,6 @@ import 'moment/locale/ru';
 import './CalendarView.css'
 
 moment.locale('ru');
-//import { connect } from "react-redux";
-
-
-// const mapStateToProps = (state) => {
-//   return {
-
-//   };
-// }
 
 const matrixArray = (row, col) => {
   var arr = new Array(row);
@@ -25,16 +17,19 @@ class Calendar extends Component {
 
   constructor(props) {
     super(props)
-    var data = moment(props.data);
+    var data = moment(props.data, ["DD-MM-YYYY"], 'ru');
+    
     this.state = {
       calendar: {
-        year: moment(props.data).year(),
-        month: moment(props.data).month(),
+        year: moment(data).year(),
+        month: moment(data).month(),
         monthArray: [],
       },
       data,
       openModalSelectYear: false,
       openModalSelectMonth: false,
+      isActive: props.isActive || true,
+      toClose: (props.toClose === undefined) ? true : props.toClose,
     }
     this._fillDayArray = this._fillDayArray.bind(this);
     this._upMonth = this._upMonth.bind(this);
@@ -42,8 +37,7 @@ class Calendar extends Component {
   }
 
   _ref = (e) => {
-    console.log(e.clientHeight)
-    console.log(e.clientWidth)
+
   }
 
   _fillDayArray = () => {
@@ -67,11 +61,15 @@ class Calendar extends Component {
 
   _fillMonthArray = () => {
     var monthArray = matrixArray(4, 3)
+    var current = false;
     for (var p = 0; p <= 3; p++) {
-      for (var m = 1; m <= 3; m++) {
+      for (var m = 0; m <= 2; m++) {
+        current = (moment().month((p * 3) + m).isSame(moment(), 'month') && moment().year(this.state.calendar.year).isSame(moment(), 'year'))
+
         monthArray[p][m] = {
-          month: moment().month((p*4) + (m)).format('MMM'),
-          m: (p*4) + (m )
+          current,
+          month: moment().month((p * 3) + m).format('MMM'),
+          m: (p * 3) + m
         }
         //console.log(month);
       }
@@ -84,11 +82,14 @@ class Calendar extends Component {
   _upMonth = () => {
     var month = this.state.calendar.month;
     var year = this.state.calendar.year;
-    if (month === 11) {
-      month = 0;
-      year++;
+    if (this.state.openModalSelectMonth) year++
+    else {
+      if (month === 11) {
+        month = 0;
+        year++;
+      }
+      else month++;
     }
-    else month++;
     this.setState({
       calendar: {
         ...this.state.calendar,
@@ -101,11 +102,14 @@ class Calendar extends Component {
   _downMonth = () => {
     var month = this.state.calendar.month;
     var year = this.state.calendar.year;
-    if (month === 0) {
-      month = 11;
-      year--;
+    if (this.state.openModalSelectMonth) year--
+    else {
+      if (month === 0) {
+        month = 11;
+        year--;
+      }
+      else month--;
     }
-    else month--;
     this.setState({
       calendar: {
         ...this.state.calendar,
@@ -139,8 +143,23 @@ class Calendar extends Component {
 
   _onClick = (data) => {
     //event.preventDefault();
+    var toClose = this.state.toClose;
     this.setState({
       data,
+      isActive: toClose ? false : true,
+    })
+
+    if (this.props.onSelect) this.props.onSelect(new Date(data.format()))
+  }
+
+  _onClickMonth = (month) => {
+    //event.preventDefault();
+    var calendar = this.state.calendar;
+    var openModalSelectMonth = !this.state.openModalSelectMonth
+    calendar.month = month;
+    this.setState({
+      openModalSelectMonth,
+      calendar,
     })
     console.log()
 
@@ -279,8 +298,8 @@ class Calendar extends Component {
   </div>
 
 
-  _selectMonth = (calendar) =>
-    <div className="flex-row"
+  _selectMonth = (calendar) => {
+    return (<div className="flex-row"
       style={{
         display: 'flex',
         flex: 3,
@@ -315,9 +334,9 @@ class Calendar extends Component {
             cursor: 'arrow',
             userSelect: 'none'
           }} >
-          {moment({ year: calendar.year, month: calendar.month }).format('MMMM')}
+          {(this.state.openModalSelectMonth) ? calendar.year : moment().month(calendar.month).format('MMMM') + ' ' + calendar.year}
         </div>
-        <div style={{ position: 'relative', alignSelf: 'flex-end' }} >
+        {(!this.state.openModalSelectMonth) ? <div style={{ position: 'relative', alignSelf: 'flex-end' }} >
           <a
             className='btn-select-day'
             onClick={() => this.setState({ openModalSelectMonth: !this.state.openModalSelectMonth })}
@@ -339,7 +358,7 @@ class Calendar extends Component {
             </svg>
           </a>
           {/* {this.modalSelectMonth(this)} */}
-        </div>
+        </div> : null}
       </div>
 
       <a
@@ -358,7 +377,8 @@ class Calendar extends Component {
           <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
         </svg>
       </a>
-    </div>
+    </div>)
+  }
 
   _selectDay = (calendar, arr, data) => <div style={{ overflow: 'hidden' }} className={(this.state.openModalSelectMonth) ? 'off-select-day' : 'on-select-day'}>
     <div className='flex-column' >
@@ -391,16 +411,16 @@ class Calendar extends Component {
       {arr.map((row, ri) => <div key={ri} style={{ justifyContent: 'space-around' }} className='flex-row' >
         {row.map((col, ci) =>
           <a key={ci}
-            className={(moment(month).isSame(row.m)) ? 'btn-select-day active' : (col.current) ? 'btn-select-day current' : 'btn-select-day'}
-            onClick={() => this._onClick(col.m)}
+            className={(moment(month).isSame(col.m)) ? 'btn-select-day active' : (col.current) ? 'btn-select-day current' : 'btn-select-day'}
+            onClick={() => this._onClickMonth(col.m)}
             style={{
               margin: 1,
               display: 'flex',
-              justifyContent: 'flex-start',
+              justifyContent: 'center',
               alignItems: 'center',
-              flex: '1',
-              height: 59.5,
-              width: 59.5,
+              //flex: '1',
+              height: 57.5,
+              width: 57.5,
               //fontSize: 20,
               //opacity: day.month !== calendar.month ? '.4' : '1'
             }} >
@@ -419,26 +439,31 @@ class Calendar extends Component {
     const arrDay = this._fillDayArray();
     const arrMonth = this._fillMonthArray();
     const data = this.state.data;
-
+    const isActive = this.state.isActive;
 
     return (
       <div ref={this._ref} style={{
-        justifyContent: 'space-between',
-        //fontSize: 20,
-        border: '1px solid #e0e0e0'
-      }}
-        className="flex-column">
-        <div style={{ borderBottom: '1px solid #e0e0e0', alignItems: 'center', textTransform: 'capitalize' }} className="flex-row">
+        display: (isActive) ? 'block' : 'none'
+      }}  >
+        <div  style={{
+          justifyContent: 'space-between',
+          //fontSize: 20,
+          border: '1px solid #e0e0e0'
+        }}
+          className="flex-column">
+          <div style={{ borderBottom: '1px solid #e0e0e0', alignItems: 'center', textTransform: 'capitalize' }} className="flex-row">
 
-          {this._selectMonth(calendar)}
-          {this._selectYear(calendar.year)}
-        </div>
-        <div style={{height: 238, overflow: 'hidden'}} >
-          {this._selectMonths(arrMonth, calendar.month)}
-          {this._selectDay(calendar, arrDay, data)}
-        </div>
+            {this._selectMonth(calendar)}
+            {/* {this._selectYear(calendar.year)} */}
+          </div>
+          <div style={{ height: 238, overflow: 'hidden' }} >
+            {this._selectMonths(arrMonth, calendar.month)}
+            {this._selectDay(calendar, arrDay, data)}
+          </div>
 
+        </div>
       </div>
+
     );
     // return (
     //   <div style={{ width: 170, position: 'relative', overflow: 'hidden' }} className='flex-row' >
