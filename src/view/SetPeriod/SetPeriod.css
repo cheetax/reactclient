@@ -7,3 +7,12 @@
     background-color: rgba(0,0,0,0.05);
     position: relative;
 }
+
+.input-edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: flex-start;
+    margin: 8px 0px 0 0px ;
+    font-weight: normal;
+}

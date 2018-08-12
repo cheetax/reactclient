@@ -5,7 +5,8 @@
     justify-content: center;
     min-width: 85px;
     min-height: 85px;
-    margin: 24px;
+    margin: 10px;
+    background-color: #013a81;
   }
 
 .user-info {

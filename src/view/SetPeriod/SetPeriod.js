@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Calendar from '../Calendar/CalendarView'
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
+import ImputText from '../InputText/InputText';
 
 import 'react-web-tabs/dist/react-web-tabs.css';
 import './SetPeriod.css'
@@ -20,7 +21,7 @@ class SetPeriod extends Component {
             isActive: props.isActive || true,
             dataFrom: props.dataFrom || new Date(),
             dataTo: props.dataTo || new Date(),
-
+            year: (props.dataFrom) ? props.dataFrom.getFullYear() : new Date().getFullYear()
         }
     }
 
@@ -30,6 +31,13 @@ class SetPeriod extends Component {
 
     componentDidUpdate(prevProps) {
 
+    }
+
+    onChange = (event) => {
+        this.setState({
+            ...this.state,
+            [event.target.id]: event.target.value,
+        })
     }
 
     _setDataTo = (data) => {
@@ -46,21 +54,38 @@ class SetPeriod extends Component {
         console.log(data)
     }
 
-    _selectPeriod = () => {
+    _selectPeriodWithCalendar = () => {
         const dataFrom = this.state.dataFrom.toLocaleDateString(),
             dataTo = this.state.dataTo.toLocaleDateString()
 
         return <div className='flex-row' >
 
-            <div className='flex-column' style={{margin: '5px 0', padding: '0 5px 0 0', borderRight: '1px solid #ddd'}} >
-                <div style={{margin: '5px 0', }} >Начало периода:</div>
+            <div className='flex-column' style={{ margin: '5px 0', padding: '0 5px 0 0', borderRight: '1px solid #ddd' }} >
+                <div style={{ margin: '5px 0', }} >Начало периода:</div>
                 <Calendar data={dataFrom} toClose={false} onSelect={this._setDataFrom} />
             </div>
-            <div className='flex-column' style={{margin: 5, borderRight: 1}} >
-            <div style={{margin: '5px 0', }}>Конец периода:</div>
+            <div className='flex-column' style={{ margin: 5, borderRight: 1 }} >
+                <div style={{ margin: '5px 0', }}>Конец периода:</div>
                 <Calendar data={dataTo} toClose={false} onSelect={this._setDataTo} />
             </div>
         </div>
+    }
+
+    _year = () => {
+        var { year } = this.state
+        return (
+            <ImputText/>
+            // <div className="input-edit input-field">
+            //     <input id="year" value={year} type="text" className="validate" onChange={this.onChange} />
+            //     <label htmlFor="phone" className={year ? 'active' : ''}>год</label>
+            // </div>
+        )
+    }
+
+    _selectPeriodWithForm = () => {
+        return <form className='edit' >
+            {this._year()}
+        </form>
     }
 
     _tabs = () =>
@@ -74,27 +99,40 @@ class SetPeriod extends Component {
                 {/* <Tab tabFor="three">Tab 3</Tab> */}
             </TabList>
             <TabPanel tabId="one">
-                <div>{this._selectPeriod()}</div>
+                <div>{this._selectPeriodWithCalendar()}</div>
             </TabPanel>
             <TabPanel tabId="two">
-                <p>Tab 2 content</p>
+                <div>{this._selectPeriodWithForm()}</div>
+
             </TabPanel>
             {/* <TabPanel tabId="three">
                 <p>Tab 3 content</p>
             </TabPanel> */}
         </Tabs>
 
+    _onAccepted = () => {
+        this.setState({ isActive: false })
+        if (this.props.onAccepted) this.props.onAccepted({ dataFrom: this.state.dataFrom, dataTo: this.state.dataTo })
+    }
+
+    _
+
 
     render() {
         const isActive = this.state.isActive;
         const dataFrom = this.state.dataFrom.toLocaleDateString(),
-        dataTo = this.state.dataTo.toLocaleDateString()
+            dataTo = this.state.dataTo.toLocaleDateString()
         return (
             <div style={{
                 display: (isActive) ? 'block' : 'none'
             }}>
-                <div style={{margin: '5px 0', }}>Установлен период: с {dataFrom} по {dataTo}</div>
+                <div style={{ margin: '5px 0', }}>Установлен период: с {dataFrom} по {dataTo}</div>
                 {this._tabs()}
+                <div style={{ justifyContent: 'flex-end' }} className='flex-row' >
+                    <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => this.setState({ isActive: false })} >Закрыть</a>
+                    <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={this._onAccepted} >Принять</a>
+
+                </div>
             </div>
         );
     }

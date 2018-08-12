@@ -183,7 +183,7 @@ class UserEdit extends Component { // ({ selectedUser, btnSave }) =>
                 <div className='title-roles' >
                     <div>Роли:</div>
                     <div>
-                        <a className='waves-effect waves-teal btn-flat my-btn-flat color-accent' onClick={() => this.setState({ openModal: true })} >
+                        <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => this.setState({ openModal: true })} >
                             <div >
                                 <i className="material-icons left"  >edit</i>
                                 Изменить

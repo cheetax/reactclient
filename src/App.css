@@ -115,6 +115,9 @@ body {
 .btn-floating {
   background-color: #013a81;
 }
+.btn-flat {
+  color: #013a81;
+}
 
 .btn-raised-floating {
   color: #fff;
@@ -194,7 +197,7 @@ body {
 }
 
 .active-bar-item {
-  background-color: #00b259;
+  background-color: #4caf50;
 }
 
 .collection .collection-item.active {
@@ -214,3 +217,19 @@ button {
   color: #013a81;
   font-weight: bold;
 } 
+
+.waves-effect.waves-teal .waves-ripple {
+  background-color: rgba(0,178,89,0.7);
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+  background-color: #5db161;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+  background-color: #19c720;
+}
+
+input {
+  color: inherit;
+}
