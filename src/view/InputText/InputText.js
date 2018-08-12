@@ -13,7 +13,8 @@ class InputText extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            onFocus: false
+            onFocus: false,
+            label: null,
         }
     }
 
@@ -25,23 +26,41 @@ class InputText extends Component {
 
     }
 
+    componentDidMount(e) {
+        console.log(e)
+    }
+
     _onFocus = (event) => {
         console.log(event)
         var onFocus = this.state.onFocus;
-        this.setState({onFocus: !onFocus})
+        this.setState({ onFocus: !onFocus })
+    }
+
+    _ref = (element) => {
+        console.log(element)
+        this.setState({ label: element })
     }
 
 
     render() {
         const onFocus = this.state.onFocus;
-        return (
-            
-            <div style={{  }} className={(onFocus) ? "ch-field active" : 'ch-field '} >
+        if (!this.props.type) {
+            return (
 
-                <input type='text' className='ch-input browser-default' onBlur={this._onFocus} onFocus={this._onFocus} />
-                <div className={(onFocus) ? 'ch-label active' : 'ch-label'} >Label</div>
-            </div>
-        );
+                <div style={{}} className={(onFocus) ? "ch-field active" : 'ch-field '} >
+                    <input type='text' className='ch-input browser-default' onBlur={this._onFocus} onFocus={this._onFocus} />
+                    <div ref={this._ref} className={(onFocus) ? 'ch-label active' : 'ch-label'} >Label</div>
+                </div>
+            );
+        }
+        else {
+            return (
+                <div style={{}} className={(onFocus) ? "ch-field-type active" : 'ch-field-type '} >
+                    <input type='text' className='ch-input-type browser-default' onBlur={this._onFocus} onFocus={this._onFocus} />
+                    <div ref={this._ref} className={(onFocus) ? 'ch-label-type active' : 'ch-label-type'} >Label1</div>
+                </div>
+            );
+        }
     }
 }
 export default connect(mapStateToProps)(InputText);

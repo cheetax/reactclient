@@ -74,7 +74,7 @@ class SetPeriod extends Component {
     _year = () => {
         var { year } = this.state
         return (
-            <ImputText/>
+            <ImputText type/>
             // <div className="input-edit input-field">
             //     <input id="year" value={year} type="text" className="validate" onChange={this.onChange} />
             //     <label htmlFor="phone" className={year ? 'active' : ''}>год</label>
