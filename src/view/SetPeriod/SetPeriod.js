@@ -33,10 +33,10 @@ class SetPeriod extends Component {
 
     }
 
-    onChange = (event) => {
+    _onChange = (event) => {
         this.setState({
             ...this.state,
-            [event.target.id]: event.target.value,
+            [event.target.name]: event.target.value,
         })
     }
 
@@ -74,18 +74,19 @@ class SetPeriod extends Component {
     _year = () => {
         var { year } = this.state
         return (
-            <ImputText type/>
-            // <div className="input-edit input-field">
-            //     <input id="year" value={year} type="text" className="validate" onChange={this.onChange} />
-            //     <label htmlFor="phone" className={year ? 'active' : ''}>год</label>
-            // </div>
+            <div className='flex-row' >
+                <ImputText outlined spinButtons onChange={this._onChange} name='year' type='number' value={year} label='Год' />
+                <ImputText outlined  onChange={this._onChange} name='year' type='number' value={year} label='Год' />
+            </div>
+
+
         )
     }
 
     _selectPeriodWithForm = () => {
-        return <form className='edit' >
+        return <div className='flex-column' >
             {this._year()}
-        </form>
+        </div>
     }
 
     _tabs = () =>
@@ -115,8 +116,6 @@ class SetPeriod extends Component {
         if (this.props.onAccepted) this.props.onAccepted({ dataFrom: this.state.dataFrom, dataTo: this.state.dataTo })
     }
 
-    _
-
 
     render() {
         const isActive = this.state.isActive;
@@ -124,7 +123,8 @@ class SetPeriod extends Component {
             dataTo = this.state.dataTo.toLocaleDateString()
         return (
             <div style={{
-                display: (isActive) ? 'block' : 'none'
+                display: (isActive) ? 'block' : 'none',
+                width: 496
             }}>
                 <div style={{ margin: '5px 0', }}>Установлен период: с {dataFrom} по {dataTo}</div>
                 {this._tabs()}
