@@ -76,7 +76,7 @@ class SetPeriod extends Component {
         return (
             <div className='flex-row' >
                 <ImputText outlined spinButtons onChange={this._onChange} name='year' type='number' value={year} label='Год' />
-                <ImputText outlined  onChange={this._onChange} name='year' type='number' value={year} label='Год' />
+                <ImputText outlined  onChange={this._onChange} name='year' type='number' value={year} label='Год1' />
             </div>
 
 

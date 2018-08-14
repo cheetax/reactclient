@@ -20,25 +20,24 @@ class InputText extends Component {
     }
 
     _onFocus = (event) => {
-        console.log(event.type)
         var onFocus = false;
         var elem = this.state.elem;
-        //var currentTarget = event.currentTarget;
-        /* setTimeout(function () {
-            console.log(currentTarget.contains(document.activeElement))
-        }, 0) */
         switch (event.type) {
             case 'focus':
             case 'click':
                 onFocus = true;
                 elem.focus();
         }
-        //if (event.currentTarget !== event.target.parentElement)
 
         this.setState({
             onFocus,
         })
 
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        if ((nextProps.value != nextState.value)) 
+            this.setState({ value: nextProps.value})
     }
 
     _onChange = (event) => {
@@ -97,9 +96,7 @@ class InputText extends Component {
         onClick={(event) => {
             var value = this.state.value;
             value++
-            this.setState({ value })
-            this._onChange(event)
-            //this._onFocus(event)
+            this._onClickBtnSpin(value)
         }}
         onFocus={this._onFocus}
     >
@@ -130,8 +127,8 @@ class InputText extends Component {
         onClick={(event) => {
             var value = this.state.value;
             value--
-            this.setState({ value })
-            this._onChange(event)
+            this._onClickBtnSpin(value)
+            //this._onChange(event)
         }}
         onFocus={this._onFocus}
     >
@@ -148,6 +145,14 @@ class InputText extends Component {
             <path d="M19 13H5v-2h14v2z" />
         </svg>
     </div>
+
+    _onClickBtnSpin = (value) => {        
+        var elem = this.state.elem;
+        var evt = new Event('change', { bubbles: true });
+        elem.value = value;
+        var cancel = elem.dispatchEvent(evt);
+        if (cancel) this._onChange(evt);
+    }
 
     _ref = (elem) => this.setState({ elem })
 
@@ -169,7 +174,7 @@ class InputText extends Component {
         return (
             <div style={{}} className={this._classNameCont({ outlined, onFocus, onActive })} onBlur={this._onFocus} onFocus={this._onFocus}>
                 {this._label({ outlined, onFocus, onActive, label })}
-                <input min='1970' ref={this._ref} name={name} value={value} type={type} className={this._classNameInput({ outlined })} onChange={this._onChange} />
+                <input ref={this._ref} name={name} value={value} type={type} className={this._classNameInput({ outlined })} onChange={this._onChange} />
                 {this._spinButtons()}
             </div>
         )

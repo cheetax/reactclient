@@ -109,7 +109,8 @@ input.ch-input-outlined {
     color: #4caf50;
     font-size: 12px;
     transform: translateY(-26px) ;
-    transition: transform, font-size, margin .3s
+    transition-property: transform, font-size;
+    transition: .3s
 }
 
 .ch-label-outlined-cont {
