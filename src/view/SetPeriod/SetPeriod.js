@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 import Calendar from '../Calendar/CalendarView'
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import ImputText from '../InputText/InputText';
+import InputField from 'md-inputfield';
 
 import 'react-web-tabs/dist/react-web-tabs.css';
 import './SetPeriod.css'
+import InputText from '../InputText/InputText';
 
 const mapStateToProps = (state) => {
     return {
@@ -74,9 +76,9 @@ class SetPeriod extends Component {
     _year = () => {
         var { year } = this.state
         return (
-            <div className='flex-row' >
-                <ImputText outlined spinButtons onChange={this._onChange} name='year' type='number' value={year} label='Год' />
-                <ImputText outlined  onChange={this._onChange} name='year' type='number' value={year} label='Год1' />
+            <div className='flex-column' >
+                <InputField outlined spinButtons onChange={this._onChange} name='year' type='number' value={year} label='Год' />
+                <InputField outlined  onChange={this._onChange} name='month' type='month' value={this.props.dataTo} label='Месяц' />
             </div>
 
 
