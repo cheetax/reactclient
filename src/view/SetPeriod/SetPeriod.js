@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Calendar from '../Calendar/CalendarView'
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
-import ImputText from '../InputText/InputText';
 import InputField from 'md-inputfield';
 
 import 'react-web-tabs/dist/react-web-tabs.css';
 import './SetPeriod.css'
-import InputText from '../InputText/InputText';
 
 const mapStateToProps = (state) => {
     return {

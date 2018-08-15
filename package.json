@@ -30,5 +30,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "main": "main.js"
+  },
+  "devDependencies": {
+    "webpack": "^3.12.0"
   }
 }
