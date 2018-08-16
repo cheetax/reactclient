@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Calendar from '../Calendar/CalendarView'
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
-import InputField from 'md-inputfield';
+ import InputField from 'material-inputfield';
+ import 'material-inputfield/dist/md-inputfield.css'
 
 import 'react-web-tabs/dist/react-web-tabs.css';
 import './SetPeriod.css'
