@@ -20,8 +20,8 @@ class SetPeriod extends Component {
         super(props)
         this.state = {
             isActive: props.isActive || true,
-            dataFrom: props.dataFrom || new Date(),
-            dataTo: props.dataTo || new Date(),
+            dateFrom: props.dataFrom || new Date(),
+            dateTo: props.dataTo || new Date(),
             year: (props.dataFrom) ? props.dataFrom.getFullYear() : new Date().getFullYear()
         }
     }
@@ -41,33 +41,37 @@ class SetPeriod extends Component {
         })
     }
 
-    _setDataTo = (data) => {
-        console.log(data)
+    _onChangeObject = (obj) => {
         this.setState({
-            dataTo: data
+            ...obj
         })
     }
 
-    _setDataFrom = (data) => {
+    _setDataTo = (date) => {
         this.setState({
-            dataFrom: data
+            dateTo: date
         })
-        console.log(data)
+    }
+
+    _setDataFrom = (date) => {
+        this.setState({
+            dateFrom: date
+        })
     }
 
     _selectPeriodWithCalendar = () => {
-        const dataFrom = this.state.dataFrom.toLocaleDateString(),
-            dataTo = this.state.dataTo.toLocaleDateString()
+        const dateFrom = this.state.dateFrom.toLocaleDateString(),
+            dateTo = this.state.dateTo.toLocaleDateString()
 
         return <div className='flex-row' >
 
             <div className='flex-column' style={{ margin: '5px 0', padding: '0 5px 0 0', borderRight: '1px solid #ddd' }} >
                 <div style={{ margin: '5px 0', }} >Начало периода:</div>
-                <Calendar isActive data={dataFrom} onSelect={this._setDataFrom} />
+                <Calendar isActive date={dateFrom} onSelect={this._setDataFrom} />
             </div>
             <div className='flex-column' style={{ margin: 5, borderRight: 1 }} >
                 <div style={{ margin: '5px 0', }}>Конец периода:</div>
-                <Calendar isActive data={dataTo} onSelect={this._setDataTo} />
+                <Calendar isActive date={dateTo} onSelect={this._setDataTo} />
             </div>
         </div>
     }
@@ -77,9 +81,9 @@ class SetPeriod extends Component {
         return (
             <div className='flex-column' >
                 <YearField onSpinButtons outlined spinButtons onChange={this._onChange} name='year' type='number' value={year} label='Год' />
-                <QuarterField onSpinButtons outlined onChange={this._onChange} name='quarter' value={this.props.dataTo} label='Квартал' />
-                <MonthField onSpinButtons onCalendarButton outlined onChange={this._onChange} name='month' value={this.props.dataTo} label='Месяц' />
-                <DateField onSpinButtons onCalendarButton outlined onChange={this._onChange} name='date' value={this.props.dataTo} label='Дата' />
+                <QuarterField onSpinButtons outlined onChange={this._onChange} name='quarter' value={this.state.dateTo} label='Квартал' />
+                <MonthField onSpinButtons onCalendarButton outlined onChange={this._onChange} name='month' value={this.state.dateTo} label='Месяц' />
+                <DateField onSpinButtons onCalendarButton outlined onChangeObject={this._onChangeObject} name='date' value={this.state.dateTo} label='Дата' />
             </div>
 
 
@@ -122,14 +126,14 @@ class SetPeriod extends Component {
 
     render() {
         const isActive = this.state.isActive;
-        const dataFrom = this.state.dataFrom.toLocaleDateString(),
-            dataTo = this.state.dataTo.toLocaleDateString()
+        const dateFrom = this.state.dateFrom.toLocaleDateString(),
+            dateTo = this.state.dateTo.toLocaleDateString()
         return (
             <div style={{
                 display: (isActive) ? 'block' : 'none',
                 width: 496
             }}>
-                <div style={{ margin: '5px 0', }}>Установлен период: с {dataFrom} по {dataTo}</div>
+                <div style={{ margin: '5px 0', }}>Установлен период: с {dateFrom} по {dateTo}</div>
                 {this._tabs()}
                 <div style={{ justifyContent: 'flex-end' }} className='flex-row' >
                     <a className='waves-effect waves-teal btn-flat my-btn-flat' onClick={() => this.setState({ isActive: false })} >Закрыть</a>
