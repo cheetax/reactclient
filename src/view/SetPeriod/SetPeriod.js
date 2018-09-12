@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { Calendar } from 'ch-calendar'
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { YearField, MonthField, QuarterField, DateField } from 'material-inputfield';
-import 'material-inputfield/dist/material-inputfield.css'
+
 import 'react-web-tabs/dist/react-web-tabs.css';
-import './SetPeriod.css'
+import './SetPeriod.css';
+import 'material-inputfield/dist/material-inputfield.css';
 
 const mapStateToProps = (state) => {
     return {
