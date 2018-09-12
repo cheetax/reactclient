@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import Calendar from '../Calendar/CalendarView'
+import { Calendar } from 'ch-calendar'
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
- import InputField from 'material-inputfield';
- import 'material-inputfield/dist/md-inputfield.css'
-
+import { YearField, MonthField, QuarterField, DateField } from 'material-inputfield';
+import 'material-inputfield/dist/material-inputfield.css'
 import 'react-web-tabs/dist/react-web-tabs.css';
 import './SetPeriod.css'
 
@@ -63,11 +62,11 @@ class SetPeriod extends Component {
 
             <div className='flex-column' style={{ margin: '5px 0', padding: '0 5px 0 0', borderRight: '1px solid #ddd' }} >
                 <div style={{ margin: '5px 0', }} >Начало периода:</div>
-                <Calendar data={dataFrom} toClose={false} onSelect={this._setDataFrom} />
+                <Calendar isActive data={dataFrom} onSelect={this._setDataFrom} />
             </div>
             <div className='flex-column' style={{ margin: 5, borderRight: 1 }} >
                 <div style={{ margin: '5px 0', }}>Конец периода:</div>
-                <Calendar data={dataTo} toClose={false} onSelect={this._setDataTo} />
+                <Calendar isActive data={dataTo} onSelect={this._setDataTo} />
             </div>
         </div>
     }
@@ -76,8 +75,10 @@ class SetPeriod extends Component {
         var { year } = this.state
         return (
             <div className='flex-column' >
-                <InputField outlined spinButtons onChange={this._onChange} name='year' type='number' value={year} label='Год' />
-                <InputField outlined  onChange={this._onChange} name='month' type='month' value={this.props.dataTo} label='Месяц' />
+                <YearField onSpinButtons outlined spinButtons onChange={this._onChange} name='year' type='number' value={year} label='Год' />
+                <QuarterField onSpinButtons outlined onChange={this._onChange} name='quarter' value={this.props.dataTo} label='Квартал' />
+                <MonthField onSpinButtons onCalendarButton outlined onChange={this._onChange} name='month' value={this.props.dataTo} label='Месяц' />
+                <DateField onSpinButtons onCalendarButton outlined onChange={this._onChange} name='date' value={this.props.dataTo} label='Дата' />
             </div>
 
 
