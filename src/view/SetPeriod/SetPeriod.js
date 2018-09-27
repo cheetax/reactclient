@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
 import { Calendar } from 'ch-calendar'
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
 import { YearField, MonthField, QuarterField, DateField } from 'material-inputfield';
@@ -8,11 +7,6 @@ import 'react-web-tabs/dist/react-web-tabs.css';
 import './SetPeriod.css';
 import 'material-inputfield/dist/material-inputfield.css';
 
-const mapStateToProps = (state) => {
-    return {
-
-    };
-}
 
 class SetPeriod extends Component {
 
@@ -47,54 +41,41 @@ class SetPeriod extends Component {
         })
     }
 
-    _setDataTo = (date) => {
+    _setDateTo = (date) => {
         this.setState({
             dateTo: date
         })
     }
 
-    _setDataFrom = (date) => {
+    _setDateFrom = (date) => {
         this.setState({
             dateFrom: date
         })
     }
 
     _selectPeriodWithCalendar = () => {
-        const dateFrom = this.state.dateFrom.toLocaleDateString(),
-            dateTo = this.state.dateTo.toLocaleDateString()
+        const dateFrom = this.state.dateFrom,
+            dateTo = this.state.dateTo
 
         return <div className='flex-row' >
-
             <div className='flex-column' style={{ margin: '5px 0', padding: '0 5px 0 0', borderRight: '1px solid #ddd' }} >
                 <div style={{ margin: '5px 0', }} >Начало периода:</div>
-                <Calendar isActive date={dateFrom} onSelect={this._setDataFrom} />
+                <Calendar isActive date={dateFrom} onSelect={this._setDateFrom} />
             </div>
             <div className='flex-column' style={{ margin: 5, borderRight: 1 }} >
                 <div style={{ margin: '5px 0', }}>Конец периода:</div>
-                <Calendar isActive date={dateTo} onSelect={this._setDataTo} />
+                <Calendar isActive date={dateTo} onSelect={this._setDateTo} />
             </div>
         </div>
     }
+    
+    _selectPeriodWithForm = () => <div className='flex-column' >
+        <YearField onSpinButtons outlined spinButtons onChangeObject={this._onChangeObject} name='year' type='number' value={this.state.dateTo} label='Год' />
+        <QuarterField onSpinButtons outlined onChangeObject={this._onChangeObject} name='quarter' value={this.state.dateTo} label='Квартал' />
+        <MonthField onSpinButtons onCalendarButton outlined onChangeObject={this._onChangeObject} name='month' value={this.state.dateTo} label='Месяц' />
+        <DateField onSpinButtons onCalendarButton outlined onChangeObject={this._onChangeObject} name='date' value={this.state.dateTo} label='Дата' />
+    </div>
 
-    _year = () => {
-        var { year } = this.state
-        return (
-            <div className='flex-column' >
-                <YearField onSpinButtons outlined spinButtons onChange={this._onChange} name='year' type='number' value={year} label='Год' />
-                <QuarterField onSpinButtons outlined onChange={this._onChange} name='quarter' value={this.state.dateTo} label='Квартал' />
-                <MonthField onSpinButtons onCalendarButton outlined onChange={this._onChange} name='month' value={this.state.dateTo} label='Месяц' />
-                <DateField onSpinButtons onCalendarButton outlined onChangeObject={this._onChangeObject} name='date' value={this.state.dateTo} label='Дата' />
-            </div>
-
-
-        )
-    }
-
-    _selectPeriodWithForm = () => {
-        return <div className='flex-column' >
-            {this._year()}
-        </div>
-    }
 
     _tabs = () =>
         <Tabs
@@ -144,4 +125,4 @@ class SetPeriod extends Component {
         );
     }
 }
-export default connect(mapStateToProps)(SetPeriod);
+export default SetPeriod;
