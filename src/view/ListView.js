@@ -33,8 +33,6 @@ class ListView extends Component {
         this._rowRenderer = this._rowRenderer.bind(this)
         this.resize = this.resize.bind(this);
         this._setHeader();
-        //this._rowHeight = this._rowHeight.bind(this)
-        // this._onClick = this._onClick.bind(this);
     }
 
     _getRowHeight = (elemRow) => {
