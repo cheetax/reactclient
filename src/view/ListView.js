@@ -39,35 +39,64 @@ class ListView extends Component {
         console.log('1')
     }
 
-    getIndexAsync = async (items1, items2) => await new Promise(async (resolve) => {
-        resolve(await (async () => {
-            var i = -1;
-            var _itemsSearch = [...items1];
-            var _itemsElements = [...items2];
-            if (items1.length !== items2.length && items2.length !== 0) {
-                if (items1.length > items2.length) {
-                    _itemsSearch = [...items2];
-                    _itemsElements = [...items1];
-                }
-                var i_end = _itemsElements.length;
-                for (i = (i_end / 2 | 0); i_end - i > 1 && i > 1;) {
+    // getIndexAsync = async (items1, items2) => await new Promise(async (resolve) => {
+    //     resolve(await (() => {
+    //         var i = -1;
+    //         var _itemsSearch = [...items1];
+    //         var _itemsElements = [...items2];
+    //         if (items1.length !== items2.length && items2.length !== 0) {
+    //             if (items1.length > items2.length) {
+    //                 _itemsSearch = [...items2];
+    //                 _itemsElements = [...items1];
+    //             }
+    //             var i_end = _itemsElements.length;
+    //             for (i = (i_end / 2 | 0); i_end - i > 1 && i > 1;) {
 
-                    if (JSON.stringify(_itemsElements[i]) === JSON.stringify(_itemsSearch[i])) {
-                        i = i + ((i_end - i) / 2 | 0);
-                    }
-                    else {
-                        i_end = i;
-                        i = (i / 2 | 0);
-                    }
+    //                 if (JSON.stringify(_itemsElements[i]) === JSON.stringify(_itemsSearch[i])) {
+    //                     i = i + ((i_end - i) / 2 | 0);
+    //                 }
+    //                 else {
+    //                     i_end = i;
+    //                     i = (i / 2 | 0);
+    //                 }
+    //             }
+    //         }
+
+    //         _itemsSearch = _itemsSearch.splice(i - 1, i_end + 1).map(item => JSON.stringify(item));
+    //         _itemsElements = _itemsElements.splice(i - 1, i_end + 1);
+
+    //         i = i - 1 + _itemsElements.findIndex(item => !_itemsSearch.includes(JSON.stringify(item)));
+    //         return i < 0 ? -1 : i;
+    //     })())
+    // })
+
+    getIndexAsync = (items1, items2) => new Promise((resolve) => {
+        var i = -1;
+        var _itemsSearch = [...items1];
+        var _itemsElements = [...items2];
+        if (items1.length !== items2.length && items2.length !== 0) {
+            if (items1.length > items2.length) {
+                _itemsSearch = [...items2];
+                _itemsElements = [...items1];
+            }
+            var i_end = _itemsElements.length;
+            for (i = (i_end / 2 | 0); i_end - i > 1 && i > 1;) {
+
+                if (JSON.stringify(_itemsElements[i]) === JSON.stringify(_itemsSearch[i])) {
+                    i = i + ((i_end - i) / 2 | 0);
+                }
+                else {
+                    i_end = i;
+                    i = (i / 2 | 0);
                 }
             }
+        }
 
-            _itemsSearch = _itemsSearch.splice(i - 1, i_end + 1).map(item => JSON.stringify(item));
-            _itemsElements = _itemsElements.splice(i - 1, i_end + 1);
+        _itemsSearch = _itemsSearch.splice(i - 1, i_end + 1).map(item => JSON.stringify(item));
+        _itemsElements = _itemsElements.splice(i - 1, i_end + 1);
 
-            i = i - 1 + _itemsElements.findIndex(item => !_itemsSearch.includes(JSON.stringify(item)));
-            return i < 0 ? -1 : i;
-        })())
+        i = i - 1 + _itemsElements.findIndex(item => !_itemsSearch.includes(JSON.stringify(item)));
+        resolve(i < 0 ? -1 : i)
     })
 
     componentWillUpdate(props, prevProps) {
@@ -84,7 +113,6 @@ class ListView extends Component {
                     prevItem: index,
                     readHeader: true,
                 })
-
             })
         }
     }
